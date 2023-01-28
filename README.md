@@ -55,7 +55,7 @@ At time of inital commit, each backend service (`auth`, `chat`, and `forum`) has
 - `dotenv`
 - `jsonwebtoken`
 
-The client service has a lot of dependencies and more will probably need to be added. A key dependency is going to Material-UI (MUI) which will help with the styling of frontend components, please look through the documentation here: https://mui.com/material-ui/getting-started/overview/
+The client service has a lot of dependencies and more will probably need to be added. A key dependency is Material-UI (MUI) which will help with the styling of frontend components, please look through the documentation here: https://mui.com/material-ui/getting-started/overview/
 
 To install these packages in your own environment, you only need to navigate to each service's directory in terminal and run `npm install` (this is because they already exist as dependencies in the `package.json` file). For example, if you are working on the `forum` service you would enter the following terminal commands while in the project folder:
 1. `cd ./forum`
