@@ -31,7 +31,9 @@ When ready to merge, make sure all changes are commited and pushed to your branc
 To make sure any changes to main are implemented in your branch, run:
 1. `git pull origin main`
 2. `git checkout {name}`
-3. `git rebase main`
+3. `git merge origin/main`
+
+If you need to reset your branch to match the main branch: `git rebase main`
 
 
 ## Development Environment
