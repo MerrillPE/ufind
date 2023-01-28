@@ -29,8 +29,9 @@ When ready to merge, make sure all changes are commited and pushed to your branc
 5. `git checkout {name}` before making any additional changes
 
 To make sure any changes to main are implemented in your branch, run:
-1. `git checkout {name}`
-2. `git rebase main`
+1. `git pull origin main`
+2. `git checkout {name}`
+3. `git rebase main`
 
 
 ## Development Environment
