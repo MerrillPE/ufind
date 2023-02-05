@@ -20,7 +20,7 @@ app.use('/forum', forumRouter);
 //const { application } = require("express");
 //const { default: mongoose } = require("mongoose");
 
-/* old version
+// old version
     const CONNECTION_URL = 'mongodb+srv://jeanr:Cheese1818!@cluster0.olsuuej.mongodb.net/?retryWrites=true&w=majority'; 
     const PORT = process.env.PORT || 5000;
 
@@ -29,8 +29,9 @@ app.use('/forum', forumRouter);
         .catch(() =>(error) => console.log('${error} did not connect'));
 
     //mongoose.set('useFindAndModify', false);
-*/
 
+
+/*
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT;
 
@@ -39,4 +40,4 @@ mongoose.set('strictQuery', true);
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Forum server running on port: ${PORT}`)))
     .catch(() => (error) => console.log(`${error} did not connect`));
-
+*/
