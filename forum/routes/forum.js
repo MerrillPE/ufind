@@ -1,10 +1,12 @@
 import express from 'express';
 
-const router = express.Router();
+const forumRouter = express.Router();
 
 // http://localhost:5000/forum
-router.get('/', (req, res) => {
-    res.send('working!');
+forumRouter.get('/', (req, res) => {
+    res.send('THIS WORKS!');
 });
 
-export default router;
+export default forumRouter;
+
+
