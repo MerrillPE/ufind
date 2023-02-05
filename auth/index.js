@@ -1,8 +1,10 @@
 import express from "express";
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
+import cors from 'cors';
+import bodyParser from "body-parser";
 
-import authRouter from './routes/auth';
+import authRouter from './routes/auth.js'
 
 // Initialize app with express
 const app = express();
@@ -11,6 +13,8 @@ const app = express();
 // Need to create your own .env file for port and mongoose connection url
 // See .env.example
 dotenv.config();
+app.use(bodyParser.json({ extended: true })); // limit of 30mb for images
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/users', authRouter);
 
