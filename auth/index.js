@@ -13,10 +13,10 @@ const app = express();
 // Need to create your own .env file for port and mongoose connection url
 // See .env.example
 dotenv.config();
-app.use(bodyParser.json({ extended: true })); // limit of 30mb for images
+app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/users', authRouter);
+app.use('/users', authRouter); // All auth requests start at /users
 
 // Connect to mongoose atlas for database
 const PORT = process.env.PORT;
