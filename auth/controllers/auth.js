@@ -7,7 +7,11 @@ import User from '../models/user.js';
 const jwtKey = "secret_key";
 
 export const signIn = async (req, res) => {
+    //console.log(req);
     const { username, password } = req.body;
+
+    console.log(username);
+    console.log(password);
 
     try {
         const existingUser = await User.findOne({ username });
