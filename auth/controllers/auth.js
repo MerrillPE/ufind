@@ -7,7 +7,11 @@ import User from '../models/user.js';
 const jwtKey = "secret_key";
 
 export const signIn = async (req, res) => {
+    //console.log(req);
     const { username, password } = req.body;
+
+    console.log(username);
+    console.log(password);
 
     try {
         const existingUser = await User.findOne({ username });
@@ -47,6 +51,12 @@ export const signIn = async (req, res) => {
 export const signUp = async (req, res) => {
     //console.log("Req.body: \n" + req.body);
     const { username, password, confirmPassword, firstName, lastName } = req.body;
+
+    console.log(username);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(password);
+    console.log(confirmPassword);
 
     try {
         const existingUser = await User.findOne({ username });

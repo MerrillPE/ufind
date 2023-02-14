@@ -1,27 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-//import './Form.js';
+import React from 'react';
+import { Container } from '@mui/material';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import SignIn from './components/Auth/SignIn';
+import SignUp from './components/Auth/SignUp';
+
+const OAUTH_ID = process.env.REACT_APP_OAUTH;
+
+const App = () => (
+  <GoogleOAuthProvider clientId={OAUTH_ID} >
+    <BrowserRouter>
+      <Container maxWidth='lg'>
+        <Routes>
+          <Route path='/signin' exact element={<SignIn />} />
+          <Route path='/signup' exact element={<SignUp />} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
+  </GoogleOAuthProvider>
+);
 
 export default App;
 
