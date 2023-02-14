@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import { GoogleLogin } from '@react-oauth/google';
 
 import { signin } from '../../actions/auth';
+import { AUTH } from '../../constants/actionTypes';
 
 const initialForm = { username: '', password: '' };
 
@@ -23,6 +25,23 @@ const SignIn = () => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const googleSuccess = async (res) => {
+        //console.log(res?.credential);
+
+        const token = res?.credential;
+        //const { name, email, sub, picture } = decoded;
+
+        //console.log(name, email, sub, picture);
+
+        try {
+            dispatch({ type: AUTH, data: { token } });
+            // redirect to home page after login
+            //window.location.reload();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -74,10 +93,18 @@ const SignIn = () => {
                     >
                         Sign In
                     </Button>
-                    <Grid item>
-                        <Link href='/signup' variant='body2'>
-                            {'Need an account? Register'}
-                        </Link>
+                    <Grid container flexDirection='column' justifyContent='flex-end' >
+                        <GoogleLogin
+                            onSuccess={googleSuccess}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                        />
+                        <Grid item>
+                            <Link href='/signup' variant='body2'>
+                                {'Need an account? Register'}
+                            </Link>
+                        </Grid>
                     </Grid>
                 </Box>
             </Box>

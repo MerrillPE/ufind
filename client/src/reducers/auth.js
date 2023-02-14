@@ -7,9 +7,8 @@ const authReducer = (state = { authData: null }, action) => {
             console.log(action?.data.token)
             const token = action?.data.token;
             const decoded = jwt_decode(token);
+            console.log(decoded);
             localStorage.setItem('profile', JSON.stringify({ ...decoded, token }));
-            //const { name, email, sub, picture } = decoded;
-            //console.log(decoded);
             return { ...state, authData: decoded };
         default:
             return state;
