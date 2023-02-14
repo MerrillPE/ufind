@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+
+import { signup } from '../../actions/auth';
+
+
+const initialForm = { username: '', firstName: '', lastName: '', password: '', confirmPassword: '' };
 
 const SignUp = () => {
+
+    const [formData, setFormData] = useState(initialForm);
+    const dispatch = useDispatch();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        console.log(...data);
+        //const data = new FormData(e.currentTarget);
+        console.log(formData);
+        dispatch(signup(formData));
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     return (
@@ -31,6 +46,7 @@ const SignUp = () => {
                         label='Username'
                         name='username'
                         autoComplete='username'
+                        onChange={handleChange}
                         autoFocus
                     />
                     <TextField
@@ -39,8 +55,9 @@ const SignUp = () => {
                         fullWidth
                         id='firstName'
                         label='First Name'
-                        name='First Name'
+                        name='firstName'
                         autoComplete='given-name'
+                        onChange={handleChange}
                     />
                     <TextField
                         margin='normal'
@@ -48,8 +65,9 @@ const SignUp = () => {
                         fullWidth
                         id='lastName'
                         label='Last Name'
-                        name='Last Name'
+                        name='lastName'
                         autoComplete='family-name'
+                        onChange={handleChange}
                     />
                     <TextField
                         margin='normal'
@@ -60,16 +78,18 @@ const SignUp = () => {
                         name='password'
                         type='password'
                         autoComplete='new-password'
+                        onChange={handleChange}
                     />
                     <TextField
                         margin='normal'
                         required
                         fullWidth
-                        id='passwordConfirm'
+                        id='confirmPassword'
                         label='Confirm Password'
-                        name='passwordConfirm'
+                        name='confirmPassword'
                         type='password'
                         autoComplete='confirm-password'
+                        onChange={handleChange}
                     />
                     <Button
                         type='submit'

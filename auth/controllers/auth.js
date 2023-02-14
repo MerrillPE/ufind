@@ -52,6 +52,12 @@ export const signUp = async (req, res) => {
     //console.log("Req.body: \n" + req.body);
     const { username, password, confirmPassword, firstName, lastName } = req.body;
 
+    console.log(username);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(password);
+    console.log(confirmPassword);
+
     try {
         const existingUser = await User.findOne({ username });
 
