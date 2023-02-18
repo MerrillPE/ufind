@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
+import CreatePost from './components/Form/CreatePost';
 
 const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
@@ -15,6 +16,7 @@ const App = () => (
         <Routes>
           <Route path='/signin' exact element={<SignIn />} />
           <Route path='/signup' exact element={<SignUp />} />
+          <Route path='/CreatePost' exact element={<CreatePost />} />
         </Routes>
       </Container>
     </BrowserRouter>

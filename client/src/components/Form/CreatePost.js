@@ -1,15 +1,13 @@
-//post form
-/*
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createPost, updatePost } from '../../actions/forum';
+import React, { useState } from 'react';
+import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
+// import { signup } from '../../actions/auth';
+import { createPost } from '../../actions/forum';
 
+const initialForm = { username: '', title: '', description: '', location: '' };
 
-const initialForm = { Title: '', Description: '' };
-
-const Post = () => {
+const CreatePost = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
@@ -17,26 +15,13 @@ const Post = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
-        //const { username, password } = formData;
-
+        // Need to set username, createDate and figure out Image later
         console.log(formData);
-
-        dispatch(signin(formData));
+        dispatch(CreatePost(formData));
     };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const googleSuccess = async (res) => {
-        //console.log(res?.credential);
-
-        const token = res?.credential;
-        try {
-            dispatch({ type: POST, data: { token } });
-        } catch (error) {
-            console.log(error);
-        }
     };
 
     return (
@@ -51,17 +36,17 @@ const Post = () => {
                 }}
             >
                 <Typography component='h1' variant='h5'>
-                    Create Post
+                    Forum
                 </Typography>
                 <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin='normal'
                         required
                         fullWidth
-                        id='Title'
+                        id='title'
                         label='Title'
-                        name='Title'
-                        autoComplete='Title'
+                        name='title'
+                        autoComplete='title'
                         onChange={handleChange}
                         autoFocus
                     />
@@ -70,26 +55,10 @@ const Post = () => {
                         required
                         fullWidth
                         id='description'
-                        label='description'
+                        label='Description'
                         name='description'
-                        type='description'
-                        onChange={handleChange}
                         autoComplete='description'
-                    />
-                    <TextField
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='location'
-                        label='location'
-                        name='location'
-                        type='location'
                         onChange={handleChange}
-                        autoComplete='location'
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value='remember' color='primary' />}
-                        label='Remember Me'
                     />
                     <Button
                         type='submit'
@@ -97,12 +66,12 @@ const Post = () => {
                         variant='contained'
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Create Post
+                        Sign Up
                     </Button>
                 </Box>
             </Box>
         </Container>
     );
-};
-return post;
-*/
+}
+
+export default CreatePost;
