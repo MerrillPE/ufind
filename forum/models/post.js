@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 // TODO: Store data needed for google maps api
 // Commented out image and comments for initial testing
+
+/*
 const postSchema = mongoose.Schema({
     title: String,
     description: String,
@@ -12,8 +14,9 @@ const postSchema = mongoose.Schema({
         default: new Date()
     },
 });
+*/
 
-/*
+
 const postSchema = mongoose.Schema({
     title: String,
     description: String,
@@ -25,11 +28,11 @@ const postSchema = mongoose.Schema({
         default: new Date()
     },
     comments: {
-        type: String,
+        type: [String],
         default: []
     },
 });
-*/
+
 
 const Post = mongoose.model('Post', postSchema);
 
