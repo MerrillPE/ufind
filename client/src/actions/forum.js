@@ -1,16 +1,11 @@
-// FORUM Action
-// We need to get the api/index.js Form created first
-/*
 import * as api from '../api/index';
-import { FORUM } from '../constants/actionTypes';
+import { FETCH_POST, FETCH_ALL, CREATE, } from '../constants/actionTypes';
 
-export const createPost = (formData) => async (dispatch) => {
+export const createPost = (post) => async (dispatch) => {
     try {
-
-        const { data } = await api.createPost(formData);
-        dispatch({ type: FORUM, data });
+        const { data } = await api.createPost(post)
+        dispatch({ type: CREATE, payload: data })
     } catch (error) {
         console.log(error);
     }
-};
-*/
+}

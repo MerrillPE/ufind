@@ -20,4 +20,4 @@ export const signup = (formData) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
