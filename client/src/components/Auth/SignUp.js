@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import FileBase from 'react-file-base64';
 
-//import { signup } from '../../actions/auth';
-import { createPost } from '../../actions/forum';
+import { signup } from '../../actions/auth';
 
 
-const initialForm = { title: '', description: '', location: '', username: '', image: '' };
+const initialForm = { username: '', firstName: '', lastName: '', password: '', confirmPassword: '' };
 
-const PostForm = () => {
+const SignUp = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
@@ -18,7 +16,7 @@ const PostForm = () => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         console.log(formData);
-        dispatch(createPost(formData));
+        dispatch(signup(formData));
     };
 
     const handleChange = (e) => {
@@ -37,17 +35,17 @@ const PostForm = () => {
                 }}
             >
                 <Typography component='h1' variant='h5'>
-                    Create Post
+                    Register
                 </Typography>
                 <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin='normal'
                         required
                         fullWidth
-                        id='title'
-                        label='Title'
-                        name='title'
-                        autoComplete='title'
+                        id='username'
+                        label='Username'
+                        name='username'
+                        autoComplete='username'
                         onChange={handleChange}
                         autoFocus
                     />
@@ -55,52 +53,61 @@ const PostForm = () => {
                         margin='normal'
                         required
                         fullWidth
-                        id='description'
-                        label='Description'
-                        name='description'
-                        autoComplete='description'
+                        id='firstName'
+                        label='First Name'
+                        name='firstName'
+                        autoComplete='given-name'
                         onChange={handleChange}
                     />
                     <TextField
                         margin='normal'
                         required
                         fullWidth
-                        id='location'
-                        label='City and State'
-                        name='location'
-                        autoComplete='location'
+                        id='lastName'
+                        label='Last Name'
+                        name='lastName'
+                        autoComplete='family-name'
                         onChange={handleChange}
                     />
                     <TextField
                         margin='normal'
                         required
                         fullWidth
-                        id='username'
-                        label='Name'
-                        name='username'
-                        type='username'
-                        autoComplete='username'
+                        id='password'
+                        label='Password'
+                        name='password'
+                        type='password'
+                        autoComplete='new-password'
                         onChange={handleChange}
                     />
-                    <div>
-                        <FileBase
-                            type="file"
-                            multiple={false}
-                            onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
-                        />
-                    </div>
+                    <TextField
+                        margin='normal'
+                        required
+                        fullWidth
+                        id='confirmPassword'
+                        label='Confirm Password'
+                        name='confirmPassword'
+                        type='password'
+                        autoComplete='confirm-password'
+                        onChange={handleChange}
+                    />
                     <Button
                         type='submit'
                         fullWidth
                         variant='contained'
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Create Post
+                        Sign Up
                     </Button>
+                    <Grid item>
+                        <Link href='/signin' variant='body2'>
+                            {'Already have an account? Sign in'}
+                        </Link>
+                    </Grid>
                 </Box>
             </Box>
         </Container>
     );
 }
 
-export default PostForm;
+export default SignUp;
