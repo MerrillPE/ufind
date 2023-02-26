@@ -5,8 +5,9 @@ const forumReducer = (posts = [], action) => {
         case CREATE:
             return [...posts, action.payload];
         case FETCH_ALL:
-            //console.log('action: ' + Object.keys(action.payload));
+            // Checking data flow
             //action.payload.map((post) => console.log(post))
+
             return action.payload;
         case FETCH_POST:
             return action.payload;

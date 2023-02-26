@@ -4,6 +4,8 @@ import { FETCH_POST, FETCH_ALL, CREATE, } from '../constants/actionTypes';
 export const createPost = (post) => async (dispatch) => {
     try {
         const { data } = await api.createPost(post)
+
+        // Send to reducer
         dispatch({ type: CREATE, payload: data })
     } catch (error) {
         console.log(error);
@@ -14,8 +16,7 @@ export const getPosts = () => async (dispatch) => {
     try {
         const { data } = await api.fetchPosts();
 
-        //console.log("data: " + data);
-
+        // Checking data flow
         //data.map((post) => console.log(post))
 
         dispatch({ type: FETCH_ALL, payload: data });

@@ -7,17 +7,20 @@ import { getPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
 
 const Home = () => {
-    //const [currentId, setCurrentId] = useState(0);
     const dispatch = useDispatch();
 
     console.log("Before use effect")
 
     useEffect(() => {
+        // dispatch get request at page load
         dispatch(getPosts());
+
+        // Checking data flow
         //posts.data.map((post) => console.log(post))
     }, [dispatch]);
 
     return (
+        // Home page calls Posts component
         <Grow in>
             <Container>
                 <Grid container spacing={3}>
