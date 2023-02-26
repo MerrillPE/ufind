@@ -1,5 +1,7 @@
 import { CREATE, FETCH_ALL, FETCH_POST } from '../constants/actionTypes';
 
+// TODO: Spread state before returning to preserve old values
+
 const forumReducer = (posts = [], action) => {
     switch (action.type) {
         case CREATE:

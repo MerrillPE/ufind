@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
 import PostForm from './components/Form/Form';
+import Post from './components/Posts/Post/Post';
 
 //const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
@@ -16,6 +17,7 @@ const App = () => (
       <Container maxWidth='lg'>
         <Routes>
           <Route path='/' exact element={<Home />} />
+          <Route path='/post/:id' exact element={<Post />} />
           <Route path='/signin' exact element={<SignIn />} />
           <Route path='/signup' exact element={<SignUp />} />
           <Route path='/createPost' exact element={<PostForm />} />
