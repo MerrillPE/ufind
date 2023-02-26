@@ -1,9 +1,15 @@
-import { CREATE } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST } from '../constants/actionTypes';
 
 const forumReducer = (posts = [], action) => {
     switch (action.type) {
         case CREATE:
             return [...posts, action.payload];
+        case FETCH_ALL:
+            //console.log('action: ' + Object.keys(action.payload));
+            //action.payload.map((post) => console.log(post))
+            return action.payload;
+        case FETCH_POST:
+            return action.payload;
         default:
             return posts;
     }

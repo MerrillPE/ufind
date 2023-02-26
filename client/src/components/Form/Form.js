@@ -66,7 +66,7 @@ const PostForm = () => {
                         required
                         fullWidth
                         id='location'
-                        label='City and State'
+                        label='ZIP code'
                         name='location'
                         autoComplete='location'
                         onChange={handleChange}
