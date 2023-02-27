@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
+import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
 
 //import { signup } from '../../actions/auth';
 import { createPost } from '../../actions/forum';
@@ -13,18 +14,52 @@ const PostForm = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
+    const mapAPI = process.env.REACT_APP_MAPS_API_KEY
+    const libraries = ['places']
 
-    const handleSubmit = (e) => {
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: mapAPI,
+        libraries,
+    });
+
+
+    const locationRef = useRef();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         console.log(formData);
-        dispatch(createPost(formData));
+        const geocoder = new window.google.maps.Geocoder();
+        var locationData;
+
+        // convert input address to geocode location for google maps
+        const geocode = await geocoder.geocode({
+            address: locationRef.current.value
+        }).then((result) => {
+            const { results } = result;
+            console.log(results[0]);
+            //locationData = results[0];
+            return results[0];
+        });
+
+        //const stringed = JSON.stringify(geocode);
+        //const parsed = JSON.parse(stringed);
+
+        //console.log("Parsed: ");
+        //console.log(parsed);
+
+
+        const submitData = { ...formData, location: JSON.stringify(geocode) };
+        //console.log(locationRef.current);
+        console.log(submitData);
+        dispatch(createPost(submitData));
     };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    if (!isLoaded) return (<div>Loading</div>);
     return (
         <Container maxWidth='xs'>
             <CssBaseline />
@@ -61,16 +96,19 @@ const PostForm = () => {
                         autoComplete='description'
                         onChange={handleChange}
                     />
-                    <TextField
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='location'
-                        label='ZIP code'
-                        name='location'
-                        autoComplete='location'
-                        onChange={handleChange}
-                    />
+                    <Autocomplete>
+                        <TextField
+                            margin='normal'
+                            required
+                            fullWidth
+                            id='location'
+                            label='Location'
+                            name='location'
+                            autoComplete='location'
+                            inputRef={locationRef}
+                        //onChange={handleChange}
+                        />
+                    </Autocomplete>
                     <TextField
                         margin='normal'
                         required
