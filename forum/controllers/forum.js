@@ -7,6 +7,8 @@ export const getPosts = async (req, res) => {
     try {
         const posts = await Post.find();
 
+        console.log(posts);
+
         res.status(200).json(posts);
     } catch (error) {
         res.status(404).json({ message: error.message })
@@ -26,9 +28,9 @@ export const getPost = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const { title, description, location, username } = req.body;
+    const { title, description, location, username, image } = req.body;
 
-    const newPost = new Post({ title, description, location, username });
+    const newPost = new Post({ title, description, location, username, image });
 
     try {
         await newPost.save();
