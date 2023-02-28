@@ -1,10 +1,9 @@
 import React from 'react';
 import { AppBar,Button,Toolbar,Typography,Box, makeStyles, Avatar} from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
+import {Link} from 'react-router-dom';
 
 const Navbar = () => {
-
-  const user = null;
     
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -14,7 +13,7 @@ const Navbar = () => {
           <Typography 
             variant="h6"
             noWrap
-            component="a"
+            component= {Link} to="/"
             href="/"
             sx={{
               mr: 2,
@@ -29,7 +28,8 @@ const Navbar = () => {
           >
             UFind
           </Typography>
-          <Button variant='contained' > Singin </Button>
+          <Button position="static" component={Link} to="signin" > Singin </Button>
+          <Button position="static" component={Link} to="signup" > SignUp </Button>
         </Toolbar>
       </AppBar>
     </Box>
