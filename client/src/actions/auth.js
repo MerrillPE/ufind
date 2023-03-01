@@ -5,6 +5,8 @@ export const signin = (formData) => async (dispatch) => {
     try {
 
         const { data } = await api.signIn(formData);
+
+        // Send to reducer
         dispatch({ type: AUTH, data });
     } catch (error) {
         console.log(error);
