@@ -20,7 +20,7 @@ const Post = () => {
         dispatch(getPost(id));
     }, [id, dispatch]);
 
-    const post = useSelector((state) => state.forumReducer);
+    const post = useSelector((state) => state.forumReducer.post);
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,

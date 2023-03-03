@@ -2,19 +2,19 @@ import { CREATE, FETCH_ALL, FETCH_POST } from '../constants/actionTypes';
 
 // TODO: Spread state before returning to preserve old values
 
-const forumReducer = (posts = [], action) => {
+const forumReducer = (state = { posts: [] }, action) => {
     switch (action.type) {
         case CREATE:
-            return [...posts, action.payload];
+            return { ...state, posts: [...state.posts, action.payload] };
         case FETCH_ALL:
             // Checking data flow
             //action.payload.map((post) => console.log(post))
 
-            return action.payload;
+            return { ...state, posts: action.payload };
         case FETCH_POST:
-            return action.payload;
+            return { ...state, post: action.payload };
         default:
-            return posts;
+            return state;
     }
 };
 
