@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { signup } from '../../actions/auth';
 
@@ -11,12 +12,15 @@ const SignUp = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         console.log(formData);
         dispatch(signup(formData));
+
+        navigate('/');
     };
 
     const handleChange = (e) => {

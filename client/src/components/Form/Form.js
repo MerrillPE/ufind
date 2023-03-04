@@ -3,6 +3,7 @@ import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button 
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
+import { useNavigate } from 'react-router-dom';
 
 //import { signup } from '../../actions/auth';
 import { createPost } from '../../actions/forum';
@@ -14,6 +15,8 @@ const PostForm = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
     const libraries = ['places']
 
@@ -30,7 +33,7 @@ const PostForm = () => {
         //const data = new FormData(e.currentTarget);
         console.log(formData);
         const geocoder = new window.google.maps.Geocoder();
-        var locationData;
+        //var locationData;
 
         // convert input address to geocode location for google maps
         const geocode = await geocoder.geocode({
@@ -53,6 +56,7 @@ const PostForm = () => {
         //console.log(locationRef.current);
         console.log(submitData);
         dispatch(createPost(submitData));
+        navigate('/');
     };
 
     const handleChange = (e) => {
