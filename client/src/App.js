@@ -12,6 +12,7 @@ import Navbar from './components/Navbar/Navbar';
 
 //const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
+// TODO: Routing should be profile dependent 
 const App = () => (
   <GoogleOAuthProvider clientId='1040116133990-4mfe5j4sl187kltqlvctjcug6h6p8act.apps.googleusercontent.com' >
     <BrowserRouter>

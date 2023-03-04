@@ -3,6 +3,14 @@ import axios from 'axios';
 const authAPI = axios.create({ baseURL: 'http://localhost:5001' });
 const forumAPI = axios.create({ baseURL: 'http://localhost:5002' });
 
+forumAPI.interceptors.request.use((req) => {
+    if (localStorage.getItem('profile')) {
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    }
+
+    return req;
+});
+
 export const signIn = (formData) => authAPI.post('users/signin', formData);
 export const signUp = (formData) => authAPI.post('users/signup', formData);
 
