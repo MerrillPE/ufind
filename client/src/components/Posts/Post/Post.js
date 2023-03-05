@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Typography, CardMedia, Card } from '@mui/material';
+import { Paper, Typography, CardMedia, Card, Divider } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
@@ -70,6 +70,7 @@ const Post = () => {
         */
     }
 
+    // TODO: create comment section
     return (
 
         <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
@@ -80,6 +81,7 @@ const Post = () => {
             <Typography>{moment(post.createdAt).fromNow()}</Typography>
             <Typography>{post.description}</Typography>
             <Map />
+            <Divider sx={{ mt: 2, mb: 2 }} />
 
         </Paper>
 
