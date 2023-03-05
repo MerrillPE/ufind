@@ -1,4 +1,4 @@
-import { AUTH } from '../constants/actionTypes';
+import { AUTH, LOGOUT } from '../constants/actionTypes';
 import jwt_decode from 'jwt-decode';
 
 const authReducer = (state = { authData: null }, action) => {
@@ -10,6 +10,9 @@ const authReducer = (state = { authData: null }, action) => {
             console.log(decoded);
             localStorage.setItem('profile', JSON.stringify({ ...decoded, token }));
             return { ...state, authData: decoded };
+        case LOGOUT:
+            localStorage.clear();
+            return { ...state, authData: null };
         default:
             return state;
     }

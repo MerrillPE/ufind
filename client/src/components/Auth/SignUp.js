@@ -18,9 +18,9 @@ const SignUp = () => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         console.log(formData);
-        dispatch(signup(formData));
+        dispatch(signup(formData)).then(() => navigate('/'));
 
-        navigate('/');
+        //navigate('/');
     };
 
     const handleChange = (e) => {

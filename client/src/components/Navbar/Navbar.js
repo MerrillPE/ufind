@@ -1,19 +1,48 @@
-import React from 'react';
-import { AppBar,Button,Toolbar,Typography,Box, makeStyles, Avatar} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppBar, Button, Toolbar, Typography, Box, makeStyles, Avatar } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
-import {Link} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { LOGOUT } from '../../constants/actionTypes';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
-    
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    navigate('/');
+    setUser(null);
+  }
+
+  useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decoded = decode(token);
+
+      if (decoded.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{background: 'lightblue'}}>
+      <AppBar position="static" style={{ background: 'lightblue' }}>
         <Toolbar>
-        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography 
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
             variant="h6"
             noWrap
-            component= {Link} to="/"
+            component={Link} to="/"
             href="/"
             sx={{
               mr: 2,
@@ -28,8 +57,19 @@ const Navbar = () => {
           >
             UFind
           </Typography>
-          <Button position="static" component={Link} to="signin" > Singin </Button>
-          <Button position="static" component={Link} to="signup" > SignUp </Button>
+          {user ? (
+            <Button position="static" component={Link} to="/createPost" > Create Post </Button>
+          ) : (
+            <Button position="static" component={Link} to="/signin" > Login </Button>
+          )}
+
+          {user ? (
+            <Button position="static" onClick={logout} > Logout </Button>
+          ) : (
+            <Button position="static" component={Link} to="/signup" > Sign Up </Button>
+          )}
+
+
         </Toolbar>
       </AppBar>
     </Box>

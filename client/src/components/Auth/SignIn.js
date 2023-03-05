@@ -15,16 +15,16 @@ const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         //const { username, password } = formData;
 
         console.log(formData);
 
-        dispatch(signin(formData));
+        dispatch(signin(formData)).then(() => navigate('/'));
 
-        navigate('/');
+        //navigate('/');
     };
 
     const handleChange = (e) => {
