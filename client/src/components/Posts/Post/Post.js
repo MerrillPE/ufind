@@ -7,6 +7,7 @@ import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 
 
 import { getPost } from '../../../actions/forum';
+import CommentSection from "./CommentSection";
 
 
 // Individual post page
@@ -81,7 +82,8 @@ const Post = () => {
             <Typography>{moment(post.createdAt).fromNow()}</Typography>
             <Typography>{post.description}</Typography>
             <Map />
-            <Divider sx={{ mt: 2, mb: 2 }} />
+            <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
+            <CommentSection post={post} />
 
         </Paper>
 

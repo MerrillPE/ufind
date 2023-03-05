@@ -1,4 +1,4 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT } from '../constants/actionTypes';
 
 // TODO: Spread state before returning to preserve old values
 
@@ -15,6 +15,15 @@ const forumReducer = (state = { posts: [] }, action) => {
             return { ...state, post: action.payload };
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
+        case COMMENT:
+            return {
+                ...state, posts: state.posts.map((post) => {
+                    if (post._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return post;
+                })
+            };
         default:
             return state;
     }
