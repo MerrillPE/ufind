@@ -58,15 +58,15 @@ const Navbar = () => {
             UFind
           </Typography>
           {user ? (
-            <Button position="static" component={Link} to="/createPost" > Create Post </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/createPost" > Create Post </Button>
           ) : (
-            <Button position="static" component={Link} to="/signin" > Login </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/signin" > Login </Button>
           )}
 
           {user ? (
-            <Button position="static" onClick={logout} > Logout </Button>
+            <Button position="static" variant='contained' onClick={logout} > Logout </Button>
           ) : (
-            <Button position="static" component={Link} to="/signup" > Sign Up </Button>
+            <Button position="static" variant='contained' component={Link} to="/signup" > Sign Up </Button>
           )}
 
 
