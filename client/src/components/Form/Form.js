@@ -125,7 +125,7 @@ const PostForm = () => {
                             onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
                         />
                     </div>
-                    {user ? (
+                    {user && (
                         <Button
                             type='submit'
                             fullWidth
@@ -134,9 +134,6 @@ const PostForm = () => {
                         >
                             Create Post
                         </Button>
-                    ) : (
-                        // Not showing submit button if user doesn't exist
-                        <div></div>
                     )}
                 </Box>
             </Box>

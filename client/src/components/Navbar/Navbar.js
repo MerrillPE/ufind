@@ -82,10 +82,8 @@ const Navbar = () => {
             <Button position="static" variant='contained' component={Link} to="/signup" > Sign Up </Button>
           )}
 
-          {user ? (
+          {user && (
             <Avatar sx={{ bgcolor: deepOrange[300] }}>{avatarLetter}</Avatar>
-          ) : (
-            <div></div>
           )}
 
 
