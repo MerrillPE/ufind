@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Typography, CardMedia, Card, Divider } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
-import { useParams } from 'react-router-dom';
+import { useParams, } from 'react-router-dom';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 
 
@@ -12,16 +12,22 @@ import CommentSection from "./CommentSection";
 
 // Individual post page
 const Post = () => {
+    const post = useSelector((state) => state.forumReducer.post);
+
+    console.log("Post:");
+    console.log(post);
+
+
     const { id } = useParams();
     const dispatch = useDispatch();
-    const mapAPI = process.env.REACT_APP_MAPS_API_KEY
+    const mapAPI = process.env.REACT_APP_MAPS_API_KEY;
 
 
     useEffect(() => {
         dispatch(getPost(id));
     }, [id, dispatch]);
 
-    const post = useSelector((state) => state.forumReducer.post);
+
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,

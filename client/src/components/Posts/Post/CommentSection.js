@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Typography, TextField, Button } from '@mui/material';
 
@@ -6,16 +6,24 @@ import { commentPost } from '../../../actions/forum';
 
 // TODO: Make comments also work with google sign-in
 const CommentSection = ({ post }) => {
+    console.log("Comment section loaded");
+
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
-    const [comments, setComments] = useState(post?.comments);
+    const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
+
+
+    // rerender comments when post changes
+    useEffect(() => {
+        setComments(post.comments);
+    }, [post])
+
 
     const commentSubmit = async () => {
         const submittedComment = `${user.username || user.name}: ${comment}`;
 
-        const newComments = await dispatch(commentPost(submittedComment, post._id));
-        setComments(newComments);
+        dispatch(commentPost(submittedComment, post._id)).then(setComments([...comments, submittedComment]));
         setComment('');
     }
 
