@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Paper, Typography, CardMedia, Card, Divider } from '@mui/material';
+import React, { useEffect, } from "react";
+import { Paper, Typography, CardMedia, Divider } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { useParams, } from 'react-router-dom';

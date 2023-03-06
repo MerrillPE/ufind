@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardMedia, Typography, IconButton, ButtonBase, Grid } from '@mui/material';
+import { Card, CardMedia, Typography, IconButton, ButtonBase, Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
 import { deletePost } from '../../actions/forum';

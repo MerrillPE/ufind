@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppBar, Button, Toolbar, Typography, Box, Avatar } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
-import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
+import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 
 //import { signup } from '../../actions/auth';
