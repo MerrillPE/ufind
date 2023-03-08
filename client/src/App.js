@@ -10,13 +10,13 @@ import PostForm from './components/Form/Form';
 import Post from './components/Posts/Post/Post';
 import Navbar from './components/Navbar/Navbar';
 
-//const OAUTH_ID = process.env.REACT_APP_OAUTH;
+const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
-    <GoogleOAuthProvider clientId='1040116133990-4mfe5j4sl187kltqlvctjcug6h6p8act.apps.googleusercontent.com' >
+    <GoogleOAuthProvider clientId={OAUTH_ID} >
       <BrowserRouter>
         <Container maxWidth='lg'>
           <Navbar />
