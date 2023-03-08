@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, Typography } from '@mui/material';
+import { Grid, } from '@mui/material';
 
 import PostCard from './PostCard';
 
 const Posts = () => {
     // Get posts from redux state after dispatch in Home component
-    const posts = useSelector((state) => state.forumReducer);
+    const posts = useSelector((state) => state.forumReducer.posts);
 
     posts.map((post) => console.log(post)); // Instrumentation
 

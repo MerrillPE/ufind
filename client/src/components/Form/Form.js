@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
-import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
+import { useLoadScript, Autocomplete } from '@react-google-maps/api';
+import { useNavigate } from 'react-router-dom';
 
 //import { signup } from '../../actions/auth';
 import { createPost } from '../../actions/forum';
@@ -14,8 +15,13 @@ const PostForm = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
     const libraries = ['places']
+
+    const user = JSON.parse(localStorage.getItem('profile'));
+    //console.log("User: " + user?.username);
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,
@@ -27,33 +33,36 @@ const PostForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //const data = new FormData(e.currentTarget);
-        console.log(formData);
-        const geocoder = new window.google.maps.Geocoder();
-        var locationData;
+
+        // Set username for post from local storage profile
+        let updatedForm;
+        if (user?.username) {
+            updatedForm = { ...formData, username: user.username };
+        } else {
+            updatedForm = { ...formData, username: user.name };
+        }
+
+        //console.log("Before Geocode:")
+        //onsole.log(updatedForm);
+
 
         // convert input address to geocode location for google maps
+        const geocoder = new window.google.maps.Geocoder();
         const geocode = await geocoder.geocode({
             address: locationRef.current.value
         }).then((result) => {
             const { results } = result;
             console.log(results[0]);
-            //locationData = results[0];
             return results[0];
         });
 
-        //const stringed = JSON.stringify(geocode);
-        //const parsed = JSON.parse(stringed);
-
-        //console.log("Parsed: ");
-        //console.log(parsed);
+        const submitData = { ...updatedForm, location: JSON.stringify(geocode) };
 
 
-        const submitData = { ...formData, location: JSON.stringify(geocode) };
-        //console.log(locationRef.current);
-        console.log(submitData);
         dispatch(createPost(submitData));
+        navigate('/');
     };
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -109,17 +118,6 @@ const PostForm = () => {
                         //onChange={handleChange}
                         />
                     </Autocomplete>
-                    <TextField
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='username'
-                        label='Name'
-                        name='username'
-                        type='username'
-                        autoComplete='username'
-                        onChange={handleChange}
-                    />
                     <div>
                         <FileBase
                             type="file"
@@ -127,14 +125,16 @@ const PostForm = () => {
                             onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
                         />
                     </div>
-                    <Button
-                        type='submit'
-                        fullWidth
-                        variant='contained'
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Create Post
-                    </Button>
+                    {user && (
+                        <Button
+                            type='submit'
+                            fullWidth
+                            variant='contained'
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Create Post
+                        </Button>
+                    )}
                 </Box>
             </Box>
         </Container>

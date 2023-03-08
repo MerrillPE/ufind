@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, } from "react";
 import { useDispatch } from 'react-redux';
-import { Container, Grow, Grid, Typography } from "@mui/material";
+import { Container, Grow, Grid, } from "@mui/material";
 
 
 import { getPosts } from '../../actions/forum';
