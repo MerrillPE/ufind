@@ -76,6 +76,10 @@ const Navbar = () => {
             <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/signin" > Login </Button>
           )}
 
+          {user && (
+            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/Profile" > profile </Button>
+          )}
+          
           {user ? (
             <Button position="static" sx={{ mr: 1 }} variant='contained' onClick={logout} > Logout </Button>
           ) : (
