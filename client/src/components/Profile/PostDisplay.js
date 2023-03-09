@@ -1,4 +1,4 @@
-/*
+//from postcard code
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, CardMedia, Typography, IconButton, ButtonBase, Grid } from '@mui/material';
@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 //import { deletePost } from '../../actions/forum';
 
 // Card view of post for preview
-const PostCard = ({ post }) => {
+const PostDisplay = ({ post }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    //console.log("PostCard: " + post.image);
+    //console.log("PostDisplay: " + post.image);
 
     const openPost = (e) => {
         navigate(`/post/${post._id}`);
@@ -46,8 +46,7 @@ const PostCard = ({ post }) => {
     );
 }
 
-export default PostCard;
+export default PostDisplay;
 
 // ! Need to credit for missing image file
 // No Image by Kevin from <a href="https://thenounproject.com/browse/icons/term/no-image/" target="_blank" title="No Image Icons">Noun Project</a>
-*/
