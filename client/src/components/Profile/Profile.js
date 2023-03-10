@@ -1,45 +1,81 @@
-/*
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Grid, } from '@mui/material';
+import React, { useState, useEffect, } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppBar, Button, Toolbar, Typography, Box, Avatar } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
+import AdbIcon from '@mui/icons-material/Adb';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import PostCard from './PostCard';
+import { LOGOUT } from '../../constants/actionTypes';
+import decode from 'jwt-decode';
 
-const Posts = () => {
-    // Get posts from redux state after dispatch in Home component
-    const posts = useSelector((state) => state.forumReducer.posts);
+// TODO: make profile avatar a link to profile page
+const Profile = () => {
 
-    posts.map((post) => console.log(post)); // Instrumentation
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
-    return (
+  let avatarLetter;
 
-        // Creates grid of PostCards to preview each post 
-        <Grid container spacing={2} alignItems='stretch'>
-            {posts.map((post) => (
-                <Grid key={post._id} item >
-                    <PostCard post={post} />
-                </Grid>
-            ))}
-        </Grid>
+  if (user?.username) {
+    //console.log(user?.username.charAt(0));
+    avatarLetter = user?.username.charAt(0);
+  } else {
+    avatarLetter = user?.name.charAt(0);
+  }
 
-    )
-}
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    navigate('/');
+    setUser(null);
+  }
 
-return (
+  useEffect(() => {
+    const token = user?.token;
 
-    <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
+    if (token) {
+      const decoded = decode(token);
 
-        <Typography variant="h3">{post.title}</Typography>
-        <CardMedia component='img' src={`${post.image}`} title={post.title} />
-        <Typography>Posted by: {post.username}</Typography>
-        <Typography>{moment(post.createdAt).fromNow()}</Typography>
-        <Typography>{post.description}</Typography>
-        <Map />
-        <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
-        <CommentSection post={post} />
+      if (decoded.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
 
-    </Paper>
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location]);
 
 
-)
-*/
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component={Link} to="/"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              flexGrow: 1,
+            }}
+          >
+          </Typography>
+
+          {user && (
+            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/MyPosts" > MyPosts</Button>
+          )}
+          
+          {user && (
+            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/Favorites" > Favorites </Button>
+          )}
+    </Box>
+  );
+};
+
+export default Profile;

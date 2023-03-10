@@ -77,7 +77,7 @@ const Navbar = () => {
           )}
 
           {user && (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/Profile" > profile </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/Profile" > Profile </Button>
           )}
           
           {user ? (
@@ -89,7 +89,6 @@ const Navbar = () => {
           {user && (
             <Avatar sx={{ bgcolor: deepOrange[300] }}>{avatarLetter}</Avatar>
           )}
-
 
         </Toolbar>
       </AppBar>
