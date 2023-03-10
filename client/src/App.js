@@ -6,8 +6,12 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from './components/Home/Home';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
+<<<<<<< HEAD
 import Profile from './components/Profile/Profile';
 import MyPosts from './components/Profile/MyPosts';
+=======
+import ProfilePage from './components/Profile/ProfilePage';
+>>>>>>> 5e4ad5690ef39b3ef5e44a451847547628c8bbd5
 import PostForm from './components/Form/Form';
 import Post from './components/Posts/Post/Post';
 import Navbar from './components/Navbar/Navbar';
@@ -27,8 +31,12 @@ const App = () => {
             <Route path='/post/:id' exact element={<Post />} />
             <Route path='/signin' exact element={<SignIn />} />
             <Route path='/signup' exact element={<SignUp />} />
+<<<<<<< HEAD
             <Route path='/MyPosts' exact element={<MyPosts />} />
             <Route path='/Profile' exact element={<Profile />} />
+=======
+            <Route path='/ProfilePage' exact element={<ProfilePage />} />
+>>>>>>> 5e4ad5690ef39b3ef5e44a451847547628c8bbd5
             <Route path='/createPost' exact element={<PostForm />} />
           </Routes>
         </Container>
