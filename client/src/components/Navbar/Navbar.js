@@ -77,11 +77,7 @@ const Navbar = () => {
           )}
 
           {user && (
-<<<<<<< HEAD
             <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/Profile" > Profile </Button>
-=======
-            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/profilepage" > profile </Button>
->>>>>>> 5e4ad5690ef39b3ef5e44a451847547628c8bbd5
           )}
           
           {user ? (
