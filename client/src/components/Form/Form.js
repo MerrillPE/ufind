@@ -60,7 +60,7 @@ const PostForm = () => {
 
 
         dispatch(createPost(submitData));
-        navigate('/');
+        //navigate('/');
     };
 
 

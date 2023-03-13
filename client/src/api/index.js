@@ -16,6 +16,6 @@ export const signUp = (formData) => authAPI.post('users/signup', formData);
 
 export const createPost = (formData) => forumAPI.post('forum/', formData);
 export const fetchPosts = () => forumAPI.get('forum/');
-export const fetchPost = (id) => forumAPI.get(`forum/${id}`);
-export const deletePost = (id) => forumAPI.delete(`forum/${id}`);
-export const comment = (value, id) => forumAPI.patch(`/forum/${id}/commentPost`, { value });
+export const fetchPost = (id) => forumAPI.get(`forum/post/${id}`);
+export const deletePost = (id) => forumAPI.delete(`forum/post/${id}`);
+export const comment = (value, id) => forumAPI.patch(`/forum/post/${id}/commentPost`, { value });

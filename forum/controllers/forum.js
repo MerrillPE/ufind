@@ -27,10 +27,39 @@ export const getPost = async (req, res) => {
     }
 }
 
+export const getLocalPosts = async (req, res) => {
+    const { lng, lat } = req.query;
+
+    try {
+        const posts = await Post.aggregate(
+            [{
+                $geoNear: {
+                    near: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+                    key: "coordinates",
+                    distanceField: "dist.calculated",
+                    maxDistance: 100000, // Checking within 100km of queried coordinates
+                    includeLocs: "dist.location",
+                    spherical: true
+                }
+            }]
+        )
+
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const createPost = async (req, res) => {
     const { title, description, location, username, image } = req.body;
+    const coordinatesObject = JSON.parse(location).geometry.location;
+    const coordinates = { type: 'Point', coordinates: [Number(coordinatesObject.lng), Number(coordinatesObject.lat)] };
 
-    const newPost = new Post({ title, description, location, username, image });
+
+    console.log('Parsed location');
+    console.log(coordinates);
+
+    const newPost = new Post({ title, description, location, coordinates, username, image });
 
     try {
         await newPost.save();
