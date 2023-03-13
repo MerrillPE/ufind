@@ -1,5 +1,5 @@
 import * as api from '../api/index';
-import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT } from '../constants/actionTypes';
+import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL } from '../constants/actionTypes';
 
 export const createPost = (post) => async (dispatch) => {
     try {
@@ -20,6 +20,17 @@ export const getPosts = () => async (dispatch) => {
         //data.map((post) => console.log(post))
 
         dispatch({ type: FETCH_ALL, payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getLocalPosts = (coordinatesStr) => async (dispatch) => {
+    try {
+        const coordinates = JSON.parse(coordinatesStr);
+        const { data } = await api.fetchLocalPosts(coordinates);
+
+        dispatch({ type: FETCH_LOCAL, payload: data })
     } catch (error) {
         console.log(error);
     }

@@ -1,4 +1,4 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL } from '../constants/actionTypes';
 
 // TODO: Spread state before returning to preserve old values
 
@@ -10,6 +10,8 @@ const forumReducer = (state = { posts: [] }, action) => {
             // Checking data flow
             //action.payload.map((post) => console.log(post))
 
+            return { ...state, posts: action.payload };
+        case FETCH_LOCAL:
             return { ...state, posts: action.payload };
         case FETCH_POST:
             return { ...state, post: action.payload };
