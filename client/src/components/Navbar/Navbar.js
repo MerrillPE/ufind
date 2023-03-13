@@ -1,12 +1,15 @@
 import React, { useState, useEffect, } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppBar, Button, Toolbar, Typography, Box, Avatar } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography, Box, Avatar, } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+
 import { LOGOUT } from '../../constants/actionTypes';
 import decode from 'jwt-decode';
+
+
 
 // TODO: make profile avatar a link to profile page
 const Navbar = () => {
@@ -15,6 +18,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
 
   let avatarLetter;
 
@@ -69,6 +73,7 @@ const Navbar = () => {
           >
             UFind
           </Typography>
+
 
           {user ? (
             <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/createPost" > Create Post </Button>
