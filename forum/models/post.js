@@ -22,6 +22,7 @@ const postSchema = mongoose.Schema({
         index: '2dsphere'
     },
     username: String,
+    userID: String,
     image: String,
     createdAt: {
         type: Date,

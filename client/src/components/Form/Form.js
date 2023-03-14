@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPost } from '../../actions/forum';
 
 
-const initialForm = { title: '', description: '', location: '', username: '', image: '' };
+const initialForm = { title: '', description: '', location: '', username: '', userID: '', image: '' };
 
 const PostForm = () => {
 
@@ -37,9 +37,9 @@ const PostForm = () => {
         // Set username for post from local storage profile
         let updatedForm;
         if (user?.username) {
-            updatedForm = { ...formData, username: user.username };
+            updatedForm = { ...formData, username: user.username, userID: user._id };
         } else {
-            updatedForm = { ...formData, username: user.name };
+            updatedForm = { ...formData, username: user.name, userID: user.sub };
         }
 
         //console.log("Before Geocode:")
@@ -60,7 +60,7 @@ const PostForm = () => {
 
 
         dispatch(createPost(submitData));
-        //navigate('/');
+        navigate('/');
     };
 
 

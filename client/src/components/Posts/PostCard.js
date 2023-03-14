@@ -1,27 +1,18 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Card, CardMedia, Typography, IconButton, ButtonBase, Grid } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+//import { useDispatch } from 'react-redux';
+import { Card, CardMedia, Typography, ButtonBase, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-import { deletePost } from '../../actions/forum';
 
 // Card view of post for preview
 const PostCard = ({ post }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     //console.log("PostCard: " + post.image);
 
     const openPost = (e) => {
         navigate(`/post/${post._id}`);
     }
 
-    //! This function and the button is just for testing, should probably move delete functionality to the post page
-    // has to have different name than action to avoid range error recursive call
-    const removePost = (e) => {
-        //console.log(post._id);
-        dispatch(deletePost(post._id));
-    }
 
     return (
         <Card raised sx={{ height: 1 }} elevation={4}>
@@ -35,11 +26,6 @@ const PostCard = ({ post }) => {
                     <Typography variant='h4'>{post.title}</Typography>
                 </Grid>
                 <Grid item style={{ flexGrow: 1 }}></Grid>
-                <Grid item>
-                    <IconButton onClick={removePost}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Grid>
             </Grid>
         </Card>
     );

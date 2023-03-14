@@ -51,15 +51,15 @@ export const getLocalPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const { title, description, location, username, image } = req.body;
+    const { title, description, location, username, userID, image } = req.body;
     const coordinatesObject = JSON.parse(location).geometry.location;
     const coordinates = { type: 'Point', coordinates: [Number(coordinatesObject.lng), Number(coordinatesObject.lat)] };
 
 
-    console.log('Parsed location');
-    console.log(coordinates);
+    //console.log('Parsed location');
+    //console.log(coordinates);
 
-    const newPost = new Post({ title, description, location, coordinates, username, image });
+    const newPost = new Post({ title, description, location, coordinates, username, userID, image });
 
     try {
         await newPost.save();
