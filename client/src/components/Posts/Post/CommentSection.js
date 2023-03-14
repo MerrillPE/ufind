@@ -4,7 +4,6 @@ import { Typography, TextField, Button } from '@mui/material';
 
 import { commentPost } from '../../../actions/forum';
 
-// TODO: Make comments also work with google sign-in
 const CommentSection = ({ post }) => {
     console.log("Comment section loaded");
 

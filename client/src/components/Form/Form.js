@@ -11,6 +11,7 @@ import { createPost } from '../../actions/forum';
 
 const initialForm = { title: '', description: '', location: '', username: '', userID: '', image: '' };
 
+// TODO: Validate file extension is either jpg or png
 const PostForm = () => {
 
     const [formData, setFormData] = useState(initialForm);

@@ -1,6 +1,6 @@
 import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL } from '../constants/actionTypes';
 
-// TODO: Spread state before returning to preserve old values
+
 
 const forumReducer = (state = { posts: [] }, action) => {
     switch (action.type) {

@@ -1,6 +1,7 @@
 import React, { useEffect, } from "react";
 import { Paper, Typography, CardMedia, Divider, Grid, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { pink } from '@mui/material/colors';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { useParams, useNavigate, } from 'react-router-dom';
@@ -93,7 +94,7 @@ const Post = () => {
                 {userID === post.userID &&
                     <Grid item>
                         <IconButton onClick={removePost}>
-                            <DeleteIcon />
+                            <DeleteIcon sx={{ color: pink[500] }} />
                         </IconButton>
                     </Grid>
                 }
