@@ -9,8 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { createPost } from '../../actions/forum';
 
 
-const initialForm = { title: '', description: '', location: '', username: '', image: '' };
+const initialForm = { title: '', description: '', location: '', username: '', userID: '', image: '' };
 
+// TODO: Validate file extension is either jpg or png
 const PostForm = () => {
 
     const [formData, setFormData] = useState(initialForm);
@@ -37,9 +38,9 @@ const PostForm = () => {
         // Set username for post from local storage profile
         let updatedForm;
         if (user?.username) {
-            updatedForm = { ...formData, username: user.username };
+            updatedForm = { ...formData, username: user.username, userID: user._id };
         } else {
-            updatedForm = { ...formData, username: user.name };
+            updatedForm = { ...formData, username: user.name, userID: user.sub };
         }
 
         //console.log("Before Geocode:")

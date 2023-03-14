@@ -1,18 +1,22 @@
 import React, { useEffect, } from "react";
-import { Paper, Typography, CardMedia, Divider } from '@mui/material';
+import { Paper, Typography, CardMedia, Divider, Grid, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { pink } from '@mui/material/colors';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
-import { useParams, } from 'react-router-dom';
+import { useParams, useNavigate, } from 'react-router-dom';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 
 
-import { getPost } from '../../../actions/forum';
+import { getPost, deletePost } from '../../../actions/forum';
 import CommentSection from "./CommentSection";
 
 
 // Individual post page
 const Post = () => {
     const post = useSelector((state) => state.forumReducer.post);
+    const user = JSON.parse(localStorage.getItem('profile'));
+    let userID = '';
 
     console.log("Post:");
     console.log(post);
@@ -20,6 +24,7 @@ const Post = () => {
 
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY;
 
 
@@ -28,13 +33,24 @@ const Post = () => {
     }, [id, dispatch]);
 
 
-
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,
         //libraries: ['places'],
     });
 
+    const removePost = (e) => {
+        //console.log(post._id);
+        dispatch(deletePost(post._id));
+        navigate('/');
+    }
 
+    if (user) {
+        if (user?._id) {
+            userID = user._id;
+        } else {
+            userID = user.sub;
+        }
+    }
 
 
     if (!post) {
@@ -64,25 +80,25 @@ const Post = () => {
                 <Marker position={locationDetails} />
             </GoogleMap>
         )
-
-
-        /*
-        return (
-            <div style={{ width: '400px', height: '400px' }}>
-                <GoogleMapReact bootstrapURLKeys={{ key: mapAPI }} zoom={10} center={{ lat: 37.237, lng: -121.8278 }} >
-                    <Marker lat: {37.237}  lng: {-121.8278} />
-                </GoogleMapReact>
-            </div>
-        )
-        */
     }
 
-    // TODO: create comment section
+
     return (
 
         <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
-
-            <Typography variant="h3">{post.title}</Typography>
+            <Grid container>
+                <Grid item>
+                    <Typography variant="h3">{post.title}</Typography>
+                </Grid>
+                <Grid item style={{ flexGrow: 1 }}></Grid>
+                {userID === post.userID &&
+                    <Grid item>
+                        <IconButton onClick={removePost}>
+                            <DeleteIcon sx={{ color: pink[500] }} />
+                        </IconButton>
+                    </Grid>
+                }
+            </Grid>
             <CardMedia component='img' src={`${post.image}`} title={post.title} />
             <Typography>Posted by: {post.username}</Typography>
             <Typography>{moment(post.createdAt).fromNow()}</Typography>
