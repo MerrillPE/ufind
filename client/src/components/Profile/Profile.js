@@ -8,7 +8,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGOUT } from '../../constants/actionTypes';
 import decode from 'jwt-decode';
 
-// TODO: make profile avatar a link to profile page
 const Profile = () => {
 
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ const Profile = () => {
   let avatarLetter;
 
   if (user?.username) {
-    //console.log(user?.username.charAt(0));
     avatarLetter = user?.username.charAt(0);
   } else {
     avatarLetter = user?.name.charAt(0);

@@ -16,7 +16,8 @@ const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
 const App = () => {
   //const user = JSON.parse(localStorage.getItem('profile'));
-
+  
+  //<Route path='/MyPosts' exact element={<MyPosts />} />
   return (
     <GoogleOAuthProvider clientId={OAUTH_ID} >
       <BrowserRouter>
@@ -28,8 +29,8 @@ const App = () => {
             <Route path='/signin' exact element={<SignIn />} />
             <Route path='/signup' exact element={<SignUp />} />
             <Route path='/Profile' exact element={<Profile />} />
-            <Route path='/MyPosts' exact element={<MyPosts />} />
             <Route path='/createPost' exact element={<PostForm />} />
+            <Route path='/MyPosts' exact element={<MyPosts />} />
           </Routes>
         </Container>
       </BrowserRouter>
