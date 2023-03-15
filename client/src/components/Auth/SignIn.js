@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 
 import { signin } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
@@ -12,15 +13,18 @@ const SignIn = () => {
 
     const [formData, setFormData] = useState(initialForm);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         //const { username, password } = formData;
 
         console.log(formData);
 
-        dispatch(signin(formData));
+        dispatch(signin(formData)).then(() => navigate('/'));
+
+        //navigate('/');
     };
 
     const handleChange = (e) => {
@@ -38,7 +42,7 @@ const SignIn = () => {
         try {
             dispatch({ type: AUTH, data: { token } });
             // redirect to home page after login
-            //window.location.reload();
+            navigate('/');
         } catch (error) {
             console.log(error);
         }

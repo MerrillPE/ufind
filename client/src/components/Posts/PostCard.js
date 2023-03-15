@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Card, CardActions, CardContent, CardMedia, CardTitle, Typography, Button, ButtonBase } from '@mui/material';
-import moment from 'moment';
+import React from 'react';
+//import { useDispatch } from 'react-redux';
+import { Card, CardMedia, Typography, ButtonBase, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 // Card view of post for preview
-// TODO: Make card a button to direct to ./Post/Post.js 
 const PostCard = ({ post }) => {
     const navigate = useNavigate();
+    //const dispatch = useDispatch();
     //console.log("PostCard: " + post.image);
 
     const openPost = (e) => {
         navigate(`/post/${post._id}`);
     }
 
+
     return (
         <Card raised sx={{ height: 1 }} elevation={4}>
             <ButtonBase component='span' onClick={openPost}>
                 <div>
                     <CardMedia component='img' src={`${post.image}`} title={post.title} />
-                    <Typography variant='h6'>{post.title}</Typography>
                 </div>
             </ButtonBase>
+            <Grid container>
+                <Grid item>
+                    <Typography variant='h4'>{post.title}</Typography>
+                </Grid>
+                <Grid item style={{ flexGrow: 1 }}></Grid>
+            </Grid>
         </Card>
     );
 }
