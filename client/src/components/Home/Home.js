@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, } from "react";
 import { useDispatch } from 'react-redux';
-import { Container, Grow, Grid, TextField, Typography, Paper, Button } from "@mui/material";
+import { Container, Grow, Grid, TextField, Typography, Paper, Button, CircularProgress } from "@mui/material";
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 
 
@@ -50,7 +50,8 @@ const Home = () => {
     }
 
 
-    if (!isLoaded) return (<div>Loading</div>)
+    //if (!isLoaded) return (<div>Loading</div>)
+    if (!isLoaded) return (<CircularProgress />)
     return (
         // Home page calls Posts component
         <Grow in>
