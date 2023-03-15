@@ -1,5 +1,5 @@
 import React, { useEffect, } from "react";
-import { Paper, Typography, CardMedia, Divider, Grid, IconButton } from '@mui/material';
+import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { pink } from '@mui/material/colors';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import CommentSection from "./CommentSection";
 
 // Individual post page
 const Post = () => {
-    const post = useSelector((state) => state.forumReducer.post);
+    const { post, isLoading } = useSelector((state) => state.forumReducer);
     const user = JSON.parse(localStorage.getItem('profile'));
     let userID = '';
 
@@ -84,30 +84,31 @@ const Post = () => {
 
 
     return (
-
-        <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
-            <Grid container>
-                <Grid item>
-                    <Typography variant="h3">{post.title}</Typography>
-                </Grid>
-                <Grid item style={{ flexGrow: 1 }}></Grid>
-                {userID === post.userID &&
+        isLoading ? <CircularProgress /> : (
+            <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
+                <Grid container>
                     <Grid item>
-                        <IconButton onClick={removePost}>
-                            <DeleteIcon sx={{ color: pink[500] }} />
-                        </IconButton>
+                        <Typography variant="h3">{post.title}</Typography>
                     </Grid>
-                }
-            </Grid>
-            <CardMedia component='img' src={`${post.image}`} title={post.title} />
-            <Typography>Posted by: {post.username}</Typography>
-            <Typography>{moment(post.createdAt).fromNow()}</Typography>
-            <Typography>{post.description}</Typography>
-            <Map />
-            <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
-            <CommentSection post={post} />
+                    <Grid item style={{ flexGrow: 1 }}></Grid>
+                    {userID === post.userID &&
+                        <Grid item>
+                            <IconButton onClick={removePost}>
+                                <DeleteIcon sx={{ color: pink[500] }} />
+                            </IconButton>
+                        </Grid>
+                    }
+                </Grid>
+                <CardMedia component='img' src={`${post.image}`} title={post.title} />
+                <Typography>Posted by: {post.username}</Typography>
+                <Typography>{moment(post.createdAt).fromNow()}</Typography>
+                <Typography>{post.description}</Typography>
+                <Map />
+                <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
+                <CommentSection post={post} />
 
-        </Paper>
+            </Paper>
+        )
 
 
     )

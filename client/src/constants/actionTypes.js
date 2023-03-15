@@ -7,3 +7,6 @@ export const FETCH_ALL = 'FETCH_ALL';
 export const FETCH_LOCAL = 'FETCH_LOCAL';
 export const DELETE = 'DELETE';
 export const COMMENT = 'COMMENT';
+
+export const START_LOADING = 'START_LOADING';
+export const END_LOADING = 'END_LOADING';

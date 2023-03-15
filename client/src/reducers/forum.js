@@ -1,9 +1,14 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING } from '../constants/actionTypes';
 
 
 
-const forumReducer = (state = { posts: [] }, action) => {
+const forumReducer = (state = { posts: [], isLoading: true }, action) => {
     switch (action.type) {
+        case START_LOADING:
+            return { ...state, isLoading: true };
+        case END_LOADING:
+            return { ...state, isLoading: false };
+
         case CREATE:
             return { ...state, posts: [...state.posts, action.payload] };
         case FETCH_ALL:
