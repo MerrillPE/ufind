@@ -84,7 +84,14 @@ const Post = () => {
 
 
     return (
-        isLoading ? <CircularProgress /> : (
+        isLoading ? (
+            <div style={{
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)'
+            }}>
+                <CircularProgress />
+            </div>
+        ) : (
             <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
                 <Grid container>
                     <Grid item>

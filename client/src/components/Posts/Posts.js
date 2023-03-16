@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { CircularProgress, Grid, } from '@mui/material';
+import { CircularProgress, Grid, Box } from '@mui/material';
 
 import PostCard from './PostCard';
 
@@ -17,7 +17,15 @@ const Posts = () => {
     return (
 
         // Creates grid of PostCards to preview each post 
-        isLoading ? <CircularProgress /> : (
+        isLoading ? (
+            <Box style={{
+                display: 'flex', flexDirection: 'column',
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)'
+            }}>
+                <CircularProgress />
+            </Box>
+        ) : (
             <Grid container spacing={2} alignItems='stretch'>
                 {posts.map((post) => (
                     <Grid key={post._id} item >
