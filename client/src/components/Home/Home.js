@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, } from "react";
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Grow, Grid, TextField, Typography, Paper, Button, CircularProgress } from "@mui/material";
+import { Container, Grow, Grid, TextField, Typography, Paper, Button, } from "@mui/material";
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 
 
 import { getPosts, getLocalPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
 
+// useQuery to access parameters in URL 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
@@ -22,17 +23,19 @@ const Home = () => {
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
     const libraries = ['places']
 
-
+    // initialize google maps api for autocomplete
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,
         libraries,
     });
 
-    console.log("Before use effect");
+    console.log("Before use effect"); // Instrumentation
 
     useEffect(() => {
         // dispatch get request at page load
 
+        // If query params exist use get local posts
+        // Else get all posts
         if (query.get('lng')) {
             const lng = query.get('lng');
             const lat = query.get('lat');
@@ -43,11 +46,9 @@ const Home = () => {
         } else {
             dispatch(getPosts());
         }
+    }, [location]); // Rerun when location (url) changes
 
-        // Checking data flow
-        //posts.data.map((post) => console.log(post))
-    }, [location]);
-
+    // handle submit for location filtering
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -62,8 +63,6 @@ const Home = () => {
 
         const coordinates = JSON.stringify(geocode.geometry.location);
         console.log(coordinates);
-
-        //dispatch(getLocalPosts(coordinates));
 
         const coordinateQuery = JSON.parse(coordinates);
         navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}`);
@@ -92,7 +91,6 @@ const Home = () => {
                                     autoComplete='location'
                                     sx={{ m: 2 }}
                                     inputRef={locationRef}
-                                //onChange={handleChange}
                                 />
                             </Autocomplete>
                             <Button
@@ -108,9 +106,6 @@ const Home = () => {
                 </Grid>
             </Container>
         </Grow>
-
-
-        //<Typography>TEST HOME</Typography>
     );
 }
 

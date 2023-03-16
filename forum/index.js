@@ -9,15 +9,12 @@ import forumRouter from './routes/forum.js';
 const app = express();
 dotenv.config();
 
-
+// higher limit for image files
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
 
 app.use('/forum', forumRouter);
-
-//const { application } = require("express");
-//const { default: mongoose } = require("mongoose");
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT;

@@ -3,6 +3,7 @@ import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOAD
 
 export const createPost = (post) => async (dispatch) => {
     try {
+        // Make api request
         const { data } = await api.createPost(post)
 
         // Send to reducer
@@ -16,9 +17,6 @@ export const getPosts = () => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING })
         const { data } = await api.fetchPosts();
-
-        // Checking data flow
-        //data.map((post) => console.log(post))
 
         dispatch({ type: FETCH_ALL, payload: data });
         dispatch({ type: END_LOADING })
