@@ -7,14 +7,18 @@ import Posts from '../Posts/Posts';
 
 const MyPosts = (req) => {
     const dispatch = useDispatch();
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    // const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const user = JSON.parse(localStorage.getItem('profile'));
+    // use user name for post search 
+    
+    console.log("JUser: " + user?.username);
     //const auth = require("../middleware/auth");
 
     console.log("Before use effect")
 
     useEffect(() => {
         // dispatch get request at page load
-        dispatch(getMyPosts()); //this query should call the right api
+        dispatch(getMyPosts( user?.username )); //this query should call the right api, req.UserID
 
         // Checking data flow
         //posts.data.map((post) => console.log(post))
@@ -73,5 +77,18 @@ authRouter.get("/user-posts", async (req, res) => {
     console.log(err);
     res.status(500).send("Something went wrong, check logs");
   }
+});
+
+
+
+
+App.get("/author", function(req, res){
+  Post.find({ "User.username": req.user.username }, function(err, author){
+  if (err){
+  console.log("ERROR!");
+   } else { 
+res.render("done.ejs", {Post: author, currentUser: req.user});
+}
+});
 });
 */

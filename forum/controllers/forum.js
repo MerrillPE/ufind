@@ -27,6 +27,19 @@ export const getPost = async (req, res) => {
     }
 }
 
+export const getMyPosts = async (req, res) => {
+    const { userName } = req.params;
+
+    try {
+        const post = await Post.find( { 'userName' : userName } );
+        console.log( "Fectch by username");
+
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
 export const getLocalPosts = async (req, res) => {
     const { lng, lat } = req.query;
 

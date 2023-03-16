@@ -46,15 +46,16 @@ export const getPost = (id) => async (dispatch) => {
     }
 }
 
-export const getMyPosts = (id) => async (dispatch) => {
+export const getMyPosts = (userName) => async (dispatch) => {
     try {
-        const {data} = await api.fetchMyPosts(id);
+        const {data} = await api.fetchMyPosts(userName);
 
         dispatch ({type: FETCH_MY_POSTS, payload: data})
     } catch (error) {
         console.log(error);
     }
 }
+
 /*
 export const commentPost = async (req, res) => {
     const { id } = req.params;
