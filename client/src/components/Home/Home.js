@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, } from "react";
 import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Grow, Grid, TextField, Typography, Paper, Button, CircularProgress } from "@mui/material";
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 
@@ -7,9 +8,16 @@ import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 import { getPosts, getLocalPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 const Home = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const locationRef = useRef();
+    const navigate = useNavigate();
+    const query = useQuery();
 
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
     const libraries = ['places']
@@ -24,11 +32,21 @@ const Home = () => {
 
     useEffect(() => {
         // dispatch get request at page load
-        dispatch(getPosts());
+
+        if (query.get('lng')) {
+            const lng = query.get('lng');
+            const lat = query.get('lat');
+
+            const coordinates = `{"lat":${lat},"lng":${lng}}`
+
+            dispatch(getLocalPosts(coordinates));
+        } else {
+            dispatch(getPosts());
+        }
 
         // Checking data flow
         //posts.data.map((post) => console.log(post))
-    }, []);
+    }, [location]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -45,13 +63,15 @@ const Home = () => {
         const coordinates = JSON.stringify(geocode.geometry.location);
         console.log(coordinates);
 
-        dispatch(getLocalPosts(coordinates));
+        //dispatch(getLocalPosts(coordinates));
+
+        const coordinateQuery = JSON.parse(coordinates);
+        navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}`);
 
     }
 
 
-    //if (!isLoaded) return (<div>Loading</div>)
-    if (!isLoaded) return (<CircularProgress />)
+    if (!isLoaded) return (<div></div>);
     return (
         // Home page calls Posts component
         <Grow in>
