@@ -4,22 +4,20 @@ import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADIN
 
 const forumReducer = (state = { posts: [], isLoading: true }, action) => {
     switch (action.type) {
+        // START and END determines loading circle on page
         case START_LOADING:
             return { ...state, isLoading: true };
         case END_LOADING:
             return { ...state, isLoading: false };
 
         case CREATE:
-            return { ...state, posts: [...state.posts, action.payload] };
+            return { ...state, posts: [...state.posts, action.payload] }; // add post to end of posts in redux store
         case FETCH_ALL:
-            // Checking data flow
-            //action.payload.map((post) => console.log(post))
-
-            return { ...state, posts: action.payload };
+            return { ...state, posts: action.payload }; // store posts in redux store
         case FETCH_LOCAL:
-            return { ...state, posts: action.payload };
+            return { ...state, posts: action.payload }; // replace posts in redux store with local ones
         case FETCH_POST:
-            return { ...state, post: action.payload };
+            return { ...state, post: action.payload }; // store current post in redux store
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
         case COMMENT:

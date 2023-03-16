@@ -17,20 +17,18 @@ const SignIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //const data = new FormData(e.currentTarget);
-        //const { username, password } = formData;
 
         console.log(formData);
 
         dispatch(signin(formData)).then(() => navigate('/'));
-
-        //navigate('/');
     };
 
+    // Update form data as user types
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Handle google sign in
     const googleSuccess = async (res) => {
         //console.log(res?.credential);
 

@@ -23,6 +23,7 @@ const SignUp = () => {
         //navigate('/');
     };
 
+    // Update form data as user types
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };

@@ -1,3 +1,4 @@
+// Make variable names for constant strings so misspellings show error in IDE
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
 

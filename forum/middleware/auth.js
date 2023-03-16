@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 // TODO: Replace with actual private key
 const jwtKey = "secret_key";
 
+// checks validitiy of user's token before moving to controller
 const auth = async (req, res, next) => {
     try {
         console.log(req.headers.authorization);

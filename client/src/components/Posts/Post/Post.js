@@ -22,17 +22,17 @@ const Post = () => {
     console.log(post);
 
 
-    const { id } = useParams();
+    const { id } = useParams(); // use id param from url
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY;
 
-
+    // Send dispatch when id changes
     useEffect(() => {
         dispatch(getPost(id));
     }, [id, dispatch]);
 
-
+    // Initialize google maps api
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,
         //libraries: ['places'],
@@ -44,6 +44,7 @@ const Post = () => {
         navigate('/');
     }
 
+    // if user is logged in get id
     if (user) {
         if (user?._id) {
             userID = user._id;
@@ -52,12 +53,13 @@ const Post = () => {
         }
     }
 
-
+    // if post doesn't exist
     if (!post) {
         return null;
     }
 
 
+    // Google map component
     const Map = () => {
 
         if (!isLoaded) return (<div>Loading</div>);
@@ -68,7 +70,7 @@ const Post = () => {
             locationDetails = JSON.parse(post.location).geometry.location;
 
         } catch (error) {
-            locationDetails = { lat: 37.237, lng: -121.8278 };
+            locationDetails = { lat: 37.237, lng: -121.8278 }; // if location doesn't exist default
         }
 
 
@@ -84,6 +86,8 @@ const Post = () => {
 
 
     return (
+
+        // if isLoading return circular progress wheel
         isLoading ? (
             <div style={{
                 position: 'absolute', left: '50%', top: '50%',

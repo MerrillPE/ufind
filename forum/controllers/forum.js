@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import Post from '../models/post.js';
 
-
+// get all posts
 export const getPosts = async (req, res) => {
     try {
         const posts = await Post.find();
@@ -15,6 +15,7 @@ export const getPosts = async (req, res) => {
     }
 }
 
+// get individual post with ID
 export const getPost = async (req, res) => {
     const { id } = req.params;
 
@@ -27,10 +28,13 @@ export const getPost = async (req, res) => {
     }
 }
 
+// get local posts using query params
 export const getLocalPosts = async (req, res) => {
     const { lng, lat } = req.query;
 
     try {
+
+        // use geoNear to aggregate using pointSchema nested in postSchema
         const posts = await Post.aggregate(
             [{
                 $geoNear: {
@@ -52,12 +56,8 @@ export const getLocalPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
     const { title, description, location, username, userID, image } = req.body;
-    const coordinatesObject = JSON.parse(location).geometry.location;
-    const coordinates = { type: 'Point', coordinates: [Number(coordinatesObject.lng), Number(coordinatesObject.lat)] };
-
-
-    //console.log('Parsed location');
-    //console.log(coordinates);
+    const coordinatesObject = JSON.parse(location).geometry.location; // parse location into JSON object
+    const coordinates = { type: 'Point', coordinates: [Number(coordinatesObject.lng), Number(coordinatesObject.lat)] }; // take longitude and latitude from geocoded location
 
     const newPost = new Post({ title, description, location, coordinates, username, userID, image });
 
@@ -83,6 +83,7 @@ export const deletePost = async (req, res) => {
     res.json({ message: `Post ${id} deleted successfully` });
 }
 
+// add comment to post with given id
 export const commentPost = async (req, res) => {
     const { id } = req.params;
     const { value } = req.body;
