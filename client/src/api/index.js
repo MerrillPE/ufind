@@ -18,8 +18,8 @@ export const signUp = (formData) => authAPI.post('users/signup', formData);
 
 // Forum requests
 export const createPost = (formData) => forumAPI.post('forum/', formData);
-export const fetchPosts = () => forumAPI.get('forum/');
-export const fetchLocalPosts = (coordinates) => forumAPI.get(`forum/locale?lng=${coordinates.lng}&lat=${coordinates.lat}`);
+export const fetchPosts = (start, limit) => forumAPI.get(`forum?start=${start}&limit=${limit}`);
+export const fetchLocalPosts = (coordinates, start, limit) => forumAPI.get(`forum/locale?lng=${coordinates.lng}&lat=${coordinates.lat}&start=${start}&limit=${limit}`);
 export const fetchPost = (id) => forumAPI.get(`forum/post/${id}`);
 export const deletePost = (id) => forumAPI.delete(`forum/post/${id}`);
 export const comment = (value, id) => forumAPI.patch(`/forum/post/${id}/commentPost`, { value });

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 import Post from '../models/post.js';
 
+/*
 // get all posts
 export const getPosts = async (req, res) => {
     try {
@@ -10,6 +11,24 @@ export const getPosts = async (req, res) => {
         console.log(posts);
 
         res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+*/
+
+// get all posts
+export const getPosts = async (req, res) => {
+    try {
+        const start = req.query.start || 0;
+        const limit = req.query.limit || 10;
+
+        const postsNum = await Post.countDocuments({});
+        const posts = await Post.find().skip(start).limit(limit);
+
+        console.log(posts);
+
+        res.status(200).json({ data: posts, numberOfPosts: postsNum });
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
@@ -28,6 +47,8 @@ export const getPost = async (req, res) => {
     }
 }
 
+
+/*
 // get local posts using query params
 export const getLocalPosts = async (req, res) => {
     const { lng, lat } = req.query;
@@ -49,6 +70,52 @@ export const getLocalPosts = async (req, res) => {
         )
 
         res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+*/
+
+// get local posts using query params
+export const getLocalPosts = async (req, res) => {
+    try {
+        const { lng, lat, start, limit } = req.query;
+        // use geoNear to aggregate using pointSchema nested in postSchema
+
+        const count = await Post.aggregate(
+            [{
+                $geoNear: {
+                    near: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+                    key: "coordinates",
+                    distanceField: "dist.calculated",
+                    maxDistance: 100000, // Checking within 100km of queried coordinates
+                    includeLocs: "dist.location",
+                    spherical: true
+                },
+            },
+            { $count: "count" },
+            ]
+        );
+
+        const numberOfPosts = count[0].count;
+
+        const posts = await Post.aggregate(
+            [{
+                $geoNear: {
+                    near: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+                    key: "coordinates",
+                    distanceField: "dist.calculated",
+                    maxDistance: 100000, // Checking within 100km of queried coordinates
+                    includeLocs: "dist.location",
+                    spherical: true
+                },
+            },
+            { $skip: Number(start) },
+            { $limit: Number(limit) },
+            ]
+        );
+
+        res.status(200).json({ data: posts, numberOfPosts: numberOfPosts });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
