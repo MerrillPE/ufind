@@ -95,7 +95,7 @@ const Navbar = () => {
 
           {user && (
             <Avatar sx={{ bgcolor: deepOrange[300] }}>{avatarLetter}</Avatar>
-          )}
+          )} 
 
         </Toolbar>
       </AppBar>

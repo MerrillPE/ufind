@@ -46,7 +46,6 @@ const Profile = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap

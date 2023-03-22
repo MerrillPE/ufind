@@ -74,10 +74,10 @@ export const getLocalPosts = async (req, res) => {
 */
 
 export const getMyPosts = async (req, res) => {
-    const { userName } = req.params;
+    const { username } = req.params;
 
     try {
-        const post = await Post.find( { 'userName' : userName } );
+        const posts = await Post.find( { 'username' : username } );
         console.log( "Fectch by username");
 
         res.status(200).json(posts);
