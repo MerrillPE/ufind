@@ -10,7 +10,7 @@ import forumRouter from './routes/forum.js';
 const app = express();
 dotenv.config();
 
-
+// higher limit for image files
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());

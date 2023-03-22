@@ -1,8 +1,9 @@
 import * as api from '../api/index';
-import { FETCH_POST, FETCH_ALL, FETCH_MY_POSTS, CREATE, DELETE, COMMENT, FETCH_LOCAL } from '../constants/actionTypes';
+import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING } from '../constants/actionTypes';
 
 export const createPost = (post) => async (dispatch) => {
     try {
+        // Make api request
         const { data } = await api.createPost(post)
 
         // Send to reducer
@@ -12,25 +13,31 @@ export const createPost = (post) => async (dispatch) => {
     }
 }
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (start, limit) => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts();
-
-        // Checking data flow
-        //data.map((post) => console.log(post))
+        if (start === 0) {
+            dispatch({ type: START_LOADING })
+        }
+        const { data } = await api.fetchPosts(start, limit);
 
         dispatch({ type: FETCH_ALL, payload: data });
+
+        dispatch({ type: END_LOADING })
     } catch (error) {
         console.log(error);
     }
 }
 
-export const getLocalPosts = (coordinatesStr) => async (dispatch) => {
+export const getLocalPosts = (coordinatesStr, start, limit) => async (dispatch) => {
     try {
+        if (start === 0) {
+            dispatch({ type: START_LOADING })
+        }
         const coordinates = JSON.parse(coordinatesStr);
-        const { data } = await api.fetchLocalPosts(coordinates);
+        const { data } = await api.fetchLocalPosts(coordinates, start, limit);
 
         dispatch({ type: FETCH_LOCAL, payload: data })
+        dispatch({ type: END_LOADING })
     } catch (error) {
         console.log(error);
     }
@@ -38,9 +45,11 @@ export const getLocalPosts = (coordinatesStr) => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
     try {
+        dispatch({ type: START_LOADING })
         const { data } = await api.fetchPost(id);
 
         dispatch({ type: FETCH_POST, payload: data })
+        dispatch({ type: END_LOADING })
     } catch (error) {
         console.log(error);
     }

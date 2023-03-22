@@ -17,11 +17,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))); // Get user data from browser's local storage
 
-
+  // Initialize letter used for avatar
   let avatarLetter;
 
+  // field name will be different depending on whether google login or auth login
   if (user?.username) {
     //console.log(user?.username.charAt(0));
     avatarLetter = user?.username.charAt(0);
@@ -41,6 +42,7 @@ const Navbar = () => {
     if (token) {
       const decoded = decode(token);
 
+      // logout when token expires
       if (decoded.exp * 1000 < new Date().getTime()) {
         logout();
       }

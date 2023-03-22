@@ -22,14 +22,14 @@ const PostForm = () => {
     const libraries = ['places']
 
     const user = JSON.parse(localStorage.getItem('profile'));
-    //console.log("User: " + user?.username);
 
+    // initialize google maps api for autocomplete
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,
         libraries,
     });
 
-
+    // useRef is used to get autocompleted location field
     const locationRef = useRef();
 
     const handleSubmit = async (e) => {
@@ -43,10 +43,6 @@ const PostForm = () => {
             updatedForm = { ...formData, username: user.name, userID: user.sub };
         }
 
-        //console.log("Before Geocode:")
-        //onsole.log(updatedForm);
-
-
         // convert input address to geocode location for google maps
         const geocoder = new window.google.maps.Geocoder();
         const geocode = await geocoder.geocode({
@@ -59,17 +55,17 @@ const PostForm = () => {
 
         const submitData = { ...updatedForm, location: JSON.stringify(geocode) };
 
-
         dispatch(createPost(submitData));
         navigate('/');
     };
 
-
+    // update form data as user types
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    if (!isLoaded) return (<div>Loading</div>);
+    if (!isLoaded) return (<div>Loading</div>); // avoids error if page loads before map api is loaded
+
     return (
         <Container maxWidth='xs'>
             <CssBaseline />

@@ -1,18 +1,15 @@
 import React from 'react';
-//import { useDispatch } from 'react-redux';
 import { Card, CardMedia, Typography, ButtonBase, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 // Card view of post for preview
 const PostCard = ({ post }) => {
     const navigate = useNavigate();
-    //const dispatch = useDispatch();
-    //console.log("PostCard: " + post.image);
 
+    // redirect when clicking on postcard
     const openPost = (e) => {
         navigate(`/post/${post._id}`);
     }
-
 
     return (
         <Card raised sx={{ height: 1 }} elevation={4}>

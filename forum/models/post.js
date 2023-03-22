@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Point schema is nested document holding coordinates
 const pointSchema = new mongoose.Schema({
     type: {
         type: String,
@@ -12,17 +13,16 @@ const pointSchema = new mongoose.Schema({
     }
 });
 
-
 const postSchema = mongoose.Schema({
     title: String,
     description: String,
     location: String,
     coordinates: {
         type: pointSchema,
-        index: '2dsphere'
+        index: '2dsphere' // 2dsphere facilitates geonear aggregation
     },
     username: String,
-    userID: String,
+    userID: String, // tracks user that creates post
     image: String,
     createdAt: {
         type: Date,
@@ -33,18 +33,6 @@ const postSchema = mongoose.Schema({
         default: []
     },
 });
-
-/*
-$geoNear: {
-  near: { type: "Point", coordinates: [-121.8277925, 37.28566319999999] },
-  key: "coordinates",
-  distanceField: "dist.calculated",
-  minDistance: 100000,
-  includeLocs: "dist.location",
-  spherical: true
-}
-*/
-
 
 const Post = mongoose.model('Post', postSchema);
 

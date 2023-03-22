@@ -1,20 +1,25 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING } from '../constants/actionTypes';
 
 
 
-const forumReducer = (state = { posts: [] }, action) => {
+const forumReducer = (state = { posts: [], isLoading: false }, action) => {
     switch (action.type) {
-        case CREATE:
-            return { ...state, posts: [...state.posts, action.payload] };
-        case FETCH_ALL:
-            // Checking data flow
-            //action.payload.map((post) => console.log(post))
+        // START and END determines loading circle on page
+        case START_LOADING:
+            return { ...state, isLoading: true };
+        case END_LOADING:
+            return { ...state, isLoading: false };
+        case 'CLEAR_POSTS':
+            return { ...state, posts: [], }
 
-            return { ...state, posts: action.payload };
+        case CREATE:
+            return { ...state, posts: [...state.posts, action.payload] }; // add post to end of posts in redux store
+        case FETCH_ALL:
+            return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts }; // store posts in redux store
         case FETCH_LOCAL:
-            return { ...state, posts: action.payload };
+            return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts }; // replace posts in redux store with local ones
         case FETCH_POST:
-            return { ...state, post: action.payload };
+            return { ...state, post: action.payload }; // store current post in redux store
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
         case COMMENT:

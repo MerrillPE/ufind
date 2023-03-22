@@ -1,5 +1,5 @@
 import React, { useEffect, } from "react";
-import { Paper, Typography, CardMedia, Divider, Grid, IconButton } from '@mui/material';
+import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { pink } from '@mui/material/colors';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import CommentSection from "./CommentSection";
 
 // Individual post page
 const Post = () => {
-    const post = useSelector((state) => state.forumReducer.post);
+    const { post, isLoading } = useSelector((state) => state.forumReducer);
     const user = JSON.parse(localStorage.getItem('profile'));
     let userID = '';
 
@@ -22,17 +22,17 @@ const Post = () => {
     console.log(post);
 
 
-    const { id } = useParams();
+    const { id } = useParams(); // use id param from url
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY;
 
-
+    // Send dispatch when id changes
     useEffect(() => {
         dispatch(getPost(id));
     }, [id, dispatch]);
 
-
+    // Initialize google maps api
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: mapAPI,
         //libraries: ['places'],
@@ -44,6 +44,7 @@ const Post = () => {
         navigate('/');
     }
 
+    // if user is logged in get id
     if (user) {
         if (user?._id) {
             userID = user._id;
@@ -52,12 +53,13 @@ const Post = () => {
         }
     }
 
-
+    // if post doesn't exist
     if (!post) {
         return null;
     }
 
 
+    // Google map component
     const Map = () => {
 
         if (!isLoaded) return (<div>Loading</div>);
@@ -68,7 +70,7 @@ const Post = () => {
             locationDetails = JSON.parse(post.location).geometry.location;
 
         } catch (error) {
-            locationDetails = { lat: 37.237, lng: -121.8278 };
+            locationDetails = { lat: 37.237, lng: -121.8278 }; // if location doesn't exist default
         }
 
 
@@ -85,29 +87,39 @@ const Post = () => {
 
     return (
 
-        <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
-            <Grid container>
-                <Grid item>
-                    <Typography variant="h3">{post.title}</Typography>
-                </Grid>
-                <Grid item style={{ flexGrow: 1 }}></Grid>
-                {userID === post.userID &&
+        // if isLoading return circular progress wheel
+        isLoading ? (
+            <div style={{
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)'
+            }}>
+                <CircularProgress />
+            </div>
+        ) : (
+            <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
+                <Grid container>
                     <Grid item>
-                        <IconButton onClick={removePost}>
-                            <DeleteIcon sx={{ color: pink[500] }} />
-                        </IconButton>
+                        <Typography variant="h3">{post.title}</Typography>
                     </Grid>
-                }
-            </Grid>
-            <CardMedia component='img' src={`${post.image}`} title={post.title} />
-            <Typography>Posted by: {post.username}</Typography>
-            <Typography>{moment(post.createdAt).fromNow()}</Typography>
-            <Typography>{post.description}</Typography>
-            <Map />
-            <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
-            <CommentSection post={post} />
+                    <Grid item style={{ flexGrow: 1 }}></Grid>
+                    {userID === post.userID &&
+                        <Grid item>
+                            <IconButton onClick={removePost}>
+                                <DeleteIcon sx={{ color: pink[500] }} />
+                            </IconButton>
+                        </Grid>
+                    }
+                </Grid>
+                <CardMedia component='img' src={`${post.image}`} title={post.title} />
+                <Typography>Posted by: {post.username}</Typography>
+                <Typography>{moment(post.createdAt).fromNow()}</Typography>
+                <Typography>{post.description}</Typography>
+                <Map />
+                <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
+                <CommentSection post={post} />
 
-        </Paper>
+            </Paper>
+        )
 
 
     )
