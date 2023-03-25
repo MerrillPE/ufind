@@ -1,15 +1,18 @@
 import React, { useState, useEffect, } from "react";
-import { useDispatch } from 'react-redux';
-import { Container, Grow, Grid, } from "@mui/material";
+import { useDispatch, useSelector } from 'react-redux';
+import { Container, Grow, Grid, CircularProgress, Box} from "@mui/material";
 //import {auth} from '../forum/middleware/auth.js';
 import { getMyPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
+import PostCard from '../Posts/PostCard';
 
 const MyPosts = (req) => {
     const dispatch = useDispatch();
     // const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const user = JSON.parse(localStorage.getItem('profile'));
     // use user name for post search 
+    const { posts, isLoading } = useSelector((state) => state.forumReducer);
+
     
     console.log("JUser: " + user?.username);
     //const auth = require("../middleware/auth");
@@ -25,6 +28,7 @@ const MyPosts = (req) => {
     }, [dispatch]);
 
     return (
+      /*
         <Grow in>
             <Container>
                 <Grid container spacing={3}>
@@ -37,6 +41,27 @@ const MyPosts = (req) => {
 
 
         //<Typography>TEST HOME</Typography>
+        */
+        
+        isLoading ? (
+          <Box style={{
+              display: 'flex', flexDirection: 'column',
+              position: 'absolute', left: '50%', top: '50%',
+              transform: 'translate(-50%, -50%)'
+          }}>
+              <CircularProgress />
+          </Box>
+        ) : (
+          <Grid container spacing={2} alignItems='stretch'>
+            <Grid key='1024' item>
+            </Grid>
+              {posts.map((post) => (
+                  <Grid key={post._id} item >
+                      <PostCard post={post} />
+                  </Grid>
+              ))}
+          </Grid>
+      )
     );
 }
 
