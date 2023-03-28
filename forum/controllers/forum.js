@@ -10,7 +10,7 @@ export const getPosts = async (req, res) => {
         const limit = req.query.limit || 10;
 
         const postsNum = await Post.countDocuments({});
-        const posts = await Post.find().skip(start).limit(limit);
+        const posts = await Post.find().sort({ createdAt: 'desc' }).skip(start).limit(limit);
 
         console.log(posts);
 
