@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Grow, Grid, TextField, Typography, Paper, Button, CircularProgress, } from "@mui/material";
+import { Container, Grid, TextField, Typography, Paper, Button, } from "@mui/material";
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
-//import InfiniteScroll from 'react-infinite-scroller';
 
 import { getPosts, getLocalPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';

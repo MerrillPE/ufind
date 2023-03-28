@@ -1,12 +1,14 @@
 import { FETCH_CHATS, FETCH_CHAT, SEND_MESSAGE, START_LOADING, END_LOADING } from "../constants/actionTypes";
 
 
-const chatReducer = (state = { conversations: [], isLoading: false }, action) => {
+const chatReducer = (state = { conversations: [], chat: [], isLoading: false }, action) => {
     switch (action.type) {
+
         case START_LOADING:
             return { ...state, isLoading: true };
         case END_LOADING:
             return { ...state, isLoading: false };
+
 
         case FETCH_CHATS:
             return { ...state, conversations: action.payload };

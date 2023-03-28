@@ -48,11 +48,13 @@ const Conversations = () => {
         ) : (
             <Container maxWidth='xl' sx={{ mt: 3 }}>
                 <Grid container spacing={2} alignItems='stretch'>
-                    {conversations.map((chat) => (
-                        <Grid key={chat.conversationID} item xs={12}>
-                            <ConvoCard chat={chat} userID={userID} />
-                        </Grid>
-                    ))}
+                    {conversations
+                        .sort((a, b) => new Date(b.message.timestamp) - new Date(a.message.timestamp))
+                        .map((chat) => (
+                            <Grid key={chat.conversationID} item xs={12}>
+                                <ConvoCard chat={chat} userID={userID} />
+                            </Grid>
+                        ))}
                 </Grid>
             </Container >
         )

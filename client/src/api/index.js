@@ -13,6 +13,14 @@ forumAPI.interceptors.request.use((req) => {
     return req;
 });
 
+chatAPI.interceptors.request.use((req) => {
+    if (localStorage.getItem('profile')) {
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    }
+
+    return req;
+});
+
 // Auth requests
 export const signIn = (formData) => authAPI.post('users/signin', formData);
 export const signUp = (formData) => authAPI.post('users/signup', formData);

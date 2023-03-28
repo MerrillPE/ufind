@@ -2,20 +2,6 @@ import mongoose from "mongoose";
 
 import Post from '../models/post.js';
 
-/*
-// get all posts
-export const getPosts = async (req, res) => {
-    try {
-        const posts = await Post.find();
-
-        console.log(posts);
-
-        res.status(200).json(posts);
-    } catch (error) {
-        res.status(404).json({ message: error.message })
-    }
-}
-*/
 
 // get all posts
 export const getPosts = async (req, res) => {
@@ -46,35 +32,6 @@ export const getPost = async (req, res) => {
         res.status(404).json({ message: error.message })
     }
 }
-
-
-/*
-// get local posts using query params
-export const getLocalPosts = async (req, res) => {
-    const { lng, lat } = req.query;
-
-    try {
-
-        // use geoNear to aggregate using pointSchema nested in postSchema
-        const posts = await Post.aggregate(
-            [{
-                $geoNear: {
-                    near: { type: "Point", coordinates: [Number(lng), Number(lat)] },
-                    key: "coordinates",
-                    distanceField: "dist.calculated",
-                    maxDistance: 100000, // Checking within 100km of queried coordinates
-                    includeLocs: "dist.location",
-                    spherical: true
-                }
-            }]
-        )
-
-        res.status(200).json(posts);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-*/
 
 // get local posts using query params
 export const getLocalPosts = async (req, res) => {

@@ -16,7 +16,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))); // Get user data from browser's local storage
-  //const [openPopover, setOpenPopover] = useState(false);
 
   const [anchorElement, setAnchorElement] = useState(null);
   const openPopover = Boolean(anchorElement);

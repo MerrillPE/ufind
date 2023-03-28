@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Typography, ButtonBase, Grid } from "@mui/material";
+import { Card, Typography, ButtonBase, } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 const ConvoCard = ({ chat, userID }) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Box, CircularProgress, } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { getChat, sendMessage } from '../../actions/chat';
 import ChatInput from "./ChatInput";
