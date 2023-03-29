@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, } from "react";
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Grow, Grid, TextField, Typography, Paper, Button, } from "@mui/material";
+import { Container, Grid, TextField, Typography, Paper, Button, } from "@mui/material";
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
-
 
 import { getPosts, getLocalPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
@@ -19,6 +19,11 @@ const Home = () => {
     const locationRef = useRef();
     const navigate = useNavigate();
     const query = useQuery();
+    const [start, setStart] = useState(0);
+    const limit = 4;
+    const [hasMore, setHasMore] = useState(true);
+    const { posts, numberOfPosts, isLoading } = useSelector((state) => state.forumReducer);
+
 
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
     const libraries = ['places']
@@ -29,24 +34,51 @@ const Home = () => {
         libraries,
     });
 
-    console.log("Before use effect"); // Instrumentation
+    console.log("Location: " + location.pathname); // Instrumentation
 
+    // Move start point ahead triggering useEffect for next dispatch
+    const fetchMoreData = () => {
+        setStart(start + 4);
+    }
+
+    // Clear posts and reset states when location changes
     useEffect(() => {
-        // dispatch get request at page load
+        //console.log('location change!')
+        dispatch({ type: 'CLEAR_POSTS' })
+        setStart(0);
+        setHasMore(true);
+    }, [location]);
 
+    // useEffect that handles dispatches
+    useEffect(() => {
+        //console.log("Check has more: " + String(hasMore))
         // If query params exist use get local posts
         // Else get all posts
-        if (query.get('lng')) {
-            const lng = query.get('lng');
-            const lat = query.get('lat');
 
-            const coordinates = `{"lat":${lat},"lng":${lng}}`
+        if (hasMore & !isLoading) {
+            if (query.get('lng')) {
+                const lng = query.get('lng');
+                const lat = query.get('lat');
 
-            dispatch(getLocalPosts(coordinates));
-        } else {
-            dispatch(getPosts());
+                const coordinates = `{"lat":${lat},"lng":${lng}}`
+
+                dispatch(getLocalPosts(coordinates, start, limit));
+            } else {
+                dispatch(getPosts(start, limit));
+            }
         }
-    }, [location]); // Rerun when location (url) changes
+
+        // Check if more posts exist after each dispatch
+        if (posts) {
+            console.log("Number of Posts:" + numberOfPosts)
+            if (posts?.length + limit >= numberOfPosts) {
+                setHasMore(false);
+            } else {
+                setHasMore(true)
+            }
+        }
+    }, [start, hasMore, location]); // Trigger when start, hasMore, or location changes
+
 
     // handle submit for location filtering
     const handleSubmit = async (e) => {
@@ -65,6 +97,7 @@ const Home = () => {
         console.log(coordinates);
 
         const coordinateQuery = JSON.parse(coordinates);
+        setStart(0);
         navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}`);
 
     }
@@ -73,39 +106,50 @@ const Home = () => {
     if (!isLoaded) return (<div></div>);
     return (
         // Home page calls Posts component
-        <Grow in>
-            <Container maxWidth='lg' sx={{ mt: 3 }}>
-                <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
-                    <Grid item xs={12} sm={7}>
-                        <Posts />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper elevation={6}>
-                            <Typography variant="h6" component="h2" sx={{ ml: 2 }}>Show Posts Near You</Typography>
-                            <Autocomplete>
-                                <TextField
-                                    margin='normal'
-                                    id='location'
-                                    label='Location'
-                                    name='location'
-                                    autoComplete='location'
-                                    sx={{ m: 2 }}
-                                    inputRef={locationRef}
-                                />
-                            </Autocomplete>
-                            <Button
-                                type='submit'
-                                onClick={handleSubmit}
-                                variant='contained'
-                                sx={{ ml: 3, mr: 2, mb: 2 }}
-                            >
-                                Submit
-                            </Button>
-                        </Paper>
-                    </Grid>
+        //<Grow in>
+        <Container maxWidth='xl' sx={{ mt: 3 }}>
+            <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
+
+                <Grid item xs={12} sm={7}>
+                    <Posts />
                 </Grid>
-            </Container>
-        </Grow>
+
+
+                <Grid item xs={12} sm={6} md={3}>
+                    <Paper elevation={6}>
+                        <Typography variant="h6" component="h2" sx={{ ml: 2 }}>Show Posts Near You</Typography>
+                        <Autocomplete>
+                            <TextField
+                                margin='normal'
+                                id='location'
+                                label='Location'
+                                name='location'
+                                autoComplete='location'
+                                sx={{ m: 2 }}
+                                inputRef={locationRef}
+                            />
+                        </Autocomplete>
+                        <Button
+                            type='submit'
+                            onClick={handleSubmit}
+                            variant='contained'
+                            sx={{ ml: 3, mr: 2, mb: 2 }}
+                        >
+                            Submit
+                        </Button>
+                    </Paper>
+                </Grid>
+            </Grid>
+            {hasMore & !isLoading ? <Button
+                onClick={fetchMoreData}
+                variant='outlined'
+                sx={{ mt: 2 }}
+            >
+                Load More <ExpandMoreOutlinedIcon />
+            </Button> :
+                <div></div>}
+        </Container>
+        //</Grow>
     );
 }
 

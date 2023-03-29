@@ -1,6 +1,7 @@
 import React, { useEffect, } from "react";
 import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import MailIcon from '@mui/icons-material/Mail';
 import { pink } from '@mui/material/colors';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
@@ -42,6 +43,10 @@ const Post = () => {
         //console.log(post._id);
         dispatch(deletePost(post._id));
         navigate('/');
+    }
+
+    const openChat = (e) => {
+        navigate(`/chat/${post.userID}/${post.username}`);
     }
 
     // if user is logged in get id
@@ -102,12 +107,20 @@ const Post = () => {
                         <Typography variant="h3">{post.title}</Typography>
                     </Grid>
                     <Grid item style={{ flexGrow: 1 }}></Grid>
-                    {userID === post.userID &&
+                    {userID === post.userID ? (
                         <Grid item>
-                            <IconButton onClick={removePost}>
+                            <IconButton onClick={removePost} title="Delete your post">
                                 <DeleteIcon sx={{ color: pink[500] }} />
                             </IconButton>
                         </Grid>
+                    ) : (userID && (
+                        <Grid item>
+                            <IconButton onClick={openChat} title="Message Poster">
+                                <MailIcon color="primary" />
+                            </IconButton>
+                        </Grid>
+                    )
+                    )
                     }
                 </Grid>
                 <CardMedia component='img' src={`${post.image}`} title={post.title} />

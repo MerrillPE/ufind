@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardMedia, Typography, ButtonBase, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment-timezone';
 
 // Card view of post for preview
 const PostCard = ({ post }) => {
@@ -10,6 +11,9 @@ const PostCard = ({ post }) => {
     const openPost = (e) => {
         navigate(`/post/${post._id}`);
     }
+
+
+    console.log("Time: " + post.createdAt);
 
     return (
         <Card raised sx={{ height: 1 }} elevation={4}>
@@ -21,6 +25,7 @@ const PostCard = ({ post }) => {
             <Grid container>
                 <Grid item>
                     <Typography variant='h4'>{post.title}</Typography>
+                    <Typography variant='body1'>{moment(post.createdAt).tz("UTC").fromNow()}</Typography>
                 </Grid>
                 <Grid item style={{ flexGrow: 1 }}></Grid>
             </Grid>

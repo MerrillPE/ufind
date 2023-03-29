@@ -13,23 +13,28 @@ export const createPost = (post) => async (dispatch) => {
     }
 }
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (start, limit) => async (dispatch) => {
     try {
-        dispatch({ type: START_LOADING })
-        const { data } = await api.fetchPosts();
+        if (start === 0) {
+            dispatch({ type: START_LOADING })
+        }
+        const { data } = await api.fetchPosts(start, limit);
 
         dispatch({ type: FETCH_ALL, payload: data });
+
         dispatch({ type: END_LOADING })
     } catch (error) {
         console.log(error);
     }
 }
 
-export const getLocalPosts = (coordinatesStr) => async (dispatch) => {
+export const getLocalPosts = (coordinatesStr, start, limit) => async (dispatch) => {
     try {
-        dispatch({ type: START_LOADING })
+        if (start === 0) {
+            dispatch({ type: START_LOADING })
+        }
         const coordinates = JSON.parse(coordinatesStr);
-        const { data } = await api.fetchLocalPosts(coordinates);
+        const { data } = await api.fetchLocalPosts(coordinates, start, limit);
 
         dispatch({ type: FETCH_LOCAL, payload: data })
         dispatch({ type: END_LOADING })

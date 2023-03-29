@@ -9,6 +9,8 @@ import SignUp from './components/Auth/SignUp';
 import PostForm from './components/Form/Form';
 import Post from './components/Posts/Post/Post';
 import Navbar from './components/Navbar/Navbar';
+import Conversations from './components/Chat/Conversations';
+import Chat from './components/Chat/Chat';
 
 const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
@@ -21,12 +23,15 @@ const App = () => {
         <Container maxWidth='lg'>
           <Navbar />
           <Routes>
-            <Route path='/' exact element={<Home />} />
+            <Route path='/' exact element={<Navigate to='/posts' />} />
+            <Route path='/posts' exact element={<Home />} />
             <Route path='/search' exact element={<Home />} />
             <Route path='/post/:id' exact element={<Post />} />
             <Route path='/signin' exact element={<SignIn />} />
             <Route path='/signup' exact element={<SignUp />} />
             <Route path='/createPost' exact element={<PostForm />} />
+            <Route path='/chat' exact element={<Conversations />} />
+            <Route path='/chat/:id/:name' exact element={<Chat />} />
           </Routes>
         </Container>
       </BrowserRouter>

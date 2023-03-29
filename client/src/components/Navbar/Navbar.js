@@ -1,6 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppBar, Button, Toolbar, Typography, Box, Avatar, } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListItemText, ListItemButton } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -10,14 +10,17 @@ import { LOGOUT } from '../../constants/actionTypes';
 import decode from 'jwt-decode';
 
 
-
-// TODO: make profile avatar a link to profile page
 const Navbar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))); // Get user data from browser's local storage
+
+  const [anchorElement, setAnchorElement] = useState(null);
+  const openPopover = Boolean(anchorElement);
+  const popoverID = openPopover ? 'avatar-popover' : undefined;
+
 
   // Initialize letter used for avatar
   let avatarLetter;
@@ -34,6 +37,7 @@ const Navbar = () => {
     dispatch({ type: LOGOUT });
     navigate('/');
     setUser(null);
+    setAnchorElement(null);
   }
 
   useEffect(() => {
@@ -50,6 +54,14 @@ const Navbar = () => {
 
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
+
+  const handleAvatarClick = (e) => {
+    setAnchorElement(e.currentTarget);
+  };
+
+  const handleAvatarClose = () => {
+    setAnchorElement(null);
+  };
 
 
   return (
@@ -90,8 +102,35 @@ const Navbar = () => {
           )}
 
           {user && (
-            <Avatar sx={{ bgcolor: deepOrange[300] }}>{avatarLetter}</Avatar>
+            <Avatar sx={{ bgcolor: deepOrange[300] }} onClick={handleAvatarClick}>{avatarLetter}</Avatar>
           )}
+
+          <Popover
+            id={popoverID}
+            open={openPopover}
+            anchorEl={anchorElement}
+            onClose={handleAvatarClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <List>
+              <ListItemButton component={Link} to="/myPosts">
+                <ListItemText primary="My Posts" />
+              </ListItemButton>
+              <ListItemButton component={Link} to="/savedPosts">
+                <ListItemText primary="Saved Posts" />
+              </ListItemButton>
+              <ListItemButton component={Link} to="/chat">
+                <ListItemText primary="Messages" />
+              </ListItemButton>
+            </List>
+          </Popover>
 
 
         </Toolbar>
