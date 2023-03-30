@@ -20,6 +20,23 @@ export const getPosts = async (req, res) => {
     }
 }
 
+export const getPostsByCategory = async (req, res) => {
+    try {
+        const start = req.query.start || 0;
+        const limit = req.query.limit || 10;
+        const category = req.query.category;
+
+        const postsNum = await Post.countDocuments({ category: category });
+        const posts = await Post.find({ category: category }).sort({ createdAt: -1, _id: -1 }).skip(start).limit(limit);
+
+        console.log(posts);
+
+        res.status(200).json({ data: posts, numberOfPosts: postsNum });
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
 // get individual post with ID
 export const getPost = async (req, res) => {
     const { id } = req.params;
@@ -36,7 +53,10 @@ export const getPost = async (req, res) => {
 // get local posts using query params
 export const getLocalPosts = async (req, res) => {
     try {
-        const { lng, lat, start, limit } = req.query;
+        const { lng, lat } = req.query;
+        const start = req.query.start || 0;
+        const limit = req.query.limit || 10;
+
         // use geoNear to aggregate using pointSchema nested in postSchema
 
         const count = await Post.aggregate(
@@ -78,12 +98,62 @@ export const getLocalPosts = async (req, res) => {
     }
 }
 
+export const getLocalPostsByCategory = async (req, res) => {
+    try {
+        const { lng, lat, start, limit, category } = req.query;
+
+        const count = await Post.aggregate(
+            [{
+                $geoNear: {
+                    near: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+                    key: "coordinates",
+                    distanceField: "dist.calculated",
+                    maxDistance: 100000,
+                    includeLocs: "dist.location",
+                    spherical: true
+                },
+            },
+            {
+                $match: { category: category }
+            },
+            { $count: "count" },
+            ]
+        );
+
+        const numberOfPosts = count[0].count;
+
+        const posts = await Post.aggregate(
+            [{
+                $geoNear: {
+                    near: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+                    key: "coordinates",
+                    distanceField: "dist.calculated",
+                    maxDistance: 100000,
+                    includeLocs: "dist.location",
+                    spherical: true
+                },
+            },
+            {
+                $match: { category: category }
+            },
+            { $skip: Number(start) },
+            { $limit: Number(limit) },
+            ]
+        );
+
+        res.status(200).json({ data: posts, numberOfPosts: numberOfPosts });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+
 export const createPost = async (req, res) => {
-    const { title, description, location, username, userID, image } = req.body;
+    const { title, description, location, username, userID, image, category } = req.body;
     const coordinatesObject = JSON.parse(location).geometry.location; // parse location into JSON object
     const coordinates = { type: 'Point', coordinates: [Number(coordinatesObject.lng), Number(coordinatesObject.lat)] }; // take longitude and latitude from geocoded location
 
-    const newPost = new Post({ title, description, location, coordinates, username, userID, image });
+    const newPost = new Post({ title, description, location, coordinates, username, userID, image, category });
 
     try {
         await newPost.save();
@@ -160,3 +230,23 @@ export const getSavedPosts = async (req, res) => {
     console.log(savedPosts);
     res.status(200).json(savedPosts);
 }
+
+
+
+
+/*
+export const setCategory = async (req, res) => {
+    const { postId, categoryStr } = req.body;
+    try {
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        post.category = categoryStr;
+        await post.save();
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+*/

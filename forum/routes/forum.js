@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPosts, getPost, createPost, deletePost, commentPost, getLocalPosts, savePost, getSavedPosts } from '../controllers/forum.js';
+import { getPosts, getPost, createPost, deletePost, commentPost, getLocalPosts, savePost, getSavedPosts, getPostsByCategory, getLocalPostsByCategory, } from '../controllers/forum.js';
 import auth from '../middleware/auth.js';
 
 
@@ -9,6 +9,10 @@ const forumRouter = express.Router();
 forumRouter.get('/', getPosts);
 forumRouter.get('/post/:id', getPost);
 forumRouter.get('/locale', getLocalPosts);
+forumRouter.get('/posts', getPostsByCategory);
+forumRouter.get('/posts/locale', getLocalPostsByCategory);
+
+//forumRouter.patch('/post/setCat', setCategory);
 
 // routes that require authentication
 forumRouter.post('/', auth, createPost);

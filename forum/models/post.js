@@ -24,6 +24,10 @@ const postSchema = mongoose.Schema({
     username: String,
     userID: String, // tracks user that creates post
     image: String,
+    category: {
+        type: String,
+        enum: ['Pets', 'Electronics', 'Bikes/Scooters', 'Jewelry', 'Clothing', 'Wallets/Purses/Bags', 'Miscellaneous']
+    },
     createdAt: {
         type: Date,
         default: new Date()
