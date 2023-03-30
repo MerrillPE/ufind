@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
@@ -115,12 +115,14 @@ const PostForm = () => {
                         //onChange={handleChange}
                         />
                     </Autocomplete>
-                    <Select name='category' onChange={handleChange} label="Category">
-                        <MenuItem value="">Select a Category</MenuItem>
-                        {categories.map((category) => (
-                            <MenuItem key={category} value={category}>{category}</MenuItem>
-                        ))}
-                    </Select>
+                    <FormControl variant="outlined" fullWidth>
+                        <InputLabel id="category-label">Category</InputLabel>
+                        <Select value={formData.category} name='category' label="Category" labelId="category-label" onChange={handleChange} required fullWidth>
+                            {categories.map((category) => (
+                                <MenuItem key={category} value={category}>{category}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <div>
                         <FileBase
                             type="file"
@@ -140,7 +142,7 @@ const PostForm = () => {
                     )}
                 </Box>
             </Box>
-        </Container>
+        </Container >
     );
 }
 
