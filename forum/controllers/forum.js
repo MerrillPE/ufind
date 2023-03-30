@@ -10,7 +10,7 @@ export const getPosts = async (req, res) => {
         const limit = req.query.limit || 10;
 
         const postsNum = await Post.countDocuments({});
-        const posts = await Post.find().sort({ createdAt: 'desc' }).skip(start).limit(limit);
+        const posts = await Post.find().skip(start).limit(limit);
 
         console.log(posts);
 
@@ -118,4 +118,45 @@ export const commentPost = async (req, res) => {
     const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
 
     res.json(updatedPost);
+}
+
+// Handle user saving post
+export const savePost = async (req, res) => {
+
+    const { id } = req.params;
+    const { userID } = req.body;
+
+    console.log("Save post backend: " + id);
+
+    const post = await Post.findById(id);
+    console.log("Found post: " + post);
+
+    // Initialize userSaves as empty array if it doesn't exist
+    post.userSaves = post?.userSaves || [];
+
+    const index = post.userSaves.indexOf(userID);
+
+    if (index === -1) {
+        // Append userID to array if not already in it
+        post.userSaves.push(userID);
+    } else {
+        // Remove userID if already in array
+        post.userSaves.splice(index, 1);
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
+
+    console.log(updatedPost)
+
+    res.json(updatedPost);
+}
+
+// Get saved posts for user
+export const getSavedPosts = async (req, res) => {
+    const { userID } = req.params;
+
+    const savedPosts = await Post.find({ userSaves: userID });
+
+    console.log(savedPosts);
+    res.status(200).json(savedPosts);
 }

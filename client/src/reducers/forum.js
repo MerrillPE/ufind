@@ -1,8 +1,8 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING, CLEAR_POSTS } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING, CLEAR_POSTS, FETCH_SAVED } from '../constants/actionTypes';
 
 
 
-const forumReducer = (state = { posts: [], isLoading: false }, action) => {
+const forumReducer = (state = { posts: [], savedPosts: [], isLoading: false }, action) => {
     switch (action.type) {
         // START and END determines loading circle on page
         case START_LOADING:
@@ -31,6 +31,8 @@ const forumReducer = (state = { posts: [], isLoading: false }, action) => {
                     return post;
                 })
             };
+        case FETCH_SAVED:
+            return { ...state, savedPosts: action.payload };
         default:
             return state;
     }

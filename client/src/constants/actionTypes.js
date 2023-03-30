@@ -9,6 +9,7 @@ export const FETCH_LOCAL = 'FETCH_LOCAL';
 export const DELETE = 'DELETE';
 export const COMMENT = 'COMMENT';
 export const CLEAR_POSTS = 'CLEAR_POSTS';
+export const FETCH_SAVED = 'FETCH_SAVED';
 
 export const FETCH_CHAT = 'FETCH_CHAT';
 export const FETCH_CHATS = 'FETCH_CHATS';

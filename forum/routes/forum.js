@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPosts, getPost, createPost, deletePost, commentPost, getLocalPosts } from '../controllers/forum.js';
+import { getPosts, getPost, createPost, deletePost, commentPost, getLocalPosts, savePost, getSavedPosts } from '../controllers/forum.js';
 import auth from '../middleware/auth.js';
 
 
@@ -14,5 +14,7 @@ forumRouter.get('/locale', getLocalPosts);
 forumRouter.post('/', auth, createPost);
 forumRouter.delete('/post/:id', auth, deletePost);
 forumRouter.patch('/post/:id/commentPost', auth, commentPost);
+forumRouter.patch('/post/:id/savePost', auth, savePost);
+forumRouter.get('/post/savedPosts/:userID', auth, getSavedPosts);
 
 export default forumRouter;

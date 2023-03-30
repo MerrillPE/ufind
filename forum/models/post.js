@@ -32,6 +32,10 @@ const postSchema = mongoose.Schema({
         type: [String],
         default: []
     },
+    userSaves: {
+        type: [String],
+        default: []
+    }
 });
 
 const Post = mongoose.model('Post', postSchema);

@@ -32,6 +32,8 @@ export const fetchLocalPosts = (coordinates, start, limit) => forumAPI.get(`foru
 export const fetchPost = (id) => forumAPI.get(`forum/post/${id}`);
 export const deletePost = (id) => forumAPI.delete(`forum/post/${id}`);
 export const comment = (value, id) => forumAPI.patch(`/forum/post/${id}/commentPost`, { value });
+export const savePost = (id, userID) => forumAPI.patch(`/forum/post/${id}/savePost`, { userID });
+export const fetchSavedPosts = (userID) => forumAPI.get(`/forum/post/savedPosts/${userID}`);
 
 // Chat requests
 export const fetchChats = (userID) => chatAPI.get(`/chat?user=${userID}`);

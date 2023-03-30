@@ -11,6 +11,7 @@ import Post from './components/Posts/Post/Post';
 import Navbar from './components/Navbar/Navbar';
 import Conversations from './components/Chat/Conversations';
 import Chat from './components/Chat/Chat';
+import SavedPosts from './components/Posts/User/SavedPosts.js';
 
 const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
@@ -32,6 +33,7 @@ const App = () => {
             <Route path='/createPost' exact element={<PostForm />} />
             <Route path='/chat' exact element={<Conversations />} />
             <Route path='/chat/:id/:name' exact element={<Chat />} />
+            <Route path='/savedPosts/' exact element={<SavedPosts />} />
           </Routes>
         </Container>
       </BrowserRouter>
