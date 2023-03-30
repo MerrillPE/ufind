@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Container, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { createPost } from '../../actions/forum';
 
 
-const initialForm = { title: '', description: '', location: '', username: '', userID: '', image: '' };
+const initialForm = { title: '', description: '', location: '', username: '', userID: '', image: '', category: '' };
+const categories = ['Pets', 'Electronics', 'Bikes/Scooters', 'Jewelry', 'Clothing', 'Wallets/Purses/Bags', 'Miscellaneous'];
 
 // TODO: Validate file extension is either jpg or png
 const PostForm = () => {
@@ -55,8 +56,7 @@ const PostForm = () => {
 
         const submitData = { ...updatedForm, location: JSON.stringify(geocode) };
 
-        dispatch(createPost(submitData));
-        navigate('/');
+        dispatch(createPost(submitData)).then(() => navigate('/'));
     };
 
     // update form data as user types
@@ -115,6 +115,12 @@ const PostForm = () => {
                         //onChange={handleChange}
                         />
                     </Autocomplete>
+                    <Select name='category' onChange={handleChange} label="Category">
+                        <MenuItem value="">Select a Category</MenuItem>
+                        {categories.map((category) => (
+                            <MenuItem key={category} value={category}>{category}</MenuItem>
+                        ))}
+                    </Select>
                     <div>
                         <FileBase
                             type="file"
