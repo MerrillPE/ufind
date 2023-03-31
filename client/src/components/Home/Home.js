@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Grid, TextField, Typography, Paper, Button, } from "@mui/material";
+import { Container, Grid, TextField, Typography, Paper, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Divider } from "@mui/material";
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 
-import { getPosts, getLocalPosts } from '../../actions/forum';
+import { getPosts, getLocalPosts, getCategoryPosts, getLocalCategoryPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
 
 // useQuery to access parameters in URL 
@@ -23,6 +23,7 @@ const Home = () => {
     const limit = 4;
     const [hasMore, setHasMore] = useState(true);
     const { posts, numberOfPosts, isLoading } = useSelector((state) => state.forumReducer);
+    const [category, setCategory] = useState();
 
 
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
@@ -34,7 +35,7 @@ const Home = () => {
         libraries,
     });
 
-    console.log("Location: " + location.pathname); // Instrumentation
+    //console.log("Location: " + location.pathname);
 
     // Move start point ahead triggering useEffect for next dispatch
     const fetchMoreData = () => {
@@ -47,7 +48,11 @@ const Home = () => {
         dispatch({ type: 'CLEAR_POSTS' })
         setStart(0);
         setHasMore(true);
-    }, [location]);
+        if (query.get('category')) {
+            setCategory(query.get('category'))
+        };
+
+    }, [location, category]);
 
     // useEffect that handles dispatches
     useEffect(() => {
@@ -56,13 +61,34 @@ const Home = () => {
         // Else get all posts
 
         if (hasMore & !isLoading) {
-            if (query.get('lng')) {
-                const lng = query.get('lng');
-                const lat = query.get('lat');
+
+            const lng = query.has('lng') ? query.get('lng') : null;
+            const lat = query.has('lat') ? query.get('lat') : null;
+            const catQuery = query.has('category') ? query.get('category') : null;
+
+            if (lng && catQuery) {
+                //const lng = query.get('lng');
+                //const lat = query.get('lat');
+                //const catQuery = query.get('category');
+
+                const coordinates = `{"lat":${lat},"lng":${lng}}`
+
+                console.log("Category and Location");
+
+                dispatch(getLocalCategoryPosts(coordinates, catQuery, start, limit));
+
+
+            } else if (lng) {
+                //const lng = query.get('lng');
+                //const lat = query.get('lat');
 
                 const coordinates = `{"lat":${lat},"lng":${lng}}`
 
                 dispatch(getLocalPosts(coordinates, start, limit));
+            } else if (catQuery) {
+                const catQuery = query.get('category');
+
+                dispatch(getCategoryPosts(catQuery, start, limit));
             } else {
                 dispatch(getPosts(start, limit));
             }
@@ -77,7 +103,7 @@ const Home = () => {
                 setHasMore(true)
             }
         }
-    }, [start, hasMore, location]); // Trigger when start, hasMore, or location changes
+    }, [start, hasMore, location, category]); // Trigger when start, hasMore, or location changes
 
 
     // handle submit for location filtering
@@ -98,8 +124,29 @@ const Home = () => {
 
         const coordinateQuery = JSON.parse(coordinates);
         setStart(0);
-        navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}`);
 
+        if (query.get('category')) {
+            const catQuery = query.get('category');
+            navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}&category=${catQuery}`);
+        } else {
+            navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}`);
+        }
+
+    }
+
+    const handleCategory = async (e) => {
+        e.preventDefault();
+
+        setCategory(e.target.value);
+        setStart(0);
+
+        if (query.get('lng')) {
+            const lng = query.get('lng');
+            const lat = query.get('lat');
+            navigate(`/search?lng=${lng}&lat=${lat}&category=${e.target.value}`);
+        } else {
+            navigate(`/search?category=${e.target.value}`);
+        }
     }
 
 
@@ -137,6 +184,24 @@ const Home = () => {
                         >
                             Submit
                         </Button>
+                        <Divider sx={{ mt: 2, mb: 2 }} role='presentation'></Divider>
+                        <FormControl component="fieldset" sx={{ m: 2 }}>
+                            <FormLabel component="legend">Category</FormLabel>
+                            <RadioGroup
+                                aria-label="category"
+                                name="category"
+                                value={category}
+                                onChange={(e) => handleCategory(e)}
+                            >
+                                <FormControlLabel value="Pets" control={<Radio />} label="Pets" />
+                                <FormControlLabel value="Electronics" control={<Radio />} label="Electronics" />
+                                <FormControlLabel value="Bikes and Scooters" control={<Radio />} label="Bikes/Scooters" />
+                                <FormControlLabel value="Jewelry" control={<Radio />} label="Jewelry" />
+                                <FormControlLabel value="Clothing" control={<Radio />} label="Clothing" />
+                                <FormControlLabel value="Wallets, Purses, and Bags" control={<Radio />} label="Wallets/Purses/Bags" />
+                                <FormControlLabel value="Miscellaneous" control={<Radio />} label="Miscellaneous" />
+                            </RadioGroup>
+                        </FormControl>
                     </Paper>
                 </Grid>
             </Grid>

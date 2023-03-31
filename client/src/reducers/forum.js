@@ -1,4 +1,4 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING, CLEAR_POSTS, FETCH_SAVED } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING, CLEAR_POSTS, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY } from '../constants/actionTypes';
 
 
 
@@ -18,6 +18,10 @@ const forumReducer = (state = { posts: [], savedPosts: [], isLoading: false }, a
             return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts }; // store posts in redux store
         case FETCH_LOCAL:
             return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts }; // replace posts in redux store with local ones
+        case FETCH_CATEGORY:
+            return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts };
+        case FETCH_LOCAL_CATEGORY:
+            return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts };
         case FETCH_POST:
             return { ...state, post: action.payload }; // store current post in redux store
         case DELETE:

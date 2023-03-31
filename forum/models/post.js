@@ -26,7 +26,7 @@ const postSchema = mongoose.Schema({
     image: String,
     category: {
         type: String,
-        enum: ['Pets', 'Electronics', 'Bikes/Scooters', 'Jewelry', 'Clothing', 'Wallets/Purses/Bags', 'Miscellaneous']
+        enum: ['Pets', 'Electronics', 'Bikes and Scooters', 'Jewelry', 'Clothing', 'Wallets, Purses, and Bags', 'Miscellaneous']
     },
     createdAt: {
         type: Date,

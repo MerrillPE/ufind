@@ -1,5 +1,5 @@
 import * as api from '../api/index';
-import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING, FETCH_SAVED } from '../constants/actionTypes';
+import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY } from '../constants/actionTypes';
 
 export const createPost = (post) => async (dispatch) => {
     try {
@@ -28,6 +28,21 @@ export const getPosts = (start, limit) => async (dispatch) => {
     }
 }
 
+export const getCategoryPosts = (category, start, limit) => async (dispatch) => {
+    try {
+        if (start === 0) {
+            dispatch({ type: START_LOADING });
+        }
+        const { data } = await api.fetchCategoryPosts(category, start, limit);
+
+        dispatch({ type: FETCH_CATEGORY, payload: data });
+
+        dispatch({ type: END_LOADING });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getLocalPosts = (coordinatesStr, start, limit) => async (dispatch) => {
     try {
         if (start === 0) {
@@ -37,6 +52,21 @@ export const getLocalPosts = (coordinatesStr, start, limit) => async (dispatch) 
         const { data } = await api.fetchLocalPosts(coordinates, start, limit);
 
         dispatch({ type: FETCH_LOCAL, payload: data });
+        dispatch({ type: END_LOADING });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getLocalCategoryPosts = (coordinatesStr, category, start, limit) => async (dispatch) => {
+    try {
+        if (start === 0) {
+            dispatch({ type: START_LOADING });
+        }
+        const coordinates = JSON.parse(coordinatesStr);
+        const { data } = await api.fetchLocalCategoryPosts(coordinates, category, start, limit);
+
+        dispatch({ type: FETCH_LOCAL_CATEGORY, payload: data });
         dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);
