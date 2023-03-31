@@ -74,7 +74,11 @@ export const getLocalPosts = async (req, res) => {
             ]
         );
 
-        const numberOfPosts = count[0].count;
+        let numberOfPosts = 0;
+
+        if (count.length > 0) {
+            numberOfPosts = count[0].count;
+        }
 
         const posts = await Post.aggregate(
             [{
@@ -120,7 +124,11 @@ export const getLocalPostsByCategory = async (req, res) => {
             ]
         );
 
-        const numberOfPosts = count[0].count;
+        let numberOfPosts = 0;
+
+        if (count.length > 0) {
+            numberOfPosts = count[0].count;
+        }
 
         const posts = await Post.aggregate(
             [{
