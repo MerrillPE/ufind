@@ -114,8 +114,8 @@ const Post = () => {
         }
 
 
-        console.log("Location Details: ");
-        console.log(locationDetails);
+        //console.log("Location Details: ");
+        //console.log(locationDetails);
 
         return (
             <GoogleMap zoom={10} center={locationDetails} mapContainerStyle={{ width: '400px', height: '400px' }}>

@@ -49,7 +49,7 @@ const Home = () => {
         setStart(0);
         setHasMore(true);
         if (query.get('category')) {
-            setCategory(query.get('category'))
+            setCategory(query.get('category'));
         };
 
     }, [location, category]);
@@ -100,7 +100,7 @@ const Home = () => {
             if (posts?.length + limit >= numberOfPosts) {
                 setHasMore(false);
             } else {
-                setHasMore(true)
+                setHasMore(true);
             }
         }
     }, [start, hasMore, location, category]); // Trigger when start, hasMore, or location changes

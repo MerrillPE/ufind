@@ -23,6 +23,7 @@ const SavedPosts = () => {
         }
     }, [user, userID, dispatch]);
 
+    // Debug
     useEffect(() => {
         console.log("Saved posts: " + savedPosts);
     }, [savedPosts]);
