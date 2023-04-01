@@ -1,5 +1,5 @@
 import * as api from '../api/index';
-import { FETCH_POST, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY } from '../constants/actionTypes';
+import { FETCH_POST, FETCH_MY_POSTS, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY } from '../constants/actionTypes';
 
 export const createPost = (post) => async (dispatch) => {
     try {
@@ -84,6 +84,30 @@ export const getPost = (id) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const getMyPosts = (userName) => async (dispatch) => {
+    try {
+        const { data } = await api.fetchMyPosts(userName);
+
+        dispatch({ type: FETCH_MY_POSTS, payload: data })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+/*
+export const commentPost = async (req, res) => {
+    const { id } = req.params;
+    const { value } = req.body;
+
+    const post = await Post.findById(id);
+    post.comments.push(value);
+
+    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
+
+    res.json(updatedPost);
+}
+*/
 
 export const deletePost = (id) => async (dispatch) => {
     try {

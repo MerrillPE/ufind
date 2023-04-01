@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { CircularProgress, Grid, Box } from '@mui/material';
 
-import PostCard from './PostCard';
+import PostCard from '../Posts/PostCard';
 
 const Posts = () => {
     // Get posts from redux state after dispatch in Home component

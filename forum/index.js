@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+//changes routes to router
 import forumRouter from './routes/forum.js';
 
 const app = express();

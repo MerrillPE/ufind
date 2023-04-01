@@ -50,6 +50,19 @@ export const getPost = async (req, res) => {
     }
 }
 
+export const getMyPosts = async (req, res) => {
+    const { username } = req.params;
+
+    try {
+        const posts = await Post.find({ 'username': username });
+        console.log("Fectch by username");
+
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
 // get local posts using query params
 export const getLocalPosts = async (req, res) => {
     try {
