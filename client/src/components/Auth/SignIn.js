@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button, Alert } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ const initialForm = { username: '', password: '' };
 const SignIn = () => {
 
     const [formData, setFormData] = useState(initialForm);
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -20,13 +21,29 @@ const SignIn = () => {
 
         console.log(formData);
 
-        dispatch(signin(formData)).then(() => navigate('/'));
+        try {
+            const status = await dispatch(signin(formData));
+            //console.log("status:" + status);
+
+            // If signin was successful, navigate to home page
+            if (status === 200) {
+                navigate('/');
+            } else {
+                setError("Invalid Credentials");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     // Update form data as user types
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+    // Check if required fields are empty
+    const isEmpty = formData.username === '' || formData.password === '';
 
     // Handle google sign in
     const googleSuccess = async (res) => {
@@ -83,15 +100,13 @@ const SignIn = () => {
                         onChange={handleChange}
                         autoComplete='current-password'
                     />
-                    <FormControlLabel
-                        control={<Checkbox value='remember' color='primary' />}
-                        label='Remember Me'
-                    />
+                    {error && <Alert severity="error">{error}</Alert>}
                     <Button
                         type='submit'
                         fullWidth
                         variant='contained'
                         sx={{ mt: 3, mb: 2 }}
+                        disabled={isEmpty}
                     >
                         Sign In
                     </Button>
