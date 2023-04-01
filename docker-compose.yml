@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  auth:
+#    image: auth:latest
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    env_file:
+      - ./auth/.env
+    ports:
+      - '5001:5001'
+#    networks:
+#      - app-network
+
+  chat:
+#    image: chat:latest
+    build:
+      context: ./chat
+      dockerfile: Dockerfile
+    env_file:
+      - ./chat/.env
+    ports:
+      - '5003:5003'
+#    networks:
+#      - app-network
+
+  forum:
+#    image: forum:latest
+    build:
+      context: ./forum
+      dockerfile: Dockerfile
+    env_file:
+      - ./forum/.env
+    ports:
+      - '5002:5002'
+#    networks:
+#      - app-network
+
+  client:
+    # image: client:latest
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./client/.env
+#    depends_on:
+#      - auth
+#      - chat
+#      - forum
+#    networks:
+#      - app-network
+
+#networks:
+#  app-network:
+#    driver: bridge

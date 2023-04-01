@@ -1,0 +1,29 @@
+# Use an official Node.js runtime as a parent image
+FROM node:18.13.0
+
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install app dependencies using npm
+RUN npm install
+
+# Copy the rest of the app source code to the container
+COPY . .
+
+# Set the environment variable
+#ENV PORT=3000
+#ENV REACT_APP_OAUTH=1040116133990-4mfe5j4sl187kltqlvctjcug6h6p8act.apps.googleusercontent.com
+#ENV REACT_APP_MAPS_API_KEY=AIzaSyDphMRdpau4CCva753XUart88-RH8z2ceM
+
+#ARG PORT
+ARG REACT_APP_OAUTH
+ARG REACT_APP_MAPS_API_KEY
+
+# Expose port 3000 to the outside world
+EXPOSE 3000
+
+# Start the app
+CMD ["npm", "start"]
