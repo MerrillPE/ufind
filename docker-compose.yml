@@ -10,8 +10,8 @@ services:
       - ./auth/.env
     ports:
       - '5001:5001'
-#    networks:
-#      - app-network
+    networks:
+      - auth-network
 
   chat:
 #    image: chat:latest
@@ -22,8 +22,8 @@ services:
       - ./chat/.env
     ports:
       - '5003:5003'
-#    networks:
-#      - app-network
+    networks:
+      - chat-network
 
   forum:
 #    image: forum:latest
@@ -34,8 +34,8 @@ services:
       - ./forum/.env
     ports:
       - '5002:5002'
-#    networks:
-#      - app-network
+    networks:
+      - forum-network
 
   client:
     # image: client:latest
@@ -50,9 +50,11 @@ services:
 #      - auth
 #      - chat
 #      - forum
-#    networks:
-#      - app-network
+    networks:
+      - client-network
 
-#networks:
-#  app-network:
-#    driver: bridge
+networks:
+  auth-network:
+  chat-network:
+  forum-network:
+  client-network:
