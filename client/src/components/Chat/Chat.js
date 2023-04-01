@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, CircularProgress, } from "@mui/material";
+import { Typography, Box, CircularProgress, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -56,29 +56,34 @@ const Chat = () => {
                 <CircularProgress />
             </Box>
         ) : (
-            <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
-                {chat && chat.map((message) => (
-                    <Box
-                        key={message._id}
-                        sx={{
-                            alignSelf: message.senderID === userID ? 'flex-end' : 'flex-start',
-                            maxWidth: '80%',
-                            borderRadius: '10px',
-                            bgcolor: message.senderID === userID ? 'primary.light' : 'secondary.light',
-                            p: '0.5rem',
-                        }}
-                    >
-                        <div>
-                            <Typography variant="body2">{message.senderName}</Typography>
-                        </div>
-                        <Typography variant="body1">{message.content}</Typography>
-                        <div>
-                            <Typography variant="caption">{new Date(message.timestamp).toLocaleString()}</Typography>
-                        </div>
-                    </Box>
-                ))}
-                <ChatInput onSend={handleSend} />
-            </Box>
+            <Container maxWidth='xl' sx={{ mt: 3 }}>
+                <Typography variant="h5" component="h2" fontWeight="bold" marginBottom={3}>
+                    {partnerName}
+                </Typography>
+                <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
+                    {chat && chat.map((message) => (
+                        <Box
+                            key={message._id}
+                            sx={{
+                                alignSelf: message.senderID === userID ? 'flex-end' : 'flex-start',
+                                maxWidth: '80%',
+                                borderRadius: '10px',
+                                bgcolor: message.senderID === userID ? 'primary.light' : 'secondary.light',
+                                p: '0.5rem',
+                            }}
+                        >
+                            <div>
+                                <Typography variant="body2">{message.senderName}</Typography>
+                            </div>
+                            <Typography variant="body1">{message.content}</Typography>
+                            <div>
+                                <Typography variant="caption">{new Date(message.timestamp).toLocaleString()}</Typography>
+                            </div>
+                        </Box>
+                    ))}
+                    <ChatInput onSend={handleSend} />
+                </Box>
+            </Container>
         )
 
     )

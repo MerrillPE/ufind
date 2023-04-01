@@ -46,6 +46,9 @@ const SavedPosts = () => {
             </Box>
         ) : (
             <Container maxWidth='xl' sx={{ mt: 3 }}>
+                <Typography variant="h4" component="h2" fontWeight="bold" marginBottom={3}>
+                    Saved Posts
+                </Typography>
                 <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
                     <Grid item xs={12} sm={7}>
                         <Grid container spacing={2} alignItems='stretch'>

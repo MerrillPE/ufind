@@ -50,12 +50,13 @@ export const getPost = async (req, res) => {
     }
 }
 
-export const getMyPosts = async (req, res) => {
-    const { username } = req.params;
+// get all posts created by user
+export const getUserPosts = async (req, res) => {
+    const { userID } = req.params;
 
     try {
-        const posts = await Post.find({ 'username': username });
-        console.log("Fectch by username");
+        const posts = await Post.find({ 'userID': userID });
+        console.log("Fectch by userID " + userID);
 
         res.status(200).json(posts);
     } catch (error) {

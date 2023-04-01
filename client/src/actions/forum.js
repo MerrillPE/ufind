@@ -1,5 +1,5 @@
 import * as api from '../api/index';
-import { FETCH_POST, FETCH_MY_POSTS, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY } from '../constants/actionTypes';
+import { FETCH_POST, FETCH_USER_POSTS, FETCH_ALL, CREATE, DELETE, COMMENT, FETCH_LOCAL, START_LOADING, END_LOADING, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY } from '../constants/actionTypes';
 
 export const createPost = (post) => async (dispatch) => {
     try {
@@ -85,29 +85,18 @@ export const getPost = (id) => async (dispatch) => {
     }
 }
 
-export const getMyPosts = (userName) => async (dispatch) => {
+export const getUserPosts = (userID) => async (dispatch) => {
     try {
-        const { data } = await api.fetchMyPosts(userName);
+        dispatch({ type: START_LOADING });
 
-        dispatch({ type: FETCH_MY_POSTS, payload: data })
+        const { data } = await api.fetchUserPosts(userID);
+
+        dispatch({ type: FETCH_USER_POSTS, payload: data })
+        dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);
     }
 }
-
-/*
-export const commentPost = async (req, res) => {
-    const { id } = req.params;
-    const { value } = req.body;
-
-    const post = await Post.findById(id);
-    post.comments.push(value);
-
-    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
-
-    res.json(updatedPost);
-}
-*/
 
 export const deletePost = (id) => async (dispatch) => {
     try {
