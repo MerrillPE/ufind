@@ -18,7 +18,7 @@ services:
       - forum-network
 
   auth:
-    image: merrillpe/ufind-auth:latest
+    image: merrillpe/ufind-auth-64:latest
     #build:
       #context: ./auth
       #dockerfile: Dockerfile
@@ -36,7 +36,7 @@ services:
 
 
   chat:
-    image: merrillpe/ufind-chat:latest
+    image: merrillpe/ufind-chat-64:latest
     #build:
       #context: ./chat
       #dockerfile: Dockerfile
@@ -54,7 +54,7 @@ services:
 
 
   forum:
-    image: merrillpe/ufind-forum:latest
+    image: merrillpe/ufind-forum-64:latest
     #build:
       #context: ./forum
       #dockerfile: Dockerfile
@@ -72,7 +72,7 @@ services:
 
 
   client:
-    image: merrillpe/ufind-client:latest
+    image: merrillpe/ufind-client-64:latest
     #build:
       #context: ./client
       #dockerfile: Dockerfile
