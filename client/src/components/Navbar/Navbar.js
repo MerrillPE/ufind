@@ -1,10 +1,9 @@
 import React, { useState, useEffect, } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListItemText, ListItemButton } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListItemText, ListItemButton, IconButton, SvgIcon } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import images from '../../images/logo.png'
 
 import { LOGOUT } from '../../constants/actionTypes';
 import decode from 'jwt-decode';
@@ -67,9 +66,8 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: 'lightblue' }}>
+      <AppBar position="static" style={{ background: '#62b54a' }}>
         <Toolbar>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -86,7 +84,7 @@ const Navbar = () => {
               flexGrow: 1,
             }}
           >
-            UFind
+            <img src={images} width="80px"/>
           </Typography>
 
 

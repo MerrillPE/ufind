@@ -118,7 +118,7 @@ const Post = () => {
         //console.log(locationDetails);
 
         return (
-            <GoogleMap zoom={10} center={locationDetails} mapContainerStyle={{ width: '400px', height: '400px' }}>
+            <GoogleMap zoom={10} center={locationDetails} mapContainerStyle={{ width: '300px', height: '300px' }}>
                 <Marker position={locationDetails} />
             </GoogleMap>
         )
@@ -138,7 +138,6 @@ const Post = () => {
         ) : (
             <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
                 <Grid container>
-
 
                     <Grid container item spacing={1} justifyContent="flex-end">
                         {userID === post.userID ? (
@@ -171,19 +170,23 @@ const Post = () => {
                         ))}
                     </Grid>
                     <Grid item>
-                        <Typography variant="h3">{post.title}</Typography>
+                        <Typography variant="h4">{post.title}</Typography>
                     </Grid>
                 </Grid>
 
-
-                <CardMedia component='img' src={`${post.image}`} title={post.title} />
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <CardMedia component='img' src={`${post.image}`} title={post.title} style={{ width: '350px', height: '350px' }} />
+                    <div style={{ flex: 1, marginLeft: '20px'}}>
+                        Description:
+                        <Typography >{post.description}</Typography>
+                    </div>  
+                    <Map />
+                </div> 
                 <Typography>Posted by: {post.username}</Typography>
                 <Typography>{moment(post.createdAt).fromNow()}</Typography>
-                <Typography>{post.description}</Typography>
-                <Map />
                 <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
-                <CommentSection post={post} />
-
+                <CommentSection post={post}/>
+                
             </Paper>
         )
 

@@ -157,12 +157,9 @@ const Home = () => {
         <Container maxWidth='xl' sx={{ mt: 3 }}>
             <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
 
-                <Grid item xs={12} sm={7}>
-                    <Posts />
-                </Grid>
+                
 
-
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid item xs={4} sm={1} md={3}>
                     <Paper elevation={6}>
                         <Typography variant="h6" component="h2" sx={{ ml: 2 }}>Show Posts Near You</Typography>
                         <Autocomplete>
@@ -204,15 +201,20 @@ const Home = () => {
                         </FormControl>
                     </Paper>
                 </Grid>
-            </Grid>
-            {hasMore & !isLoading ? <Button
-                onClick={fetchMoreData}
-                variant='outlined'
-                sx={{ mt: 2 }}
-            >
-                Load More <ExpandMoreOutlinedIcon />
-            </Button> :
+
+                <Grid item xs={8} sm={4} > 
+                    <Posts />
+                    {hasMore & !isLoading ? <Button
+                    onClick={fetchMoreData}
+                    variant='outlined'
+                    sx={{ mt: 2 }}>
+                    Load More <ExpandMoreOutlinedIcon />
+                    </Button> :
                 <div></div>}
+                </Grid>
+                
+            </Grid>
+            
         </Container>
         //</Grow>
     );
