@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button } from '@mui/material';
+import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button, Alert } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,14 +11,31 @@ const initialForm = { username: '', firstName: '', lastName: '', password: '', c
 const SignUp = () => {
 
     const [formData, setFormData] = useState(initialForm);
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //const data = new FormData(e.currentTarget);
         console.log(formData);
-        dispatch(signup(formData)).then(() => navigate('/'));
+        //dispatch(signup(formData)).then(() => navigate('/'));
+
+        try {
+            const response = await dispatch(signup(formData));
+            //console.log("status:" + response);
+
+            const { status } = response
+
+            // If signin was successful, navigate to home page
+            if (status === 200) {
+                navigate('/');
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
         //navigate('/');
     };
@@ -27,6 +44,9 @@ const SignUp = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+    // Check if required fields are empty
+    const isEmpty = formData.username === '' || formData.password === '' || formData.confirmPassword === '' || formData.firstName === '' || formData.lastName === '';
 
     return (
         <Container maxWidth='xs'>
@@ -96,11 +116,13 @@ const SignUp = () => {
                         autoComplete='confirm-password'
                         onChange={handleChange}
                     />
+                    {error && <Alert severity="error">{error}</Alert>}
                     <Button
                         type='submit'
                         fullWidth
                         variant='contained'
                         sx={{ mt: 3, mb: 2 }}
+                        disabled={isEmpty}
                     >
                         Sign Up
                     </Button>

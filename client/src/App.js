@@ -11,11 +11,14 @@ import Post from './components/Posts/Post/Post';
 import Navbar from './components/Navbar/Navbar';
 import Conversations from './components/Chat/Conversations';
 import Chat from './components/Chat/Chat';
+import SavedPosts from './components/Posts/User/SavedPosts.js';
+import MyPosts from './components/Profile/MyPosts';
 
 const OAUTH_ID = process.env.REACT_APP_OAUTH;
 
 const App = () => {
   //const user = JSON.parse(localStorage.getItem('profile'));
+
 
   return (
     <GoogleOAuthProvider clientId={OAUTH_ID} >
@@ -29,9 +32,13 @@ const App = () => {
             <Route path='/post/:id' exact element={<Post />} />
             <Route path='/signin' exact element={<SignIn />} />
             <Route path='/signup' exact element={<SignUp />} />
+
             <Route path='/createPost' exact element={<PostForm />} />
             <Route path='/chat' exact element={<Conversations />} />
             <Route path='/chat/:id/:name' exact element={<Chat />} />
+            <Route path='/savedPosts/' exact element={<SavedPosts />} />
+            <Route path='/myPosts' exact element={<MyPosts />} />
+
           </Routes>
         </Container>
       </BrowserRouter>
@@ -41,3 +48,14 @@ const App = () => {
 }
 
 export default App;
+
+/*
+import react from 'react';
+const App = () => {
+    return (
+        <div>
+            <h1>App</h1>
+        </div>
+    );
+}
+*/

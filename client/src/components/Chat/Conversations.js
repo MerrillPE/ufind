@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Box, CircularProgress } from '@mui/material';
+import { Container, Grid, Box, CircularProgress, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getConversations } from '../../actions/chat';
@@ -47,6 +47,9 @@ const Conversations = () => {
             </Box>
         ) : (
             <Container maxWidth='xl' sx={{ mt: 3 }}>
+                <Typography variant="h4" component="h2" fontWeight="bold" marginBottom={3}>
+                    Messages
+                </Typography>
                 <Grid container spacing={2} alignItems='stretch'>
                     {conversations
                         .sort((a, b) => new Date(b.message.timestamp) - new Date(a.message.timestamp))

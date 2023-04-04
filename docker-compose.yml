@@ -1,0 +1,94 @@
+version: '3'
+
+services:
+
+  auth_db:
+    build: ./db/auth_db
+    networks:
+      - auth-network
+
+  chat_db:
+    build: ./db/chat_db
+    networks:
+      - chat-network
+
+  forum_db:
+    build: ./db/forum_db
+    networks:
+      - forum-network
+
+  auth:
+    image: merrillpe/ufind-auth-64:latest
+    #build:
+      #context: ./auth
+      #dockerfile: Dockerfile
+    env_file:
+      - ./auth/.env
+    ports:
+      - '5001:5001'
+    networks:
+      - auth-network
+    environment:
+      MONGO_HOST: auth_db
+      MONGO_PORT: 27017
+    depends_on:
+      - auth_db
+
+
+  chat:
+    image: merrillpe/ufind-chat-64:latest
+    #build:
+      #context: ./chat
+      #dockerfile: Dockerfile
+    env_file:
+      - ./chat/.env
+    ports:
+      - '5003:5003'
+    networks:
+      - chat-network
+    environment:
+      MONGO_HOST: chat_db
+      MONGO_PORT: 27017
+    depends_on:
+      - chat_db
+
+
+  forum:
+    image: merrillpe/ufind-forum-64:latest
+    #build:
+      #context: ./forum
+      #dockerfile: Dockerfile
+    env_file:
+      - ./forum/.env
+    ports:
+      - '5002:5002'
+    networks:
+      - forum-network
+    environment:
+      MONGO_HOST: auth_db
+      MONGO_PORT: 27017
+    depends_on:
+      - forum_db
+
+
+  client:
+    image: merrillpe/ufind-client-64:latest
+    #build:
+      #context: ./client
+      #dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./client/.env
+#    depends_on:
+#      - auth
+#      - chat
+#      - forum
+    networks:
+      - client-network
+
+networks:
+  auth-network:
+  chat-network:
+  forum-network:
+  client-network:

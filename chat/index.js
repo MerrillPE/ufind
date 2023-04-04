@@ -18,5 +18,5 @@ const PORT = process.env.PORT;
 mongoose.set('strictQuery', true);
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, console.log(`Authentication server running on port: ${PORT}`)))
+    .then(() => app.listen(PORT, console.log(`Chat server running on port: ${PORT}`)))
     .catch((error) => console.log(error));

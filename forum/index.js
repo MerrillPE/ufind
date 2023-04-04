@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+//changes routes to router
 import forumRouter from './routes/forum.js';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use('/forum', forumRouter);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
+//const CONNECTION_URL = 'mongodb://forum_db:27017/forumdb';
 const PORT = process.env.PORT;
 
 mongoose.set('strictQuery', true);

@@ -17,7 +17,7 @@ const Navbar = () => {
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))); // Get user data from browser's local storage
 
-  const [anchorElement, setAnchorElement] = useState(null);
+  const [anchorElement, setAnchorElement] = useState(null); // sets anchor for popover menu
   const openPopover = Boolean(anchorElement);
   const popoverID = openPopover ? 'avatar-popover' : undefined;
 
@@ -40,6 +40,7 @@ const Navbar = () => {
     setAnchorElement(null);
   }
 
+  // logout user after an hour
   useEffect(() => {
     const token = user?.token;
 
@@ -94,6 +95,7 @@ const Navbar = () => {
           ) : (
             <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/signin" > Login </Button>
           )}
+
 
           {user ? (
             <Button position="static" sx={{ mr: 1 }} variant='contained' onClick={logout} > Logout </Button>

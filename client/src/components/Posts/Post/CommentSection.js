@@ -5,7 +5,7 @@ import { Typography, TextField, Button } from '@mui/material';
 import { commentPost } from '../../../actions/forum';
 
 const CommentSection = ({ post }) => {
-    console.log("Comment section loaded");
+    //console.log("Comment section loaded");
 
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));

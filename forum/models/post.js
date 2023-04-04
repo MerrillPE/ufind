@@ -24,14 +24,22 @@ const postSchema = mongoose.Schema({
     username: String,
     userID: String, // tracks user that creates post
     image: String,
+    category: {
+        type: String,
+        enum: ['Pets', 'Electronics', 'Bikes and Scooters', 'Jewelry', 'Clothing', 'Wallets, Purses, and Bags', 'Miscellaneous']
+    },
     createdAt: {
         type: Date,
-        default: new Date()
+        default: Date.now
     },
     comments: {
         type: [String],
         default: []
     },
+    userSaves: {
+        type: [String],
+        default: []
+    }
 });
 
 const Post = mongoose.model('Post', postSchema);

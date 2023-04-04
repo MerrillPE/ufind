@@ -1,8 +1,8 @@
-import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING, CLEAR_POSTS } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, DELETE, COMMENT, FETCH_LOCAL, END_LOADING, START_LOADING, CLEAR_POSTS, FETCH_SAVED, FETCH_CATEGORY, FETCH_LOCAL_CATEGORY, FETCH_USER_POSTS } from '../constants/actionTypes';
 
 
 
-const forumReducer = (state = { posts: [], isLoading: false }, action) => {
+const forumReducer = (state = { posts: [], savedPosts: [], userPosts: [], isLoading: false }, action) => {
     switch (action.type) {
         // START and END determines loading circle on page
         case START_LOADING:
@@ -18,8 +18,14 @@ const forumReducer = (state = { posts: [], isLoading: false }, action) => {
             return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts }; // store posts in redux store
         case FETCH_LOCAL:
             return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts }; // replace posts in redux store with local ones
+        case FETCH_CATEGORY:
+            return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts };
+        case FETCH_LOCAL_CATEGORY:
+            return { ...state, posts: [...state.posts, ...action.payload.data], numberOfPosts: action.payload.numberOfPosts };
         case FETCH_POST:
             return { ...state, post: action.payload }; // store current post in redux store
+        case FETCH_USER_POSTS:
+            return { ...state, userPosts: action.payload };
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
         case COMMENT:
@@ -31,6 +37,8 @@ const forumReducer = (state = { posts: [], isLoading: false }, action) => {
                     return post;
                 })
             };
+        case FETCH_SAVED:
+            return { ...state, savedPosts: action.payload };
         default:
             return state;
     }
