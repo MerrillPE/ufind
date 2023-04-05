@@ -16,18 +16,31 @@ const PostCard = ({ post }) => {
     //console.log("Time: " + post.createdAt);
 
     return (
-        <Card raised sx={{ height: 1 }} elevation={4}>
-            <ButtonBase component='span' onClick={openPost}>
-                <div>
-                    <CardMedia component='img' src={`${post.image}`} title={post.title} />
-                </div>
-            </ButtonBase>
-            <Grid container>
-                <Grid item>
-                    <Typography variant='h4'>{post.title}</Typography>
+        <Card raised sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Grid container direction="column" justifyContent="space-between" sx={{ height: '100%' }}>
+                <Grid item >
+                    <ButtonBase component='span' onClick={openPost}>
+                    <CardMedia 
+                    component='img' 
+                    src={`${post.image}`} 
+                    title={post.title} 
+                    style={{ aspectRatio: '13/9', objectFit: 'cover' }} />
+                    </ButtonBase>
+                </Grid>
+                <Grid item >
+                    <Typography variant="h5" sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.2rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            fontSize: `${30 - Math.min(post.title.length, 12)}px`,
+                            }} >{post.title}
+                    </Typography>
                     <Typography variant='body1'>{moment(post.createdAt).fromNow()}</Typography>
                 </Grid>
-                <Grid item style={{ flexGrow: 1 }}></Grid>
             </Grid>
         </Card>
     );

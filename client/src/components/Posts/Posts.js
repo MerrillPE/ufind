@@ -26,13 +26,17 @@ const Posts = () => {
                 <CircularProgress />
             </Box>
         ) : (
-            <Grid container spacing={2} alignItems='stretch'>
+            
+            <Grid container direction="row" alignItems='stretch' spacing={3}>
                 {posts.map((post) => (
-                    <Grid key={post._id} item >
-                        <PostCard post={post} />
+                    <Grid key={post._id} item xs={12} sm={6} md={4} >
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "3px"}}>
+                            <PostCard post={post} />
+                        </div>
                     </Grid>
                 ))}
             </Grid>
+            
         )
 
     )

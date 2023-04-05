@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListItemText, ListItemButton, IconButton, SvgIcon } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import images from '../../images/logo.png'
+import images from '../../images/logo.png';
 
 import { LOGOUT } from '../../constants/actionTypes';
 import decode from 'jwt-decode';
@@ -84,7 +84,7 @@ const Navbar = () => {
               flexGrow: 1,
             }}
           >
-            <img src={images} width="80px"/>
+            <img src={images} width="85px"/>
           </Typography>
 
 

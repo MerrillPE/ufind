@@ -11,6 +11,7 @@ import { useParams, useNavigate, } from 'react-router-dom';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 
 
+
 import { getPost, deletePost, userSavePost } from '../../../actions/forum';
 import CommentSection from "./CommentSection";
 
@@ -170,15 +171,22 @@ const Post = () => {
                         ))}
                     </Grid>
                     <Grid item>
-                        <Typography variant="h4">{post.title}</Typography>
+                        <Typography variant="h5" sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 800,
+                            letterSpacing: '.2rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            }}>{post.title}</Typography>
                     </Grid>
                 </Grid>
 
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <CardMedia component='img' src={`${post.image}`} title={post.title} style={{ width: '350px', height: '350px' }} />
-                    <div style={{ flex: 1, marginLeft: '20px'}}>
-                        Description:
-                        <Typography >{post.description}</Typography>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <CardMedia component='img' src={`${post.image}`} title={post.title} style={{ width: '300px', height: '300px' }} />
+                    <div style={{ flex: 1, margin: '20px'}}>
+                        <Typography sx={{fontSize:18}}>{post.description}</Typography>
                     </div>  
                     <Map />
                 </div> 

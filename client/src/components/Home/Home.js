@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Grid, TextField, Typography, Paper, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Divider } from "@mui/material";
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
+import images from '../../images/background.jpeg';
 
 import { getPosts, getLocalPosts, getCategoryPosts, getLocalCategoryPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
@@ -24,6 +25,7 @@ const Home = () => {
     const [hasMore, setHasMore] = useState(true);
     const { posts, numberOfPosts, isLoading } = useSelector((state) => state.forumReducer);
     const [category, setCategory] = useState();
+
 
 
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY
@@ -149,18 +151,22 @@ const Home = () => {
         }
     }
 
+    
+
 
     if (!isLoaded) return (<div></div>);
     return (
         // Home page calls Posts component
         //<Grow in>
-        <Container maxWidth='xl' sx={{ mt: 3 }}>
-            <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
-
-                
-
-                <Grid item xs={4} sm={1} md={3}>
-                    <Paper elevation={6}>
+        
+        
+        <Container 
+            maxWidth='xl' 
+            sx={{ mt: 3 }} 
+            style={{ background:"#fffce6",backgroundImage: `url(${images})`, backgroundRepeat:"no-repeat", backgroundSize:"cover"}}>
+            <Grid container direction="row" alignItems='stretch' spacing={3}>
+                <Grid item xs={12} sm={6} md={3} sx={{ display: { xs: 'none', sm: 'block' } }} >
+                    <Paper elevation={8} >
                         <Typography variant="h6" component="h2" sx={{ ml: 2 }}>Show Posts Near You</Typography>
                         <Autocomplete>
                             <TextField
@@ -202,20 +208,21 @@ const Home = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={8} sm={4} > 
+                <Grid item xs={12} sm={6} md={9}> 
                     <Posts />
-                    {hasMore & !isLoading ? <Button
+                </Grid>
+            
+            </Grid>
+                {hasMore & !isLoading ? 
+                <Button
                     onClick={fetchMoreData}
                     variant='outlined'
-                    sx={{ mt: 2 }}>
+                    sx={{ mt: 2 , float: 'right'}}>
                     Load More <ExpandMoreOutlinedIcon />
-                    </Button> :
+                </Button> :
                 <div></div>}
-                </Grid>
-                
-            </Grid>
-            
         </Container>
+        
         //</Grow>
     );
 }
