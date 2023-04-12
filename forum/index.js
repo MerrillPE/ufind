@@ -27,3 +27,4 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
     .then(() => app.listen(PORT, () => console.log(`Forum server running on port: ${PORT}`)))
     .catch(() => (error) => console.log(`${error} did not connect`));
 
+export default app;
