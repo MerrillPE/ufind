@@ -15,7 +15,6 @@ COPY . .
 
 # Set the environment variable
 #ENV PORT=5003
-#ENV CONNECTION_URL=mongodb+srv://merrillpe:pass1word@cluster0.bbbxbeh.mongodb.net/?retryWrites=true&w=majority
 
 ARG PORT
 ARG CONNECTION_URL

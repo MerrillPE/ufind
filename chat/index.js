@@ -20,3 +20,5 @@ mongoose.set('strictQuery', true);
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, console.log(`Chat server running on port: ${PORT}`)))
     .catch((error) => console.log(error));
+
+export default app;
