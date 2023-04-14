@@ -26,4 +26,3 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
     .then(() => app.listen(PORT, console.log(`Authentication server running on port: ${PORT}`)))
     .catch((error) => console.log(error));
 
-export default app;

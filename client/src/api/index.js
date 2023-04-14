@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const authAPI = axios.create({ baseURL: process.env.REACT_APP_AUTH_URL });
-const forumAPI = axios.create({ baseURL: process.env.REACT_APP_FORUM_URL });
-const chatAPI = axios.create({ baseURL: process.env.REACT_APP_CHAT_URL })
+const authAPI = axios.create({ baseURL: 'http://localhost:5001' });
+const forumAPI = axios.create({ baseURL: 'http://localhost:5002' });
+const chatAPI = axios.create({ baseURL: 'http://localhost:5003' })
 
 // Create header for auth middleware in forum backend
 forumAPI.interceptors.request.use((req) => {

@@ -14,16 +14,15 @@ RUN npm install
 COPY . .
 
 # Set the environment variable
-#ENV PORT=3000
-#ENV REACT_APP_OAUTH=1040116133990-4mfe5j4sl187kltqlvctjcug6h6p8act.apps.googleusercontent.com
-#ENV REACT_APP_MAPS_API_KEY=AIzaSyDphMRdpau4CCva753XUart88-RH8z2ceM
+#ENV PORT=5001
+#ENV CONNECTION_URL=mongodb+srv://merrillpe:pass1word@cluster0.bbbxbeh.mongodb.net/?retryWrites=true&w=majority
 
-#ARG PORT
-ARG REACT_APP_OAUTH
-ARG REACT_APP_MAPS_API_KEY
+ARG PORT
+ARG CONNECTION_URL
+#ARG REACT_APP_MAPS_API_KEY
 
 # Expose port 3000 to the outside world
-EXPOSE 3000
+EXPOSE 5001
 
 # Start the app
 CMD ["npm", "start"]
