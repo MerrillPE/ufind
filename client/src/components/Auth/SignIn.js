@@ -64,6 +64,10 @@ const SignIn = () => {
     };
 
     return (
+        <Box style={{
+            position: 'relative',
+            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
+        }}>
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -126,6 +130,7 @@ const SignIn = () => {
                 </Box>
             </Box>
         </Container>
+        </Box>
     );
 };
 

@@ -49,6 +49,10 @@ const SignUp = () => {
     const isEmpty = formData.username === '' || formData.password === '' || formData.confirmPassword === '' || formData.firstName === '' || formData.lastName === '';
 
     return (
+        <Box style={{
+            position: 'relative',
+            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
+        }}>
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -134,6 +138,7 @@ const SignUp = () => {
                 </Box>
             </Box>
         </Container>
+        </Box>
     );
 }
 

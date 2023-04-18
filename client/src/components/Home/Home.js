@@ -163,7 +163,7 @@ const Home = () => {
         <Container 
             maxWidth='xl' 
             sx={{ mt: 3 }} 
-            style={{ background:"#fffce6",backgroundImage: `url(${images})`, backgroundRepeat:"no-repeat", backgroundSize:"cover"}}>
+            style={{ background:"#f4dfb6"}}>
             <Grid container direction="row" alignItems='stretch' spacing={3}>
                 <Grid item xs={12} sm={6} md={3} sx={{ display: { xs: 'none', sm: 'block' } }} >
                     <Paper elevation={8} >

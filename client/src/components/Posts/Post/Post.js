@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress } from '@mui/material';
+import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MailIcon from '@mui/icons-material/Mail';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { useParams, useNavigate, } from 'react-router-dom';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-
 
 
 import { getPost, deletePost, userSavePost } from '../../../actions/forum';
@@ -129,7 +128,11 @@ const Post = () => {
     return (
 
         // if isLoading return circular progress wheel
-        isLoading ? (
+        <Box style={{
+            position: 'relative',
+            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
+        }}>
+        {isLoading ? (
             <div style={{
                 position: 'absolute', left: '50%', top: '50%',
                 transform: 'translate(-50%, -50%)'
@@ -137,7 +140,7 @@ const Post = () => {
                 <CircularProgress />
             </div>
         ) : (
-            <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
+            <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px', background:'#f9efe2' }}>
                 <Grid container>
 
                     <Grid container item spacing={1} justifyContent="flex-end">
@@ -196,11 +199,11 @@ const Post = () => {
                 <CommentSection post={post}/>
                 
             </Paper>
-        )
+        )}
+            <Box/>
+        </Box>
+    );
 
-
-    )
-
-}
+};
 
 export default Post;

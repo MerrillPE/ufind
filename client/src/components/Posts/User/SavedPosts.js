@@ -35,8 +35,13 @@ const SavedPosts = () => {
 
     return (
 
+        
         // Creates grid of PostCards to preview each post 
-        isLoading ? (
+        <Box style={{
+            position: 'relative',
+            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
+        }}>
+        {isLoading ? (
             <Box style={{
                 display: 'flex', flexDirection: 'column',
                 position: 'absolute', left: '50%', top: '50%',
@@ -61,8 +66,8 @@ const SavedPosts = () => {
                     </Grid>
                 </Grid>
             </Container >
-        )
-
+        )}
+        </Box>
     )
 }
 

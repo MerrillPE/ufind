@@ -16,7 +16,12 @@ const PostCard = ({ post }) => {
     //console.log("Time: " + post.createdAt);
 
     return (
-        <Card raised sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Card 
+        raised sx={{ width: '100%', 
+        height: '100%', 
+        display: 'flex', 
+        flexDirection: 'row', 
+        justifyContent: 'space-between'}}>
             <Grid container direction="column" justifyContent="space-between" sx={{ height: '100%' }}>
                 <Grid item >
                     <ButtonBase component='span' onClick={openPost}>

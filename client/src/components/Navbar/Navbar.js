@@ -66,7 +66,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#62b54a' }}>
+      <AppBar position="static" style={{ background: '#84bc5a' }}>
         <Toolbar>
           <Typography
             variant="h6"
