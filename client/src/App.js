@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import './style.css';
 
 
 import Home from './components/Home/Home';
@@ -24,7 +25,7 @@ const App = () => {
   return (
     <GoogleOAuthProvider clientId={OAUTH_ID} >
       <BrowserRouter>
-        <Container maxWidth='lg' sx={{background:"#f8dfb6"}}>
+        <Container maxWidth='lg' sx={{background:"#fff2e0"}}>
           <Navbar />
           <Routes>
             <Route path='/' exact element={<Navigate to='/posts' />} />

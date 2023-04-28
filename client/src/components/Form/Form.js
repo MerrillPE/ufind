@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
@@ -86,6 +86,7 @@ const PostForm = () => {
     if (!isLoaded) return (<div>Loading</div>); // avoids error if page loads before map api is loaded
 
     return (
+        <Paper elevation={4} style={{ padding: '30px', borderRadius: '15px', width:'50%', margin: '0 auto', width:'50%', margin: '0 auto', display:'flex', justifyContent:'center', alignItems:'center'}}>
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -166,6 +167,7 @@ const PostForm = () => {
                 </Box>
             </Box>
         </Container >
+        </Paper>
     );
 }
 

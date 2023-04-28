@@ -66,7 +66,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#84bc5a' }}>
+      <AppBar position="static" style={{ background: '#1997e3' }}> 
         <Toolbar>
           <Typography
             variant="h6"
@@ -89,16 +89,16 @@ const Navbar = () => {
 
 
           {user ? (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/createPost" > Create Post </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='default' component={Link} to="/createPost" > Create Post </Button>
           ) : (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/signin" > Login </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='default' component={Link} to="/signin" > Login </Button>
           )}
 
 
           {user ? (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' onClick={logout} > Logout </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='default' onClick={logout} > Logout </Button>
           ) : (
-            <Button position="static" variant='contained' component={Link} to="/signup" > Sign Up </Button>
+            <Button position="static" variant='default' component={Link} to="/signup" > Sign Up </Button>
           )}
 
           {user && (

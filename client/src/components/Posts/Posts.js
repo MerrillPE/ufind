@@ -8,6 +8,7 @@ const Posts = () => {
     // Get posts from redux state after dispatch in Home component
     const { posts, isLoading } = useSelector((state) => state.forumReducer);
 
+
     posts.map((post) => console.log(post)); // Instrumentation
 
     if (!posts.length && !isLoading) {
@@ -46,7 +47,7 @@ const Posts = () => {
                             item
                             xs={12} // Set xs to 12 to occupy the full width on small screens
                             sm={6} // Set sm to 6 to occupy half width on medium screens
-                            md={4} // Set md to 4 to occupy one-third width on large screens
+                            //md={4} // Set md to 4 to occupy one-third width on large screens
                         >
                             <PostCard post={post} />
                         </Grid>

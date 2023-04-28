@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button, Alert } from '@mui/material';
+import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button, Alert, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
+
 
 import { signin } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
@@ -68,6 +69,8 @@ const SignIn = () => {
             position: 'relative',
             minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
         }}>
+
+    <Paper elevation={4} style={{ padding: '100px', borderRadius: '15px', width:'50%', margin: '0 auto', display:'flex', justifyContent:'center', alignItems:'center'}}> 
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -78,7 +81,7 @@ const SignIn = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography component='h1' variant='h5'>
+                <Typography component='h1' variant='h4'>
                     Sign In
                 </Typography>
                 <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -130,6 +133,7 @@ const SignIn = () => {
                 </Box>
             </Box>
         </Container>
+    </Paper>
         </Box>
     );
 };

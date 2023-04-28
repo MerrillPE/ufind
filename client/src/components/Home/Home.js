@@ -159,11 +159,10 @@ const Home = () => {
         // Home page calls Posts component
         //<Grow in>
         
-        
         <Container 
             maxWidth='xl' 
             sx={{ mt: 3 }} 
-            style={{ background:"#f4dfb6"}}>
+            >
             <Grid container direction="row" alignItems='stretch' spacing={3}>
                 <Grid item xs={12} sm={6} md={3} sx={{ display: { xs: 'none', sm: 'block' } }} >
                     <Paper elevation={8} >
@@ -210,14 +209,16 @@ const Home = () => {
 
                 <Grid item xs={12} sm={6} md={9}> 
                     <Posts />
+                    
                 </Grid>
             
             </Grid>
+
                 {hasMore & !isLoading ? 
                 <Button
                     onClick={fetchMoreData}
                     variant='outlined'
-                    sx={{ mt: 2 , float: 'right'}}>
+                    style={{ marginTop:'2px' , float: 'right'}}>
                     Load More <ExpandMoreOutlinedIcon />
                 </Button> :
                 <div></div>}

@@ -47,7 +47,12 @@ const Chat = () => {
 
     return (
 
-        isLoading ? (
+        <Box style={{
+            position: 'relative',
+            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
+        }}>
+
+        {isLoading ? (
             <Box style={{
                 display: 'flex', flexDirection: 'column',
                 position: 'absolute', left: '50%', top: '50%',
@@ -84,7 +89,8 @@ const Chat = () => {
                     <ChatInput onSend={handleSend} />
                 </Box>
             </Container>
-        )
+        )}
+        </Box>
 
     )
 }
