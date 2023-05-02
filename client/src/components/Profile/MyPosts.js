@@ -54,22 +54,29 @@ const MyPosts = (req) => {
         {
     isLoading ? (
       <Box style={{
-        display: 'flex', flexDirection: 'column',
-        position: 'absolute', left: '50%', top: '50%',
-        transform: 'translate(-50%, -50%)'
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%', // Center CircularProgress vertically
       }}>
         <CircularProgress />
       </Box>
     ) : (
       <Container maxWidth='xl' sx={{ mt: 3 }}>
-        <Typography variant="h4" component="h2" fontWeight="bold" marginBottom={3}>
+        <Typography variant="h4" component="h2" fontWeight="bold" fontFamily={'monospace'} textAlign={'center'} marginBottom={3}>
           My Posts
         </Typography>
-        <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
-          <Grid item xs={12} sm={7}>
-            <Grid container spacing={2} alignItems='stretch'>
+        <Grid container
+              direction="row"
+              alignItems="stretch"
+              spacing={3}
+              style={{
+              padding: '16px', // Add padding to the Grid container
+                    }}>
+          <Grid  >
+            <Grid container spacing={3} alignItems='stretch'>
               {userPosts.map((post) => (
-                <Grid key={post._id} item >
+                <Grid key={post._id} item xs={12} sm={6} md={4} >
                   <PostCard post={post} />
                 </Grid>
               ))}

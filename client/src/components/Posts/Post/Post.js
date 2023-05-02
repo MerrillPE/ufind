@@ -108,7 +108,7 @@ const Post = () => {
         //console.log(locationDetails);
 
         return (
-            <div style={{ width: '300px', height: '300px', borderLeft: '1px solid gray', paddingLeft: '30px' }}>
+            <div style={{ width: '300px', height: '300px', borderLeft: '1px solid #c2c2c2', paddingLeft: '30px' }}>
             <GoogleMap zoom={10} center={locationDetails} mapContainerStyle={{ width: '300px', height: '300px'}}>
                 <Marker position={locationDetails} />
             </GoogleMap>
@@ -122,8 +122,7 @@ const Post = () => {
         // if isLoading return circular progress wheel
         <Box style={{
             position: 'relative',
-            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
-            
+            minHeight: '80vh', 
         }}>
         {isLoading ? (
             <div style={{
@@ -166,23 +165,24 @@ const Post = () => {
                             </>
                         ))}
                     </Grid>
-                    <Grid item>
-                        <Typography variant="h5" sx={{
+                    <Grid item >
+                        <Typography variant="h4" sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 800,
                             letterSpacing: '.2rem',
                             color: 'inherit',
-                            textDecoration: 'none',
+                            textDecoration: 'none'
                             }}>{post.title}</Typography>
                     </Grid>
                 </Grid>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <CardMedia component='img' src={`${post.image}`} title={post.title} style={{ width: '300px', height: '300px', borderRight: '1px solid gray', paddingRight: '30px'}} />
-                    <div style={{ flex: 1, margin: '20px'}} >
-                        <Typography sx={{fontSize:18}} >{post.description} </Typography>
+                    <CardMedia component='img' src={`${post.image}`} title={post.title} style={{ objectFit: 'contain', width: '300px', height: '300px', borderRight: '1px solid #c2c2c2', paddingRight: '30px'}} />
+                    <div style={{ flex: 1, margin: '20px',width: '300px', height: '300px'}} >
+                        
+                        <Typography sx={{fontSize:20}} > <span style={{ fontWeight: "bold" }}>Description:</span><br />{post.description} </Typography>
                     </div>  
                     <Map />
                 </div> 

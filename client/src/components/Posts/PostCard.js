@@ -3,6 +3,8 @@ import { Card, CardMedia, Typography, ButtonBase, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
+import backgroundImage from '../../images/background.png'
+
 // Card view of post for preview
 const PostCard = ({ post }) => {
     const navigate = useNavigate();
@@ -12,24 +14,29 @@ const PostCard = ({ post }) => {
         navigate(`/post/${post._id}`);
     }
 
+    const cardStyle = {
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: '10px',
+        overflow: 'hidden',
+    }
 
     //console.log("Time: " + post.createdAt);
 
     return (
         <Card 
-        raised sx={{ width: '100%', 
-        height: '100%', 
-        display: 'flex', 
-        flexDirection: 'row', 
-        justifyContent: 'space-between'}}>
-            <Grid container direction="column" justifyContent="space-between" sx={{ height: '100%' }}>
+            raised sx={cardStyle}>
+            <Grid container direction="column" justifyContent="space-between">
                 <Grid item >
                     <ButtonBase component='span' onClick={openPost}>
                     <CardMedia 
                     component='img' 
                     src={`${post.image}`} 
                     title={post.title} 
-                    style={{ aspectRatio: '13/9', objectFit: 'cover' }} />
+                    style={{ aspectRatio: '11/9',  objectFit: 'contain' }} />
                     </ButtonBase>
                 </Grid>
                 <Grid item >

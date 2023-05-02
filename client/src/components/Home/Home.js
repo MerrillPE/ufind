@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Grid, TextField, Typography, Paper, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Divider } from "@mui/material";
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
-import images from '../../images/background.jpeg';
 
 import { getPosts, getLocalPosts, getCategoryPosts, getLocalCategoryPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
@@ -21,7 +20,7 @@ const Home = () => {
     const navigate = useNavigate();
     const query = useQuery();
     const [start, setStart] = useState(0);
-    const limit = 4;
+    const limit = 8;
     const [hasMore, setHasMore] = useState(true);
     const { posts, numberOfPosts, isLoading } = useSelector((state) => state.forumReducer);
     const [category, setCategory] = useState();
@@ -41,7 +40,7 @@ const Home = () => {
 
     // Move start point ahead triggering useEffect for next dispatch
     const fetchMoreData = () => {
-        setStart(start + 4);
+        setStart(start + limit);
     }
 
     // Clear posts and reset states when location changes

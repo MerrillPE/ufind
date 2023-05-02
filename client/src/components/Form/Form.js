@@ -97,7 +97,7 @@ const PostForm = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography component='h1' variant='h5'>
+                <Typography component='h1' variant='h4'>
                     Create Post
                 </Typography>
                 <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -120,6 +120,8 @@ const PostForm = () => {
                         label='Description'
                         name='description'
                         autoComplete='description'
+                        multiline
+                        rows={4}
                         onChange={handleChange}
                     />
                     <Autocomplete onPlaceChanged={handlePlaceChanged}>

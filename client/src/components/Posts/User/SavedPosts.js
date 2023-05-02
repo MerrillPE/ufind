@@ -39,26 +39,27 @@ const SavedPosts = () => {
         // Creates grid of PostCards to preview each post 
         <Box style={{
             position: 'relative',
-            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
+            minHeight: '100vh', // Set minimum height to 100vh to cover the entire viewport
         }}>
         {isLoading ? (
             <Box style={{
-                display: 'flex', flexDirection: 'column',
-                position: 'absolute', left: '50%', top: '50%',
-                transform: 'translate(-50%, -50%)'
-            }}>
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%', // Center CircularProgress vertically
+      }}>
                 <CircularProgress />
             </Box>
         ) : (
             <Container maxWidth='xl' sx={{ mt: 3 }}>
-                <Typography variant="h4" component="h2" fontWeight="bold" marginBottom={3}>
+                <Typography variant="h4" component="h2" fontWeight="bold" fontFamily={'monospace'} textAlign={'center'}  marginBottom={3}>
                     Saved Posts
                 </Typography>
                 <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
-                    <Grid item xs={12} sm={7}>
-                        <Grid container spacing={2} alignItems='stretch'>
+                    <Grid item >
+                        <Grid container spacing={3} alignItems='stretch'>
                             {savedPosts.map((post) => (
-                                <Grid key={post._id} item >
+                                <Grid key={post._id} item xs={12} sm={6} md={4}>
                                     <PostCard post={post} />
                                 </Grid>
                             ))}
