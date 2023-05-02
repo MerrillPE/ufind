@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-
 import { signin } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
 
@@ -65,12 +64,7 @@ const SignIn = () => {
     };
 
     return (
-        <Box style={{
-            position: 'relative',
-            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
-        }}>
-
-    <Paper elevation={4} style={{ padding: '100px', borderRadius: '15px', width:'50%', margin: '0 auto', display:'flex', justifyContent:'center', alignItems:'center'}}> 
+        <Paper elevation={4} style={{ padding: '55px', width:'43%', margin: '0 auto'}}> 
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -133,8 +127,7 @@ const SignIn = () => {
                 </Box>
             </Box>
         </Container>
-    </Paper>
-        </Box>
+        </Paper>
     );
 };
 

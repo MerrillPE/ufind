@@ -86,7 +86,7 @@ const PostForm = () => {
     if (!isLoaded) return (<div>Loading</div>); // avoids error if page loads before map api is loaded
 
     return (
-        <Paper elevation={4} style={{ padding: '30px', borderRadius: '15px', width:'50%', margin: '0 auto', width:'50%', margin: '0 auto', display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Paper elevation={4} style={{ padding: '1px', width:'45%', margin: '0 auto'}}>
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box

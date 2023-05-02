@@ -150,9 +150,6 @@ const Home = () => {
         }
     }
 
-    
-
-
     if (!isLoaded) return (<div></div>);
     return (
         // Home page calls Posts component

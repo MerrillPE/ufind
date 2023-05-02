@@ -17,6 +17,7 @@ import SavedPosts from './components/Posts/User/SavedPosts.js';
 import MyPosts from './components/Profile/MyPosts';
 
 const OAUTH_ID = process.env.REACT_APP_OAUTH;
+document.body.style.backgroundColor = "#fff2e0";
 
 const App = () => {
   //const user = JSON.parse(localStorage.getItem('profile'));
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <GoogleOAuthProvider clientId={OAUTH_ID} >
       <BrowserRouter>
-        <Container maxWidth='lg' sx={{background:"#fff2e0"}}>
+        <Container maxWidth='lg' >
           <Navbar />
           <Routes>
             <Route path='/' exact element={<Navigate to='/posts' />} />

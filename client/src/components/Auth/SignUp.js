@@ -49,12 +49,9 @@ const SignUp = () => {
     const isEmpty = formData.username === '' || formData.password === '' || formData.confirmPassword === '' || formData.firstName === '' || formData.lastName === '';
 
     return (
-        <Box style={{
-            position: 'relative',
-            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
-        }}>
 
-        <Paper elevation={4} style={{ padding: '50px', borderRadius: '15px', width:'50%', margin: '0 auto', display:'flex', justifyContent:'center', alignItems:'center'}}>    
+
+        <Paper elevation={4} style={{ padding: '50px',width:'43%', margin: '0 auto'}}>    
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -141,7 +138,6 @@ const SignUp = () => {
             </Box>
         </Container>
         </Paper>
-        </Box>
     );
 }
 
