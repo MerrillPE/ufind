@@ -1,0 +1,15 @@
+.box{
+    padding-left: 0;
+}
+.Menu{
+    justify-content: center;
+    font-size: large; 
+    margin:0%;
+    display: grid;
+    place-items: center;
+    
+
+}
+.Menu:hover{
+    box-shadow: 1px 3px 2px gray /*1976d2;*/
+}

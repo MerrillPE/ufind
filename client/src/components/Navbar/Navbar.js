@@ -4,7 +4,8 @@ import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListIt
 import { deepOrange } from '@mui/material/colors';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import './Navbar.css';
+import Sidebar from "../Sidebar/Sidebar"
 
 import { LOGOUT } from '../../constants/actionTypes';
 import decode from 'jwt-decode';
@@ -65,14 +66,14 @@ const Navbar = () => {
   };
 
 
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: 'lightblue' }}>
+    <Box className= "box" sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={{ background: '#1976d2' }}>
         <Toolbar>
+          <Sidebar/>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
-            noWrap
             component={Link} to="/"
             href="/"
             sx={{

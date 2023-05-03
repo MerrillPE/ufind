@@ -7,6 +7,8 @@ import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 
 import { getPosts, getLocalPosts, getCategoryPosts, getLocalCategoryPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
+import Sidebar from '../Sidebar/Sidebar';
+import "./Home.css";
 
 // useQuery to access parameters in URL 
 function useQuery() {
@@ -154,56 +156,13 @@ const Home = () => {
     return (
         // Home page calls Posts component
         //<Grow in>
-        <Container maxWidth='xl' sx={{ mt: 3 }}>
+        <Container className= "Container" /*maxWidth='xl' sx={{ mt: 3 }}*/>
             <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
-
-                <Grid item xs={12} sm={7}>
+                
+                <Grid item xs={12} sm={4}>
                     <Posts />
                 </Grid>
-
-
-                <Grid item xs={12} sm={6} md={3}>
-                    <Paper elevation={6}>
-                        <Typography variant="h6" component="h2" sx={{ ml: 2 }}>Show Posts Near You</Typography>
-                        <Autocomplete>
-                            <TextField
-                                margin='normal'
-                                id='location'
-                                label='Location'
-                                name='location'
-                                autoComplete='location'
-                                sx={{ m: 2 }}
-                                inputRef={locationRef}
-                            />
-                        </Autocomplete>
-                        <Button
-                            type='submit'
-                            onClick={handleSubmit}
-                            variant='contained'
-                            sx={{ ml: 3, mr: 2, mb: 2 }}
-                        >
-                            Submit
-                        </Button>
-                        <Divider sx={{ mt: 2, mb: 2 }} role='presentation'></Divider>
-                        <FormControl component="fieldset" sx={{ m: 2 }}>
-                            <FormLabel component="legend">Category</FormLabel>
-                            <RadioGroup
-                                aria-label="category"
-                                name="category"
-                                value={category}
-                                onChange={(e) => handleCategory(e)}
-                            >
-                                <FormControlLabel value="Pets" control={<Radio />} label="Pets" />
-                                <FormControlLabel value="Electronics" control={<Radio />} label="Electronics" />
-                                <FormControlLabel value="Bikes and Scooters" control={<Radio />} label="Bikes/Scooters" />
-                                <FormControlLabel value="Jewelry" control={<Radio />} label="Jewelry" />
-                                <FormControlLabel value="Clothing" control={<Radio />} label="Clothing" />
-                                <FormControlLabel value="Wallets, Purses, and Bags" control={<Radio />} label="Wallets/Purses/Bags" />
-                                <FormControlLabel value="Miscellaneous" control={<Radio />} label="Miscellaneous" />
-                            </RadioGroup>
-                        </FormControl>
-                    </Paper>
-                </Grid>
+                
             </Grid>
             {hasMore & !isLoading ? <Button
                 onClick={fetchMoreData}
