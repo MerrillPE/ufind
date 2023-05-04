@@ -129,8 +129,10 @@ const Home = () => {
         if (query.get('category')) {
             const catQuery = query.get('category');
             navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}&category=${catQuery}`);
+            window.location.reload();
         } else {
             navigate(`/search?lng=${coordinateQuery.lng}&lat=${coordinateQuery.lat}`);
+            window.location.reload();
         }
 
     }
@@ -145,8 +147,10 @@ const Home = () => {
             const lng = query.get('lng');
             const lat = query.get('lat');
             navigate(`/search?lng=${lng}&lat=${lat}&category=${e.target.value}`);
+            window.location.reload();
         } else {
             navigate(`/search?category=${e.target.value}`);
+            window.location.reload();
         }
     }
 
@@ -154,11 +158,11 @@ const Home = () => {
     return (
         // Home page calls Posts component
         //<Grow in>
-        
-        <Container 
-            maxWidth='xl' 
-            sx={{ mt: 3 }} 
-            >
+
+        <Container
+            maxWidth='xl'
+            sx={{ mt: 3 }}
+        >
             <Grid container direction="row" alignItems='stretch' spacing={3}>
                 <Grid item xs={12} sm={6} md={3} sx={{ display: { xs: 'none', sm: 'block' } }} >
                     <Paper elevation={8} >
@@ -203,23 +207,23 @@ const Home = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={9}> 
+                <Grid item xs={12} sm={6} md={9}>
                     <Posts />
-                    
+
                 </Grid>
-            
+
             </Grid>
 
-                {hasMore & !isLoading ? 
+            {hasMore & !isLoading ?
                 <Button
                     onClick={fetchMoreData}
                     variant='outlined'
-                    style={{ marginTop:'2px' , float: 'right'}}>
+                    style={{ marginTop: '2px', float: 'right' }}>
                     Load More <ExpandMoreOutlinedIcon />
                 </Button> :
                 <div></div>}
         </Container>
-        
+
         //</Grow>
     );
 }

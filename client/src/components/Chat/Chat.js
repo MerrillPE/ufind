@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, CircularProgress, Container } from "@mui/material";
+import { Typography, Box, CircularProgress, Container, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -52,44 +52,46 @@ const Chat = () => {
             minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
         }}>
 
-        {isLoading ? (
-            <Box style={{
-                display: 'flex', flexDirection: 'column',
-                position: 'absolute', left: '50%', top: '50%',
-                transform: 'translate(-50%, -50%)'
-            }}>
-                <CircularProgress />
-            </Box>
-        ) : (
-            <Container maxWidth='xl' sx={{ mt: 3 }}>
-                <Typography variant="h5" component="h2" fontWeight="bold" marginBottom={3}>
-                    {partnerName}
-                </Typography>
-                <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
-                    {chat && chat.map((message) => (
-                        <Box
-                            key={message._id}
-                            sx={{
-                                alignSelf: message.senderID === userID ? 'flex-end' : 'flex-start',
-                                maxWidth: '80%',
-                                borderRadius: '10px',
-                                bgcolor: message.senderID === userID ? 'primary.light' : 'secondary.light',
-                                p: '0.5rem',
-                            }}
-                        >
-                            <div>
-                                <Typography variant="body2">{message.senderName}</Typography>
-                            </div>
-                            <Typography variant="body1">{message.content}</Typography>
-                            <div>
-                                <Typography variant="caption">{new Date(message.timestamp).toLocaleString()}</Typography>
-                            </div>
-                        </Box>
-                    ))}
-                    <ChatInput onSend={handleSend} />
+            {isLoading ? (
+                <Box style={{
+                    display: 'flex', flexDirection: 'column',
+                    position: 'absolute', left: '50%', top: '50%',
+                    transform: 'translate(-50%, -50%)'
+                }}>
+                    <CircularProgress />
                 </Box>
-            </Container>
-        )}
+            ) : (
+                <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
+                    <Container maxWidth='xl' sx={{ mt: 3 }}>
+                        <Typography variant="h5" component="h2" fontWeight="bold" marginBottom={3}>
+                            {partnerName}
+                        </Typography>
+                        <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
+                            {chat && chat.map((message) => (
+                                <Box
+                                    key={message._id}
+                                    sx={{
+                                        alignSelf: message.senderID === userID ? 'flex-end' : 'flex-start',
+                                        maxWidth: '80%',
+                                        borderRadius: '10px',
+                                        bgcolor: message.senderID === userID ? 'primary.light' : 'secondary.light',
+                                        p: '0.5rem',
+                                    }}
+                                >
+                                    <div>
+                                        <Typography variant="body2">{message.senderName}</Typography>
+                                    </div>
+                                    <Typography variant="body1">{message.content}</Typography>
+                                    <div>
+                                        <Typography variant="caption">{new Date(message.timestamp).toLocaleString()}</Typography>
+                                    </div>
+                                </Box>
+                            ))}
+                            <ChatInput onSend={handleSend} />
+                        </Box>
+                    </Container>
+                </Paper>
+            )}
         </Box>
 
     )
