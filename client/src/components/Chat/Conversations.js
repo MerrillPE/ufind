@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Box, CircularProgress, Typography } from '@mui/material';
+import { Container, Grid, Box, CircularProgress, Typography, Paper, List, ListItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getConversations } from '../../actions/chat';
@@ -36,13 +36,7 @@ const Conversations = () => {
     }
 
     return (
-
-        <Box style={{
-            position: 'relative',
-            minHeight: '80vh', // Set minimum height to 100vh to cover the entire viewport
-        }}>
-
-        {isLoading ? (
+        isLoading ? (
             <Box style={{
                 display: 'flex', flexDirection: 'column',
                 position: 'absolute', left: '50%', top: '50%',
@@ -51,22 +45,23 @@ const Conversations = () => {
                 <CircularProgress />
             </Box>
         ) : (
-            <Container maxWidth='xl' sx={{ mt: 3 }}>
-                <Typography variant="h4" component="h2" fontWeight="bold" marginBottom={3}>
+            <Paper style={{ padding: '5px', width:'78%', margin: '0 auto', height: '89vh'}}>
+            <Container maxWidth='xl' sx={{ mt: 3 }} >
+                <Typography variant="h4" component="h2" fontWeight="bold" fontFamily={'monospace'} textAlign={'center'} marginBottom={3}>
                     Messages
                 </Typography>
                 <Grid container spacing={2} alignItems='stretch'>
                     {conversations
                         .sort((a, b) => new Date(b.message.timestamp) - new Date(a.message.timestamp))
                         .map((chat) => (
-                            <Grid key={chat.conversationID} item xs={12}>
-                                <ConvoCard chat={chat} userID={userID} />
-                            </Grid>
+                            <ListItem key={chat.conversationID} item xs={12} >
+                                <ConvoCard chat={chat} userID={userID} preview={true}/>
+                            </ListItem>
                         ))}
                 </Grid>
             </Container >
-        )}
-        </Box>
+            </Paper>
+        )
     )
 }
 

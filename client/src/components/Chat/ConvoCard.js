@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Typography, ButtonBase, } from "@mui/material";
+import { Typography, ButtonBase, Grid, Card } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 const ConvoCard = ({ chat, userID }) => {
@@ -10,6 +10,7 @@ const ConvoCard = ({ chat, userID }) => {
     const openChat = (e) => {
         let partnerID;
         let partnerName;
+        const { senderID, senderName, recipientID, recipientName } = chat.message;
         if (senderID === userID) {
             partnerID = recipientID;
             partnerName = recipientName;
@@ -22,16 +23,38 @@ const ConvoCard = ({ chat, userID }) => {
     }
 
     return (
-        <Card raised sx={{ height: 1, width: '80%' }} elevation={4}>
-            <ButtonBase sx={{ height: 1, width: '100%' }} onClick={openChat}>
-                <div>
+        <Card raised sx={{ height: 1, width: '100vh', border: '30px 30px 30px auto',  display: 'block', background:'#e1f1fc'}} elevation={4} >
+            <ButtonBase sx={{
+                height: 1, 
+                display: 'block',
+                width: '100%',
+                '&:hover': {backgroundColor: '#f5f5f5', cursor: 'pointer',}, 
+                }} onClick={openChat}>
+                <div sx={{ textAlign: 'left' }}>
                     {senderID === userID ? (
-                        <Typography variant="h4">{recipientName}</Typography>
+                        <Grid align='left' width='100%'>
+                        <Typography variant="h6" sx={{fontWeight: 'bold'}}>  {recipientName}</Typography>
+                        </Grid>
                     ) : (
-                        <Typography variant="h4">{senderName}</Typography>
+                        <Grid align='left' width='100%' >
+                            <Typography variant="h6" sx={{fontWeight: 'bold'}}>  {senderName}</Typography>
+                        </Grid>
                     )}
-                    <Typography variant="body1">{content}</Typography>
-                    <Typography variant="caption">{localTimestamp}</Typography>
+                    
+                    <Grid align='left' width='100%'>
+                    <Typography variant="body1" >
+                        {content.length >= 50 ? `${content.substring(0, 85)}.....` : content}
+                    </Typography>
+                    </Grid> 
+
+                    <table width='100%'>
+                        <tr>
+                            <td width='100%' align="right">
+                                <Typography display="flex" justifyContent="flex-end"> {localTimestamp}</Typography>
+                            </td>
+                        </tr>
+                    </table>
+                    <Grid container alignContent="flex-end"></Grid>
                 </div>
             </ButtonBase>
         </Card>

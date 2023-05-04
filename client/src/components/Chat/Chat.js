@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, CircularProgress, Container } from "@mui/material";
+import { Typography, Box, CircularProgress, Container, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -61,11 +61,21 @@ const Chat = () => {
                 <CircularProgress />
             </Box>
         ) : (
-            <Container maxWidth='xl' sx={{ mt: 3 }}>
+            <Paper style={{ padding: '5px', width:'100%', height: '90vh', display: 'flex', flexDirection: 'column'}}>
+            <Container maxWidth='xl' sx={{ mt: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h5" component="h2" fontWeight="bold" marginBottom={3}>
                     {partnerName}
                 </Typography>
-                <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
+                <Box sx={{ 
+                    mt: 2, 
+                    marginBottom: 2,
+                    display: 'flex', 
+                    flexDirection: 'column-reverse', 
+                    gap: '1rem', 
+                    maxHeight: '62vh', 
+                    overflowY: 'auto', 
+                    wordWrap: 'break-word',
+                    flexGrow: 1}}>
                     {chat && chat.map((message) => (
                         <Box
                             key={message._id}
@@ -73,7 +83,7 @@ const Chat = () => {
                                 alignSelf: message.senderID === userID ? 'flex-end' : 'flex-start',
                                 maxWidth: '80%',
                                 borderRadius: '10px',
-                                bgcolor: message.senderID === userID ? 'primary.light' : 'secondary.light',
+                                bgcolor: message.senderID === userID ? '#9dccf5' : '#f6dfba',
                                 p: '0.5rem',
                             }}
                         >
@@ -86,9 +96,12 @@ const Chat = () => {
                             </div>
                         </Box>
                     ))}
+                </Box>
+                <Box sx={{ position: 'relative', bottom: 0 }}>
                     <ChatInput onSend={handleSend} />
                 </Box>
             </Container>
+            </Paper>
         )}
         </Box>
 
