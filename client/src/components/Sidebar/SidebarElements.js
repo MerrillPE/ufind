@@ -1,7 +1,3 @@
-import React from 'react'
-import HomeIcon from '@mui/icons-material/Home'
-import EmailIcon from '@mui/icons-material/Email';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 
 export const SidebarElements = [
 

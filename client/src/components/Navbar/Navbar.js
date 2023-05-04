@@ -71,7 +71,7 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: 'lightblue' }}>
         <Toolbar>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Sidebar/>
           <Typography
             component={Link} to="/"
             href="/"

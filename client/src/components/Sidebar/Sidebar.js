@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {Avatar,TextField, Typography, Button, Divider,FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material"
+import {Avatar,TextField, Typography, Button, Divider,FormControl, FormControlLabel, Radio, RadioGroup} from "@mui/material"
 import "./SidebarStyle.css";
 import {SidebarElements} from "./SidebarElements.js";
 import { deepOrange } from '@mui/material/colors';

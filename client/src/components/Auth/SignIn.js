@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button, Alert } from '@mui/material';
+import { Container, Link, Grid, CssBaseline, Box, Typography, TextField, Button, Alert, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -64,6 +64,7 @@ const SignIn = () => {
     };
 
     return (
+        <Paper elevation={4} style={{ padding: '55px', width:'43%', margin: '0 auto'}}> 
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -74,7 +75,7 @@ const SignIn = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography component='h1' variant='h5'>
+                <Typography component='h1' variant='h4'>
                     Sign In
                 </Typography>
                 <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -126,6 +127,7 @@ const SignIn = () => {
                 </Box>
             </Box>
         </Container>
+        </Paper>
     );
 };
 

@@ -1,7 +1,7 @@
 
 
 .Menu{
-    background-color: #1976d2;
+    background-color: #add8e6;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -9,7 +9,7 @@
 .Sidebar{
    height: 100vh;
    width: 250px;
-   background-color:#1976d2 ;
+   background-color:#add8e6 ;
    display: flex;
    justify-content: center;
    float: left;
@@ -22,7 +22,7 @@
 .SidebarActive{
    height: 100vh;
    width: 250px;
-   background-color:#1976d2 ;
+   background-color:#add8e6 ;
    display: flex;
    justify-content: center;
    float: left;
@@ -61,7 +61,7 @@
 }
 .SidebarList .row{
     width: 100%;
-    height: 30px;
+    height: 40px;
     list-style-type: none;
     margin:0%;
     border-radius: 4px;
@@ -74,7 +74,7 @@
 .SidebarList .row:hover{
     cursor: pointer;
     box-shadow: 1px 3px 1px gray;
-    background-color: #ffd700
+    background-color: #579ebd
 }
 .SidebarList .Text{
     background-color:white;
