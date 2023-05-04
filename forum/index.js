@@ -18,7 +18,6 @@ app.use(cors());
 app.use('/forum', forumRouter);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
-//const CONNECTION_URL = 'mongodb://forum_db:27017/forumdb';
 const PORT = process.env.PORT;
 
 mongoose.set('strictQuery', true);

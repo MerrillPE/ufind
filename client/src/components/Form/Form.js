@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, Avatar, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
@@ -86,6 +86,7 @@ const PostForm = () => {
     if (!isLoaded) return (<div>Loading</div>); // avoids error if page loads before map api is loaded
 
     return (
+        <Paper elevation={4} style={{ padding: '1px', width:'45%', margin: '0 auto'}}>
         <Container maxWidth='xs'>
             <CssBaseline />
             <Box
@@ -96,7 +97,7 @@ const PostForm = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography component='h1' variant='h5'>
+                <Typography component='h1' variant='h4'>
                     Create Post
                 </Typography>
                 <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -119,6 +120,8 @@ const PostForm = () => {
                         label='Description'
                         name='description'
                         autoComplete='description'
+                        multiline
+                        rows={4}
                         onChange={handleChange}
                     />
                     <Autocomplete onPlaceChanged={handlePlaceChanged}>
@@ -166,6 +169,7 @@ const PostForm = () => {
                 </Box>
             </Box>
         </Container >
+        </Paper>
     );
 }
 

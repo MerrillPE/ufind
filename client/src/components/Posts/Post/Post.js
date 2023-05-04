@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress } from '@mui/material';
+import { Paper, Typography, CardMedia, Divider, Grid, IconButton, CircularProgress, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MailIcon from '@mui/icons-material/Mail';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -30,16 +30,6 @@ const Post = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const mapAPI = process.env.REACT_APP_MAPS_API_KEY;
-
-    /*
-    const locationDetails = useMemo(() => {
-        try {
-            return JSON.parse(post.location).geometry.location;
-        } catch (error) {
-            return { lat: 37.237, lng: -121.8278 }; // if location doesn't exist default
-        }
-    }, [post?.location]);
-    */
 
     // Send dispatch when id changes
     useEffect(() => {
@@ -118,9 +108,11 @@ const Post = () => {
         //console.log(locationDetails);
 
         return (
-            <GoogleMap zoom={10} center={locationDetails} mapContainerStyle={{ width: '400px', height: '400px' }}>
+            <div style={{ width: '300px', height: '300px', borderLeft: '1px solid #c2c2c2', paddingLeft: '30px' }}>
+            <GoogleMap zoom={10} center={locationDetails} mapContainerStyle={{ width: '300px', height: '300px'}}>
                 <Marker position={locationDetails} />
             </GoogleMap>
+            </div>
         )
     }
 
@@ -128,7 +120,11 @@ const Post = () => {
     return (
 
         // if isLoading return circular progress wheel
-        isLoading ? (
+        <Box style={{
+            position: 'relative',
+            minHeight: '80vh', 
+        }}>
+        {isLoading ? (
             <div style={{
                 position: 'absolute', left: '50%', top: '50%',
                 transform: 'translate(-50%, -50%)'
@@ -136,9 +132,8 @@ const Post = () => {
                 <CircularProgress />
             </div>
         ) : (
-            <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
+            <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px'}}>
                 <Grid container>
-
 
                     <Grid container item spacing={1} justifyContent="flex-end">
                         {userID === post.userID ? (
@@ -170,26 +165,38 @@ const Post = () => {
                             </>
                         ))}
                     </Grid>
-                    <Grid item>
-                        <Typography variant="h3">{post.title}</Typography>
+                    <Grid item >
+                        <Typography variant="h4" sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 800,
+                            letterSpacing: '.2rem',
+                            color: 'inherit',
+                            textDecoration: 'none'
+                            }}>{post.title}</Typography>
                     </Grid>
                 </Grid>
 
-
-                <CardMedia component='img' src={`${post.image}`} title={post.title} />
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <CardMedia component='img' src={`${post.image}`} title={post.title} style={{ objectFit: 'contain', width: '300px', height: '300px', borderRight: '1px solid #c2c2c2', paddingRight: '30px'}} />
+                    <div style={{ flex: 1, margin: '20px',width: '300px', height: '300px'}} >
+                        
+                        <Typography sx={{fontSize:20}} > <span style={{ fontWeight: "bold" }}>Description:</span><br />{post.description} </Typography>
+                    </div>  
+                    <Map />
+                </div> 
                 <Typography>Posted by: {post.username}</Typography>
                 <Typography>{moment(post.createdAt).fromNow()}</Typography>
-                <Typography>{post.description}</Typography>
-                <Map />
                 <Divider sx={{ mt: 2, mb: 2 }} role='presentation'>Comments</Divider>
-                <CommentSection post={post} />
-
+                <CommentSection post={post}/>
+                
             </Paper>
-        )
+        )}
+            <Box/>
+        </Box>
+    );
 
-
-    )
-
-}
+};
 
 export default Post;

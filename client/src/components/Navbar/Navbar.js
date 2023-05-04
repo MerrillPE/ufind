@@ -1,9 +1,9 @@
 import React, { useState, useEffect, } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListItemText, ListItemButton } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography, Box, Avatar, Popover, List, ListItemText, ListItemButton, IconButton, SvgIcon } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import images from '../../images/logo.png';
 import './Navbar.css';
 import Sidebar from "../Sidebar/Sidebar"
 
@@ -68,10 +68,9 @@ const Navbar = () => {
 
 
   return (
-    <Box className= "box" sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#1976d2' }}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={{ background: 'lightblue' }}>
         <Toolbar>
-          <Sidebar/>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             component={Link} to="/"
@@ -87,21 +86,21 @@ const Navbar = () => {
               flexGrow: 1,
             }}
           >
-            UFind
+            <img src={images} width="85px"/>
           </Typography>
 
 
           {user ? (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/createPost" > Create Post </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='default' component={Link} to="/createPost" > Create Post </Button>
           ) : (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' component={Link} to="/signin" > Login </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='default' component={Link} to="/signin" > Login </Button>
           )}
 
 
           {user ? (
-            <Button position="static" sx={{ mr: 1 }} variant='contained' onClick={logout} > Logout </Button>
+            <Button position="static" sx={{ mr: 1 }} variant='default' onClick={logout} > Logout </Button>
           ) : (
-            <Button position="static" variant='contained' component={Link} to="/signup" > Sign Up </Button>
+            <Button position="static" variant='default' component={Link} to="/signup" > Sign Up </Button>
           )}
 
           {user && (

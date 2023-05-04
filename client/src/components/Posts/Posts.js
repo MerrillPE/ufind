@@ -8,6 +8,7 @@ const Posts = () => {
     // Get posts from redux state after dispatch in Home component
     const { posts, isLoading } = useSelector((state) => state.forumReducer);
 
+
     posts.map((post) => console.log(post)); // Instrumentation
 
     if (!posts.length && !isLoading) {
@@ -15,27 +16,41 @@ const Posts = () => {
     }
 
     return (
-
-        // Creates grid of PostCards to preview each post 
         isLoading ? (
-            <Box style={{
-                display: 'flex', flexDirection: 'column',
-                position: 'absolute', left: '50%', top: '50%',
-                transform: 'translate(-50%, -50%)'
-            }}>
-                <CircularProgress />
-            </Box>
-        ) : (
-            <Grid container spacing={2} alignItems='stretch'>
-                {posts.map((post) => (
-                    <Grid key={post._id} item >
-                        <PostCard post={post} />
-                    </Grid>
-                ))}
-            </Grid>
-        )
-
-    )
-}
+                <Box
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%', // Center CircularProgress vertically
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="stretch"
+                    spacing={3}
+                    style={{
+                        padding: '16px', // Add padding to the Grid container
+                    }}
+                >
+                    {posts.map((post) => (
+                        <Grid
+                            key={post._id}
+                            item
+                            xs={12} // Set xs to 12 to occupy the full width on small screens
+                            sm={6} // Set sm to 6 to occupy half width on medium screens
+                            //md={4} // Set md to 4 to occupy one-third width on large screens
+                        >
+                            <PostCard post={post} />
+                        </Grid>
+                    ))}
+                </Grid>
+            )
+    );
+};
 
 export default Posts;

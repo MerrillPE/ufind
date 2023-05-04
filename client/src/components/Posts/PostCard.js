@@ -3,6 +3,8 @@ import { Card, CardMedia, Typography, ButtonBase, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
+import backgroundImage from '../../images/background.png'
+
 // Card view of post for preview
 const PostCard = ({ post }) => {
     const navigate = useNavigate();
@@ -12,22 +14,45 @@ const PostCard = ({ post }) => {
         navigate(`/post/${post._id}`);
     }
 
+    const cardStyle = {
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: '10px',
+        overflow: 'hidden',
+    }
 
     //console.log("Time: " + post.createdAt);
 
     return (
-        <Card raised sx={{ height: 1 }} elevation={4}>
-            <ButtonBase component='span' onClick={openPost}>
-                <div>
-                    <CardMedia component='img' src={`${post.image}`} title={post.title} />
-                </div>
-            </ButtonBase>
-            <Grid container>
-                <Grid item>
-                    <Typography variant='h4'>{post.title}</Typography>
+        <Card 
+            raised sx={cardStyle}>
+            <Grid container direction="column" justifyContent="space-between">
+                <Grid item >
+                    <ButtonBase component='span' onClick={openPost}>
+                    <CardMedia 
+                    component='img' 
+                    src={`${post.image}`} 
+                    title={post.title} 
+                    style={{ aspectRatio: '11/9',  objectFit: 'contain' }} />
+                    </ButtonBase>
+                </Grid>
+                <Grid item >
+                    <Typography variant="h5" sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.2rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            fontSize: `${30 - Math.min(post.title.length, 12)}px`,
+                            }} >{post.title}
+                    </Typography>
                     <Typography variant='body1'>{moment(post.createdAt).fromNow()}</Typography>
                 </Grid>
-                <Grid item style={{ flexGrow: 1 }}></Grid>
             </Grid>
         </Card>
     );

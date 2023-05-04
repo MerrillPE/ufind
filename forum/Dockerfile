@@ -15,10 +15,11 @@ COPY . .
 
 # Set the environment variable
 #ENV PORT=5002
+#ENV CONNECTION_URL=mongodb+srv://merrillpe:pass1word@cluster0.bbbxbeh.mongodb.net/?retryWrites=true&w=majority
 
 ARG PORT
 ARG CONNECTION_URL
-
+#ARG REACT_APP_MAPS_API_KEY
 
 # Expose port 3000 to the outside world
 EXPOSE 5002
