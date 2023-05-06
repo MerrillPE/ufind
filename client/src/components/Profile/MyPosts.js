@@ -5,6 +5,7 @@ import { Typography, Container, Grid, CircularProgress, Box } from "@mui/materia
 import { getUserPosts } from '../../actions/forum';
 import Posts from '../Posts/Posts';
 import PostCard from '../Posts/PostCard';
+import Conversations from "../Chat/Conversations";
 
 const MyPosts = (req) => {
   const dispatch = useDispatch();
@@ -82,7 +83,7 @@ const MyPosts = (req) => {
               ))}
             </Grid>
           </Grid>
-        </Grid>
+        </Grid>      
       </Container >
     )}
     </Box>
