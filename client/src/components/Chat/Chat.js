@@ -61,7 +61,7 @@ const Chat = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                <Paper style={{ padding: '5px', width: '100%', height: '90vh', display: 'flex', flexDirection: 'column' }}>
+                <Paper elevation={4} style={{ padding: '20px', borderRadius: '15px' }}>
                     <Container maxWidth='xl' sx={{ mt: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                         <Typography variant="h5" component="h2" fontWeight="bold" marginBottom={3}>
                             {partnerName}
@@ -70,7 +70,7 @@ const Chat = () => {
                             mt: 2,
                             marginBottom: 2,
                             display: 'flex',
-                            flexDirection: 'column-reverse',
+                            flexDirection: 'column',
                             gap: '1rem',
                             maxHeight: '62vh',
                             overflowY: 'auto',
