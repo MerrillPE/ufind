@@ -1,8 +1,24 @@
 version: '3'
 
 services:
+
+  auth_db:
+    build: ./db/auth_db
+    networks:
+      - auth-network
+
+  chat_db:
+    build: ./db/chat_db
+    networks:
+      - chat-network
+
+  forum_db:
+    build: ./db/forum_db
+    networks:
+      - forum-network
+
   auth:
-#    image: auth:latest
+    #image: merrillpe/ufind-auth-64:latest
     build:
       context: ./auth
       dockerfile: Dockerfile
@@ -12,9 +28,15 @@ services:
       - '5001:5001'
     networks:
       - auth-network
+    environment:
+      MONGO_HOST: auth_db
+      MONGO_PORT: 27017
+    depends_on:
+      - auth_db
+
 
   chat:
-#    image: chat:latest
+    #image: merrillpe/ufind-chat-64:latest
     build:
       context: ./chat
       dockerfile: Dockerfile
@@ -24,9 +46,15 @@ services:
       - '5003:5003'
     networks:
       - chat-network
+    environment:
+      MONGO_HOST: chat_db
+      MONGO_PORT: 27017
+    depends_on:
+      - chat_db
+
 
   forum:
-#    image: forum:latest
+    #image: merrillpe/ufind-forum-64:latest
     build:
       context: ./forum
       dockerfile: Dockerfile
@@ -36,9 +64,15 @@ services:
       - '5002:5002'
     networks:
       - forum-network
+    environment:
+      MONGO_HOST: auth_db
+      MONGO_PORT: 27017
+    depends_on:
+      - forum_db
+
 
   client:
-    # image: client:latest
+    #image: merrillpe/ufind-client-64:latest
     build:
       context: ./client
       dockerfile: Dockerfile
