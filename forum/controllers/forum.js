@@ -105,6 +105,7 @@ export const getLocalPosts = async (req, res) => {
                     spherical: true
                 },
             },
+            { $sort: { createdAt: -1 } },
             { $skip: Number(start) },
             { $limit: Number(limit) },
             ]
@@ -158,6 +159,7 @@ export const getLocalPostsByCategory = async (req, res) => {
             {
                 $match: { category: category }
             },
+            { $sort: { createdAt: -1 } },
             { $skip: Number(start) },
             { $limit: Number(limit) },
             ]
