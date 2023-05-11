@@ -15,8 +15,6 @@ COPY . .
 
 # Set the environment variable
 #ENV PORT=3000
-#ENV REACT_APP_OAUTH=1040116133990-4mfe5j4sl187kltqlvctjcug6h6p8act.apps.googleusercontent.com
-#ENV REACT_APP_MAPS_API_KEY=AIzaSyDphMRdpau4CCva753XUart88-RH8z2ceM
 
 #ARG PORT
 ARG REACT_APP_OAUTH
